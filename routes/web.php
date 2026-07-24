@@ -1,56 +1,39 @@
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/category_list', function () {
-    return view('categorylist');
-})->name('categorylist');
-
-Route::get('/category_details', function () {
-    return view('categorydetails');
-})->name('categorydetails');
-
-Route::get('/job_opening', function () {
-    return view('jobopening');
-})->name('jobopening');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('/add_post', function () {
-    return view('addpost');
-})->name('adpost');
-
-Route::get('/apply_job', function () {
-    return view('applyjob');
-})->name('applyjob');
-
-Route::get('/ad_details', function () {
-    return view('ad-details');
-})->name('addetails');
-
-Route::get('/ad_list1', function () {
-    return view('ad-list-column1');
-})->name('adlist1');
-
-Route::get('/ad_list2', function () {
-    return view('ad-list-column2');
-})->name('adlist2');
-
-Route::get('/ad_list3', function () {
-    return view('ad-list-column3');
-})->name('adlist3');
-
-Route::get('/user_form', function () {
-    return view('user-form');
-})->name('user');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/category_list', [PageController::class, 'categorylist'])->name('categorylist');
+Route::get('/category_details', [PageController::class, 'categorydetails'])->name('categorydetails');
+Route::get('/job_opening', [PageController::class, 'jobopening'])->name('jobopening');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/add_post', [PageController::class, 'addpost'])->name('adpost');
+Route::get('/apply_job', [PageController::class, 'applyjob'])->name('applyjob');
+Route::get('/ad_details', [PageController::class, 'addetails'])->name('addetails');
+Route::get('/ad_list1', [PageController::class, 'adlist1'])->name('adlist1');
+Route::get('/ad_list2', [PageController::class, 'adlist2'])->name('adlist2');
+Route::get('/ad_list3', [PageController::class, 'adlist3'])->name('adlist3');
+Route::get('/user_form', [PageController::class, 'user'])->name('user');
+Route::get('/index', [PageController::class, 'index'])->name('index');
 
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
+
+Route::middleware('guest')->group(function(){
+
+    Route::get('/admin/login',[LogController::class,'login'])->name('login');
+    Route::post('/admin/loginuser',[LogController::class,'loginuser'])->name('login.user');
+
+});
+
+Route::middleware('auth')->group(function(){
+
+    Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('page.dashboard');
+    Route::delete('/admin/logout',[LogController::class,'logout'])->name('logout');
+
+    // Route::resource('backend/home-banner',HomeBannerController::class);
+
+
+});
