@@ -3,8 +3,8 @@
     {{-- @include('includes.header')
     @include('includes.sidebar') --}}
     <!--=====================================
-                        USER-FORM PART START
-            =======================================-->
+                                                USER-FORM PART START
+                                    =======================================-->
     <section class="user-form-part">
         <div class="user-form-banner">
             <div class="user-form-content">
@@ -55,10 +55,10 @@
                             </div>
                         </div>
                         <!-- <div class="col-6">
-                                    <div class="form-group text-right">
-                                        <a href="#" class="form-forgot">Forgot password?</a>
-                                    </div>
-                                </div> -->
+                                                            <div class="form-group text-right">
+                                                                <a href="#" class="form-forgot">Forgot password?</a>
+                                                            </div>
+                                                        </div> -->
                         <div class="col-12">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-inline">
@@ -84,24 +84,73 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Name">
+                                <small class="form-alert">Please follow this example - John Doe</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Phone number">
                                 <small class="form-alert">Please follow this example - 01XXXXXXXXX</small>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password">
-                                <button class="form-icon"><i class="eye fas fa-eye"></i></button>
-                                <small class="form-alert">Password must be 6 characters</small>
+                                <select class="form-control">
+                                    {{-- <option value="" selected disabled>Select Company</option> --}}
+                                    <option value="private-company">Private Company</option>
+                                    <option value="self-employed">Self-Employed</option>
+                                </select>
+                                <small class="form-alert">
+                                    Select your company or employment type.
+                                </small>
                             </div>
                         </div>
                         <div class="col-12">
+                            <div class="form-group">
+                                <select class="form-control" id="category">
+                                    <option value="" selected disabled>Select Category</option>
+                                    <option value="properties">Properties</option>
+                                    <option value="cars">Cars</option>
+                                    <option value="jobs">Jobs</option>
+                                    <option value="classifieds">Classifieds</option>
+                                    <option value="other">+ Add New Category</option>
+                                </select>
+
+                                <input type="text" class="form-control mt-2" id="newCategory"
+                                    placeholder="Enter new category" style="display: none;">
+
+                                <small class="form-alert">
+                                    Please select your business category or add a new one.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email 1">
+                                <small class="form-alert">Please follow this example - john.doe@example.com</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email 2 (Optional)">
+                                <small class="form-alert">Please follow this example - john.doe@example.com</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="Password">
+                                <button class="form-icon"><i class="eye fas fa-eye"></i></button>
+                                <small class="form-alert">Use a strong password.</small>
+                            </div>
+                        </div>
+                        {{-- <div class="col-12">
                             <div class="form-group">
                                 <input type="password" class="form-control" placeholder="Repeat Password">
                                 <button class="form-icon"><i class="eye fas fa-eye"></i></button>
                                 <small class="form-alert">Password must be 6 characters</small>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-12">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">
@@ -128,8 +177,23 @@
         </div>
     </section>
     <!--=====================================
-                        USER-FORM PART END
+                USER-FORM PART END
             =======================================-->
+
+    <script>
+        document.getElementById('category').addEventListener('change', function() {
+            const newCategory = document.getElementById('newCategory');
+
+            if (this.value === 'other') {
+                newCategory.style.display = 'block';
+                newCategory.required = true;
+            } else {
+                newCategory.style.display = 'none';
+                newCategory.required = false;
+                newCategory.value = '';
+            }
+        });
+    </script>
 
 
     {{-- @include('includes.footer') --}}
