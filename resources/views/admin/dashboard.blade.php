@@ -14,8 +14,8 @@
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center border-dashed-bottom pb-3">
                                     <div class="col-9">
-                                        <p class="text-primary mb-0 fw-semibold fs-14">Service</p>
-                                        <h3 class="mt-2 mb-0 fw-bold">3</h3>
+                                        <p class="text-primary mb-0 fw-semibold fs-14">Total Vendors</p>
+                                        <h3 class="mt-2 mb-0 fw-bold">{{ $totalVendors }}</h3>
                                     </div>
                                     <!--end col-->
                                     <div class="col-3 align-self-center">
@@ -39,8 +39,8 @@
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center border-dashed-bottom pb-3">
                                     <div class="col-9">
-                                        <p class="text-secondary mb-0 fw-semibold fs-14">Service Categories</p>
-                                        <h3 class="mt-2 mb-0 fw-bold">3</h3>
+                                        <p class="text-secondary mb-0 fw-semibold fs-14">Pending Requests</p>
+                                        <h3 class="mt-2 mb-0 fw-bold">{{ $pendingVendors }}</h3>
                                     </div>
                                     <!--end col-->
                                     <div class="col-3 align-self-center">
@@ -64,8 +64,8 @@
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center border-dashed-bottom pb-3">
                                     <div class="col-9">
-                                        <p class="text-warning mb-0 fw-semibold fs-14">Blogs</p>
-                                        <h3 class="mt-2 mb-0 fw-bold">12</h3>
+                                        <p class="text-warning mb-0 fw-semibold fs-14">Verified Vendors</p>
+                                        <h3 class="mt-2 mb-0 fw-bold">{{ $verifiedVendors }}</h3>
                                     </div>
                                     <!--end col-->
                                     <div class="col-3 align-self-center">
@@ -84,8 +84,6 @@
                         </div>
                         <!--end card-->
                     </div>
-
-
                     <!--end col-->
                 </div>
 

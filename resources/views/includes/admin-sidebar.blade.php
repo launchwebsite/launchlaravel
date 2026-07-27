@@ -36,15 +36,15 @@
 
                     </li><!--end nav-item-->
 
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
 
-                        <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
+                        <a class="nav-link" href="{{ route('admin.vendor') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
-                            <span>Cost Calculator</span>
+                            <span>Vendors</span>
                         </a>
 
-
-                    </li> --}}
+                    </li>
 
                     {{-- <li class="nav-item">
 

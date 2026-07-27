@@ -244,7 +244,8 @@ html[data-bs-theme="dark"] .btn-outline-light:active {
 
 .card .card-header {
     border-bottom: none;
-    padding-top: var(--bs-card-spacer-x);
+    padding-top: 20px;
+    padding-bottom: 0;
 }
 
 .card .card-header .card-title {

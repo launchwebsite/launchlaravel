@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\LogController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -19,21 +19,21 @@ Route::get('/ad_list3', [PageController::class, 'adlist3'])->name('adlist3');
 Route::get('/user_form', [PageController::class, 'user'])->name('user');
 Route::get('/index', [PageController::class, 'index'])->name('index');
 
+Route::middleware('guest')->group(function () {
 
-
-Route::middleware('guest')->group(function(){
-
-    Route::get('/admin/login',[LogController::class,'login'])->name('login');
-    Route::post('/admin/loginuser',[LogController::class,'loginuser'])->name('login.user');
+    Route::get('/admin/login', [LogController::class, 'login'])->name('login');
+    Route::post('/admin/loginuser', [LogController::class, 'loginuser'])->name('login.user');
 
 });
 
-Route::middleware('auth')->group(function(){
+Route::middleware('auth')->group(function () {
 
-    Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('page.dashboard');
-    Route::delete('/admin/logout',[LogController::class,'logout'])->name('logout');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('page.dashboard');
+    Route::delete('/admin/logout', [LogController::class, 'logout'])->name('logout');
+    Route::get('/admin/vendor_table', [AdminController::class, 'vendor'])->name('admin.vendor');
+    Route::post('/admin/vendor/{id}/toggle-status', [AdminController::class, 'toggleVendorStatus'])
+        ->name('admin.vendor.toggle-status');
 
     // Route::resource('backend/home-banner',HomeBannerController::class);
-
 
 });
