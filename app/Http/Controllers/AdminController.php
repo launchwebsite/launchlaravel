@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VendorVerifiedMail;
+use App\Mail\VendorUnverifiedMail;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,6 +50,8 @@ class AdminController extends Controller
 
         if ($vendor->VR_Status == 1) {
             Mail::to($vendor->VR_Email_1)->send(new VendorVerifiedMail($vendor));
+        } else {
+            Mail::to($vendor->VR_Email_1)->send(new VendorUnverifiedMail($vendor));
         }
 
         return redirect()->back()->with('success', 'Vendor status updated successfully.');
