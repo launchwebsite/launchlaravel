@@ -45,6 +45,20 @@
             document.getElementById('brandLogo').classList.toggle('logo-condensed');
         });
     </script> --}}
+    <script>
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("userpassword");
+
+        togglePassword.addEventListener("click", function() {
+            if (password.type === "password") {
+                password.type = "text";
+                this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                password.type = "password";
+                this.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        });
+    </script>
     {{-- <script>
         document.getElementById('togglemenu').addEventListener('click', function() {
             const body = document.body;

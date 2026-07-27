@@ -4992,3 +4992,25 @@ body[data-sidebar-size="condensed"] .logo-icon {
 /* body[data-sidebar-size="collapsed"] #brandLogo {
     width: 36px !important;
 } */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ffffffaf;
+    font-size: 18px;
+}
+
+.password-toggle:hover {
+    color: #ffff;
+}

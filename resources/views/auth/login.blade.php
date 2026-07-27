@@ -38,16 +38,30 @@
                                         </div>
 
 
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label class="form-label" for="userpassword">Password</label>
                                             <input type="password" class="form-control" name="password" id="userpassword"
                                                 placeholder="Enter password">
                                             @error('password')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
+                                        </div> --}}
+                                        <div class="form-group">
+                                            <label class="form-label">Password</label>
 
+                                            <div class="password-wrapper">
+                                                <input type="password" class="form-control" name="password"
+                                                    id="userpassword" placeholder="Enter password">
 
-                                        </div><!--end form-group-->
+                                                <span id="togglePassword" class="password-toggle">
+                                                    <i class="fas fa-eye"></i>
+                                                </span>
+                                            </div>
+
+                                            @error('password')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
 
                                         <div class="form-group row mt-3">
                                             <div class="col-sm-6">
