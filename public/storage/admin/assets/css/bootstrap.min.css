@@ -9602,7 +9602,7 @@ fieldset:disabled .btn {
 }
 .text-primary {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+    color: #ff9c09 !important;
 }
 .text-secondary {
     --bs-text-opacity: 1;
@@ -9618,7 +9618,7 @@ fieldset:disabled .btn {
 }
 .text-warning {
     --bs-text-opacity: 1;
-    color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;
+    color: green !important;
 }
 .text-danger {
     --bs-text-opacity: 1;

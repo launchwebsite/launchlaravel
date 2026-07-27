@@ -21,7 +21,7 @@
                                     <div class="col-3 align-self-center">
                                         <div
                                             class="d-flex justify-content-center align-items-center thumb-xl bg-light rounded-circle mx-auto">
-                                            <i class="iconoir-hexagon-dice h1 align-self-center mb-0 text-secondary"></i>
+                                            <i class="iconoir-community h1 align-self-center mb-0 text-primary"></i>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -39,14 +39,14 @@
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center border-dashed-bottom pb-3">
                                     <div class="col-9">
-                                        <p class="text-secondary mb-0 fw-semibold fs-14">Pending Requests</p>
+                                        <p class="text-secondary mb-0 fw-semibold fs-14 text-danger">Pending Requests</p>
                                         <h3 class="mt-2 mb-0 fw-bold">{{ $pendingVendors }}</h3>
                                     </div>
                                     <!--end col-->
                                     <div class="col-3 align-self-center">
                                         <div
                                             class="d-flex justify-content-center align-items-center thumb-xl bg-light rounded-circle mx-auto">
-                                            <i class="iconoir-clock h1 align-self-center mb-0 text-secondary"></i>
+                                            <i class="iconoir-clock h1 align-self-center mb-0 text-danger"></i>
                                         </div>
                                     </div>
                                     <!--end col-->
@@ -64,15 +64,14 @@
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center border-dashed-bottom pb-3">
                                     <div class="col-9">
-                                        <p class="text-warning mb-0 fw-semibold fs-14">Verified Vendors</p>
+                                        <p class="text-success mb-0 fw-semibold fs-14">Verified Vendors</p>
                                         <h3 class="mt-2 mb-0 fw-bold">{{ $verifiedVendors }}</h3>
                                     </div>
                                     <!--end col-->
                                     <div class="col-3 align-self-center">
                                         <div
                                             class="d-flex justify-content-center align-items-center thumb-xl bg-light rounded-circle mx-auto">
-                                            <i
-                                                class="iconoir-percentage-circle h1 align-self-center mb-0 text-secondary"></i>
+                                            <i class="iconoir-user-badge-check h1 align-self-center mb-0 text-success"></i>
                                         </div>
                                     </div>
                                     <!--end col-->
