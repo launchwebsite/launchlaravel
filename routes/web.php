@@ -10,7 +10,7 @@ Route::get('/category_list', [PageController::class, 'categorylist'])->name('cat
 Route::get('/category_details', [PageController::class, 'categorydetails'])->name('categorydetails');
 Route::get('/job_opening', [PageController::class, 'jobopening'])->name('jobopening');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::get('/add_post', [PageController::class, 'addpost'])->name('adpost');
+Route::get('/ad_post', [PageController::class, 'adpost'])->name('adpost');
 Route::get('/apply_job', [PageController::class, 'applyjob'])->name('applyjob');
 Route::get('/ad_details', [PageController::class, 'addetails'])->name('addetails');
 Route::get('/ad_list1', [PageController::class, 'adlist1'])->name('adlist1');

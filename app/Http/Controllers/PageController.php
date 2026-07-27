@@ -30,6 +30,10 @@ class PageController extends Controller
         return view("applyjob");
     }
 
+    public function adpost(){
+        return view("addpost");
+    }
+
     public function addetails(){
         return view("ad-details");
     }
