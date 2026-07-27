@@ -61,7 +61,6 @@
                                                             action="{{ route('admin.vendor.toggle-status', $vendor->VR_Id) }}"
                                                             method="POST">
                                                             @csrf
-
                                                             <button type="submit"
                                                                 class="badge border-0 {{ $vendor->VR_Status == 1 ? 'bg-success' : 'bg-danger' }}"
                                                                 style="cursor:pointer;">
