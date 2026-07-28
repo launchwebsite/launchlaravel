@@ -1,26 +1,28 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\VendorOnHoldMail;
+use App\Mail\VendorTerminatedMail;
 use App\Mail\VendorUnverifiedMail;
 use App\Mail\VendorVerifiedMail;
-use App\Models\Vendor;
 use App\Models\User;
+use App\Models\Vendor;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
-        $totalVendors = Vendor::count();
-
-        $pendingVendors = Vendor::where('VR_Status', 0)->count();
-
+        $totalVendors    = Vendor::count();
+        $pendingVendors  = Vendor::where('VR_Status', 0)->count();
         $verifiedVendors = Vendor::where('VR_Status', 1)->count();
+        $onHoldVendors   = Vendor::where('VR_Status', 2)->count();
 
         return view('admin.dashboard', compact(
             'totalVendors',
             'pendingVendors',
-            'verifiedVendors'
+            'verifiedVendors',
+            'onHoldVendors'
         ));
     }
 
@@ -46,12 +48,20 @@ class AdminController extends Controller
     {
         $vendor = Vendor::findOrFail($id);
 
-        $vendor->VR_Status = $vendor->VR_Status == 1 ? 0 : 1;
+        $vendor->VR_Status = match ($vendor->VR_Status) {
+            0       => 1,
+            1       => 2,
+            2       => 1,
+            default => 0,
+        };
+
         $vendor->save();
 
         if ($vendor->VR_Status == 1) {
             Mail::to($vendor->VR_Email_1)->send(new VendorVerifiedMail($vendor));
-        } else {
+        } elseif ($vendor->VR_Status == 2) {
+            Mail::to($vendor->VR_Email_1)->send(new VendorOnHoldMail($vendor));
+        } elseif ($vendor->VR_Status == 0) {
             Mail::to($vendor->VR_Email_1)->send(new VendorUnverifiedMail($vendor));
         }
 
@@ -61,6 +71,9 @@ class AdminController extends Controller
     public function deleteVendor($id)
     {
         $vendor = Vendor::findOrFail($id);
+
+        Mail::to($vendor->VR_Email_1)->send(new VendorTerminatedMail($vendor));
+
         User::where('email', $vendor->VR_Email_1)->delete();
         $vendor->delete();
 

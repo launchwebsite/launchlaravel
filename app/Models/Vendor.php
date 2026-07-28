@@ -19,4 +19,8 @@ class Vendor extends Model
         'VR_Type',
         'VR_Status',
     ];
+
+    protected $casts = [
+        'VR_Status' => 'integer',
+    ];
 }

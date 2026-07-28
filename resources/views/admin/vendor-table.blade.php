@@ -63,9 +63,9 @@
                                                             method="POST">
                                                             @csrf
                                                             <button type="submit"
-                                                                class="badge border-0 {{ $vendor->VR_Status == 1 ? 'bg-success' : 'bg-danger' }}"
+                                                                class="badge border-0 {{ $vendor->VR_Status == 1 ? 'bg-success' : ($vendor->VR_Status == 2 ? 'bg-warning' : 'bg-danger') }}"
                                                                 style="cursor:pointer;">
-                                                                {{ $vendor->VR_Status == 1 ? 'Verified' : 'Pending' }}
+                                                                {{ $vendor->VR_Status == 1 ? 'Verified' : ($vendor->VR_Status == 2 ? 'On-hold' : 'Pending') }}
                                                             </button>
                                                         </form>
                                                     </td>
@@ -76,7 +76,8 @@
                                                             onsubmit="return confirm('Delete this vendor permanently?');">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-sm btn-danger btn-outline-danger">
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-danger btn-outline-danger">
                                                                 <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>

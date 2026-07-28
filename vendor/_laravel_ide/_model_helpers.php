@@ -1015,7 +1015,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string|null $VR_Status
+     * @property integer|null $VR_Status
      * @property string|null $VR_Type
      * @property string|null $VR_Password
      * @property string|null $VR_Phone

@@ -54,7 +54,7 @@
                 <li class="dropdown topbar-item">
                     <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="/storage/admin/assets/images/users/avatar-5.jpg" alt=""
+                        <img src="/storage/admin/assets/images/users/no-profile.jpg" alt=""
                             class="thumb-lg rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end py-0">
