@@ -185,7 +185,7 @@
             INTRO PART STYLE
 ======================================*/
 .intro-part {
-  padding: 50px 0px 200px;
+  padding: 50px 0px 0px;
   margin-top: 70px;
   position: relative;
   background: linear-gradient(#000000, #000000);

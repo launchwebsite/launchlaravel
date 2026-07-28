@@ -7,7 +7,7 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string $CT_Img
+     * @property string|null $CT_Img
      * @property string $CT_Name
      * @property int $CT_Id
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtId($value)

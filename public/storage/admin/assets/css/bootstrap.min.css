@@ -3392,9 +3392,27 @@ textarea.form-control.is-invalid {
 }
 .btn:hover {
     color: var(--bs-btn-hover-color);
-    background-color: var(--bs-btn-hover-bg);
-    border-color: var(--bs-btn-hover-border-color);
+    background-color: #bb7000;
+    border-color: #bb7000;
 }
+
+.btn-success:hover {
+  color: #ffffff;
+  background-color: #007463;
+  border-color: #007463;
+}
+
+.btn-danger:hover {
+  color: #ffffff;
+  background-color: #b90009;
+  border-color: #b90009;
+}
+
+.btn-add {
+    background-color: #ff9c09;
+    border-color: #ff9c09;
+}
+
 .btn-check + .btn:hover {
     color: var(--bs-btn-color);
     background-color: var(--bs-btn-bg);
@@ -3653,7 +3671,7 @@ fieldset:disabled .btn {
     --bs-gradient: none;
 }
 .btn-outline-success {
-    --bs-btn-color: #22c5ad;
+    --bs-btn-color: #ffffff;
     --bs-btn-border-color: #22c5ad;
     --bs-btn-hover-color: #ffffff;
     --bs-btn-hover-bg: #22c5ad;
@@ -3701,7 +3719,7 @@ fieldset:disabled .btn {
     --bs-gradient: none;
 }
 .btn-outline-danger {
-    --bs-btn-color: #ef4d56;
+    --bs-btn-color: #ffffff;
     --bs-btn-border-color: #ef4d56;
     --bs-btn-hover-color: #ffffff;
     --bs-btn-hover-bg: #ef4d56;
@@ -5441,8 +5459,8 @@ fieldset:disabled .btn {
 .page-link.active {
     z-index: 3;
     color: var(--bs-pagination-active-color);
-    background-color: var(--bs-pagination-active-bg);
-    border-color: var(--bs-pagination-active-border-color);
+    background-color: #ff9c09;
+    border-color: #ff9c09;
 }
 .disabled > .page-link,
 .page-link.disabled {

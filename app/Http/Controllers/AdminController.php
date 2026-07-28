@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Mail\VendorVerifiedMail;
 use App\Mail\VendorUnverifiedMail;
+use App\Mail\VendorVerifiedMail;
 use App\Models\Vendor;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -55,5 +56,14 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'Vendor status updated successfully.');
+    }
+
+    public function deleteVendor($id)
+    {
+        $vendor = Vendor::findOrFail($id);
+        User::where('email', $vendor->VR_Email_1)->delete();
+        $vendor->delete();
+
+        return redirect()->back()->with('success', 'Vendor deleted successfully.');
     }
 }

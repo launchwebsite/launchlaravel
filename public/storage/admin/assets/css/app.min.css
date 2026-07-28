@@ -250,7 +250,7 @@ html[data-bs-theme="dark"] .btn-outline-light:active {
 
 .card .card-header .card-title {
     margin-bottom: 0;
-    font-size: 16px;
+    font-size: 20px;
     color: var(--bs-heading-color);
 }
 

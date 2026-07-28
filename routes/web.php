@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/category_list', [PageController::class, 'categorylist'])->name('categorylist');
@@ -19,10 +23,22 @@ Route::get('/ad_list3', [PageController::class, 'adlist3'])->name('adlist3');
 Route::get('/user_form', [PageController::class, 'user'])->name('user');
 Route::get('/index', [PageController::class, 'index'])->name('index');
 
+Route::post('/vendor/register', [VendorController::class, 'store'])->name('vendor.register');
+// Route::get('/admin', function () {return view('vendor.login');})->name('login');
+Route::get('/vendor-login', function () {return view('vendor.vendor-login');})->name('vendor-login');
+Route::get('/vendor-logout', function () {
+    Session::forget('vendor');
+    Session::flush();
+    return redirect()->route('vendor-login')->with('success', 'vendor logged out successfully.');
+})->name('vendor-logout');
+// Login form submission
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
 Route::middleware('guest')->group(function () {
 
     Route::get('/admin/login', [LogController::class, 'login'])->name('login');
     Route::post('/admin/loginuser', [LogController::class, 'loginuser'])->name('login.user');
+    Route::get('/vendor/dashboard', function () {return view('vendor.index');})->name('dashboard');
 
 });
 
@@ -33,7 +49,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/vendor_table', [AdminController::class, 'vendor'])->name('admin.vendor');
     Route::post('/admin/vendor/{id}/toggle-status', [AdminController::class, 'toggleVendorStatus'])
         ->name('admin.vendor.toggle-status');
+    Route::delete('/admin/vendor/{id}/delete', [AdminController::class, 'deleteVendor'])->name('admin.vendor.delete');
 
-    // Route::resource('backend/home-banner',HomeBannerController::class);
 
+    Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin-category');
+    Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('admin-category-create');
+    Route::post('/admin/category', [CategoryController::class, 'store'])->name('admin-category-store');
+    Route::post('/admin/category/edit', [CategoryController::class, 'edit'])->name('admin-category-edit');
+    Route::get('/admin/category/edit', [CategoryController::class, 'showEdit'])->name('admin-category-edit-show');
+    Route::put('/admin/category/update', [CategoryController::class, 'update'])->name('admin-category-update');
+    Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin-category-delete');
 });

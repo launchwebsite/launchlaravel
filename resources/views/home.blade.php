@@ -2051,7 +2051,7 @@
         =======================================-->
     <section class="inner-section price-part">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-12">
                     <div class="section-center-heading">
                         <h2>Best Reliable Pricing Plans</h2>
@@ -2059,7 +2059,7 @@
                             today.</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="price-card price-active">

@@ -38,6 +38,7 @@
                                                 <th width="200">Phone</th>
                                                 <th width="250">Type</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
 
@@ -65,6 +66,18 @@
                                                                 class="badge border-0 {{ $vendor->VR_Status == 1 ? 'bg-success' : 'bg-danger' }}"
                                                                 style="cursor:pointer;">
                                                                 {{ $vendor->VR_Status == 1 ? 'Verified' : 'Pending' }}
+                                                            </button>
+                                                        </form>
+                                                    </td>
+
+                                                    <td>
+                                                        <form action="{{ route('admin.vendor.delete', $vendor->VR_Id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Delete this vendor permanently?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-danger btn-outline-danger">
+                                                                <i class="fas fa-trash"></i>
                                                             </button>
                                                         </form>
                                                     </td>
