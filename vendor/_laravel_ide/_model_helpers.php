@@ -1016,6 +1016,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property integer|null $VR_Status
+     * @property int|null $CT_Id
      * @property string|null $VR_Type
      * @property string|null $VR_Password
      * @property string|null $VR_Phone
@@ -1030,6 +1031,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrPhone($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrPassword($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrType($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereUpdatedAt($value)
@@ -1347,7 +1349,7 @@ namespace App\Models {
      * @method static mixed macroCall(string $method, array $parameters)
      * @mixin \Illuminate\Database\Query\Builder
      */
-    class Vendor extends \Illuminate\Database\Eloquent\Model
+    class Vendor extends \Illuminate\Foundation\Auth\User
     {
         //
     }

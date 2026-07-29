@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\VendorController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -24,21 +25,32 @@ Route::get('/user_form', [PageController::class, 'user'])->name('user');
 Route::get('/index', [PageController::class, 'index'])->name('index');
 
 Route::post('/vendor/register', [VendorController::class, 'store'])->name('vendor.register');
-// Route::get('/admin', function () {return view('vendor.login');})->name('login');
 Route::get('/vendor-login', function () {return view('vendor.vendor-login');})->name('vendor-login');
 Route::get('/vendor-logout', function () {
     Session::forget('vendor');
     Session::flush();
     return redirect()->route('vendor-login')->with('success', 'vendor logged out successfully.');
 })->name('vendor-logout');
-// Login form submission
+
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::middleware('guest')->group(function () {
 
     Route::get('/admin/login', [LogController::class, 'login'])->name('login');
     Route::post('/admin/loginuser', [LogController::class, 'loginuser'])->name('login.user');
-    Route::get('/vendor/dashboard', function () {return view('vendor.index');})->name('dashboard');
+
+});
+
+Route::middleware('auth:vendor')->group(function () {
+
+    Route::get('/vendor/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+    Route::delete('/vendor/logout', function (\Illuminate\Http\Request $request) {
+        Auth::guard('vendor')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home')->with('success', 'You have been logged out successfully.');
+    })->name('vendor.logout');
 
 });
 
@@ -50,7 +62,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/vendor/{id}/toggle-status', [AdminController::class, 'toggleVendorStatus'])
         ->name('admin.vendor.toggle-status');
     Route::delete('/admin/vendor/{id}/delete', [AdminController::class, 'deleteVendor'])->name('admin.vendor.delete');
-
 
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin-category');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('admin-category-create');

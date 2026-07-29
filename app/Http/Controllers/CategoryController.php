@@ -30,7 +30,7 @@ class CategoryController extends Controller
         ]);
 
         if ($request->hasFile('CT_Img')) {
-            $validated['CT_Img'] = $this->ImageUpload($request->file('CT_Img'), 'categories', 'category_');
+            $validated['CT_Img'] = $this->ImageUpload($request->file('CT_Img'), 'categories', 'category_1');
         }
 
         Category::create($validated);
@@ -74,7 +74,7 @@ class CategoryController extends Controller
             if ($category->CT_Img && file_exists(public_path('/storage/uploads/categories/' . $category->CT_Img))) {
                 unlink(public_path('/storage/uploads/categories/' . $category->CT_Img));
             }
-            $validated['CT_Img'] = $this->ImageUpload($request->file('CT_Img'), 'categories', 'category_');
+            $validated['CT_Img'] = $this->ImageUpload($request->file('CT_Img'), 'categories', 'category_1');
         }
 
         $category->update($validated);

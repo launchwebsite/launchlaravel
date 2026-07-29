@@ -22,25 +22,19 @@
                 <ul class="navbar-nav mb-auto w-100">
                     <li class="menu-label pt-0 mt-0">
                         <small class="label-border">
-                                <div class="border_left hidden-xs"></div>
-                                <div class="border_right"></div>
-                            </small>
+                            <div class="border_left hidden-xs"></div>
+                            <div class="border_right"></div>
+                        </small>
                         <span>Main Menu</span>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}" aria-expanded="false"
+                        <a class="nav-link" href="{{ route('vendor.dashboard') }}" aria-expanded="false"
                             aria-controls="sidebarDashboards">
                             <i class="iconoir-home-simple menu-icon"></i>
                             <span>Dashboards</span>
                         </a>
 
                     </li><!--end nav-item-->
-
-
-
-
-
-
 
                 </ul><!--end navbar-nav--->
 

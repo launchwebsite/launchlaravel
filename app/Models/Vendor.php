@@ -1,10 +1,10 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Vendor extends Model
+class Vendor extends Authenticatable
 {
     use HasFactory;
 
@@ -18,9 +18,20 @@ class Vendor extends Model
         'VR_Password',
         'VR_Type',
         'VR_Status',
+        'CT_Id',
     ];
 
     protected $casts = [
         'VR_Status' => 'integer',
     ];
+
+    public function getAuthPassword()
+    {
+        return $this->VR_Password;
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'VR_Id';
+    }
 }

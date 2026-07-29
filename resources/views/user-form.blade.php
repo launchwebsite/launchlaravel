@@ -19,18 +19,27 @@
             </div>
             <div class="user-form-category-btn">
                 <ul class="nav nav-tabs">
-                    <li><a href="#login-tab" class="nav-link {{ session('success') ? '' : 'active' }}"
-                            data-bs-toggle="tab">sign in</a></li>
-                    <li><a href="#register-tab" class="nav-link {{ session('success') ? 'active' : '' }}"
+                    <li><a href="#login-tab" class="nav-link {{ $errors->any() ? '' : 'active' }}" data-bs-toggle="tab">sign
+                            in</a></li>
+                    <li><a href="#register-tab" class="nav-link {{ $errors->any() ? 'active' : '' }}"
                             data-bs-toggle="tab">sign up</a></li>
                 </ul>
             </div>
 
-            <div class="tab-pane {{ session('success') ? '' : 'active' }}" id="login-tab">
+            <div class="tab-pane {{ $errors->any() ? '' : 'active' }}" id="login-tab">
                 <div class="user-form-title">
                     <h2>Welcome!</h2>
                     <p>Use credentials to access your account.</p>
                 </div>
+
+                @if (session('success'))
+                    <div class="alert alert-success d-flex align-items-center gap-2 mb-3"
+                        style="background:#0f2e1c;border:1px solid #1fae5a;color:#4ade80;border-radius:8px;padding:14px 18px;font-size:14px;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>{{ session('success') }}</span>
+                    </div>
+                @endif
+
                 <form id="vendorLoginForm" method="POST" action="{{ route('login.submit') }}">
                     @csrf
                     @if ($errors->has('login_error'))
@@ -52,7 +61,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                                 <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button>
-                                <small class="form-alert">email must be 6 cprrect</small>
+                                <small class="form-alert">Please enter a valid email address.</small>
                             </div>
                         </div>
                         <div class="col-12">
@@ -89,7 +98,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane {{ session('success') ? 'active' : '' }}" id="register-tab">
+            <div class="tab-pane {{ $errors->any() ? 'active' : '' }}" id="register-tab">
                 <div class="user-form-title">
                     <h2>Register</h2>
                     <p>Setup a new account in a minute.</p>
@@ -118,6 +127,46 @@
                                 @enderror
                             </div>
                         </div>
+                        
+                        @php
+                            $categories = \App\Models\Category::orderBy('CT_Name', 'ASC')->get();
+                        @endphp
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <select name="CT_Id" id="CT_Id" class="form-control" required
+                                    onchange="document.getElementById('new-category-wrap').style.display = this.value === 'new' ? 'block' : 'none';">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->CT_Id }}"
+                                            {{ old('CT_Id') == $category->CT_Id ? 'selected' : '' }}>
+                                            {{ $category->CT_Name }}
+                                        </option>
+                                    @endforeach
+                                    <option value="new" {{ old('CT_Id') == 'new' ? 'selected' : '' }}>+ Add New
+                                        Category</option>
+                                </select>
+
+                                <small class="form-alert">
+                                    Select your category, or add a new one.
+                                </small>
+                                @error('CT_Id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-12" id="new-category-wrap"
+                            style="display: {{ old('CT_Id') == 'new' ? 'block' : 'none' }};">
+                            <div class="form-group">
+                                <input name="new_category" type="text" class="form-control"
+                                    placeholder="New Category Name" value="{{ old('new_category') }}">
+                                <small class="form-alert">Enter the name for your new category.</small>
+                                @error('new_category')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-12">
                             <div class="form-group">
                                 <select name="VR_Type" class="form-control">
@@ -169,13 +218,6 @@
                         </div>
 
                         <div class="col-12">
-                            @if (session('success'))
-                                <div class="alert alert-success d-flex align-items-center gap-2 mb-3"
-                                    style="background:#0f2e1c;border:1px solid #1fae5a;color:#4ade80;border-radius:8px;padding:14px 18px;font-size:14px;">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>{{ session('success') }}</span>
-                                </div>
-                            @endif
                             @if (session('error'))
                                 <div class="alert alert-danger d-flex align-items-center gap-2 mb-3"
                                     style="background:#2e0f0f;border:1px solid #ae1f1f;color:#f87171;border-radius:8px;padding:14px 18px;font-size:14px;">

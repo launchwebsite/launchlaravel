@@ -8,7 +8,7 @@
 
 
     <meta charset="utf-8" />
-    <title>Launch Incs | Admin-Panel</title>
+    <title>Launch INCS | Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="" name="author" />
@@ -101,7 +101,5 @@
     </div><!-- container -->
 </body>
 <!--end body-->
-
-<!-- Mirrored from mannatthemes.com/rizz/default-dark/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Jul 2025 12:09:31 GMT -->
 
 </html>

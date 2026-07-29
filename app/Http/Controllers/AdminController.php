@@ -5,6 +5,7 @@ use App\Mail\VendorOnHoldMail;
 use App\Mail\VendorTerminatedMail;
 use App\Mail\VendorUnverifiedMail;
 use App\Mail\VendorVerifiedMail;
+use App\Models\Category;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Mail;
@@ -17,12 +18,14 @@ class AdminController extends Controller
         $pendingVendors  = Vendor::where('VR_Status', 0)->count();
         $verifiedVendors = Vendor::where('VR_Status', 1)->count();
         $onHoldVendors   = Vendor::where('VR_Status', 2)->count();
+        $totalCategories = Category::count();
 
         return view('admin.dashboard', compact(
             'totalVendors',
             'pendingVendors',
             'verifiedVendors',
-            'onHoldVendors'
+            'onHoldVendors',
+            'totalCategories'
         ));
     }
 
