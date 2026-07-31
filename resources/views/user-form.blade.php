@@ -19,14 +19,18 @@
             </div>
             <div class="user-form-category-btn">
                 <ul class="nav nav-tabs">
-                    <li><a href="#login-tab" class="nav-link {{ $errors->any() ? '' : 'active' }}" data-bs-toggle="tab">sign
+                    <li><a href="#login-tab"
+                            class="nav-link {{ $errors->has('VR_Email_1') || $errors->has('VR_Name') ? '' : 'active' }}"
+                            data-bs-toggle="tab">sign
                             in</a></li>
-                    <li><a href="#register-tab" class="nav-link {{ $errors->any() ? 'active' : '' }}"
+                    <li><a href="#register-tab"
+                            class="nav-link {{ $errors->has('VR_Email_1') || $errors->has('VR_Name') ? 'active' : '' }}"
                             data-bs-toggle="tab">sign up</a></li>
                 </ul>
             </div>
 
-            <div class="tab-pane {{ $errors->any() ? '' : 'active' }}" id="login-tab">
+            <div class="tab-pane {{ $errors->has('VR_Email_1') || $errors->has('VR_Name') ? '' : 'active' }}"
+                id="login-tab">
                 <div class="user-form-title">
                     <h2>Welcome!</h2>
                     <p>Use credentials to access your account.</p>
@@ -42,9 +46,6 @@
 
                 <form id="vendorLoginForm" method="POST" action="{{ route('login.submit') }}">
                     @csrf
-                    @if ($errors->has('login_error'))
-                        <div class="alert alert-danger">{{ $errors->first('login_error') }}</div>
-                    @endif
                     <div class="row">
                         {{-- <div class="col-12">
                             <div class="form-group">
@@ -58,7 +59,8 @@
                                 <input type="text" class="form-control" name="email" placeholder="Enter Your Email"
                                     required autofocus>
                                 @error('email')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger"
+                                        style="color:#ff4d4f; display:block; margin-top:4px;">{{ $message }}</span>
                                 @enderror
                                 <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button>
                                 <small class="form-alert">Please enter a valid email address.</small>
@@ -98,7 +100,8 @@
                 </div>
             </div>
 
-            <div class="tab-pane {{ $errors->any() ? 'active' : '' }}" id="register-tab">
+            <div class="tab-pane {{ $errors->has('VR_Email_1') || $errors->has('VR_Name') ? 'active' : '' }}"
+                id="register-tab">
                 <div class="user-form-title">
                     <h2>Register</h2>
                     <p>Setup a new account in a minute.</p>
@@ -127,28 +130,31 @@
                                 @enderror
                             </div>
                         </div>
-                        
                         @php
                             $categories = \App\Models\Category::orderBy('CT_Name', 'ASC')->get();
                         @endphp
 
                         <div class="col-12">
                             <div class="form-group">
-                                <select name="CT_Id" id="CT_Id" class="form-control" required
-                                    onchange="document.getElementById('new-category-wrap').style.display = this.value === 'new' ? 'block' : 'none';">
+                                <select name="CT_Id" id="CT_Id" class="form-control" required>
+                                    <option value="">-- Select Category --</option>
+
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->CT_Id }}"
                                             {{ old('CT_Id') == $category->CT_Id ? 'selected' : '' }}>
                                             {{ $category->CT_Name }}
                                         </option>
                                     @endforeach
-                                    <option value="new" {{ old('CT_Id') == 'new' ? 'selected' : '' }}>+ Add New
-                                        Category</option>
+
+                                    <option value="new" {{ old('CT_Id') == 'new' ? 'selected' : '' }}>
+                                        + Add New Category
+                                    </option>
                                 </select>
 
                                 <small class="form-alert">
-                                    Select your category, or add a new one.
+                                    Select your category or add a new one.
                                 </small>
+
                                 @error('CT_Id')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -156,11 +162,15 @@
                         </div>
 
                         <div class="col-12" id="new-category-wrap"
-                            style="display: {{ old('CT_Id') == 'new' ? 'block' : 'none' }};">
+                            style="{{ old('CT_Id') == 'new' ? '' : 'display:none;' }}">
                             <div class="form-group">
-                                <input name="new_category" type="text" class="form-control"
-                                    placeholder="New Category Name" value="{{ old('new_category') }}">
-                                <small class="form-alert">Enter the name for your new category.</small>
+                                <input type="text" name="new_category" id="new_category" class="form-control"
+                                    placeholder="Enter New Category" value="{{ old('new_category') }}">
+
+                                <small class="form-alert">
+                                    Enter your category if it is not listed above.
+                                </small>
+
                                 @error('new_category')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -241,6 +251,25 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const category = document.getElementById("CT_Id");
+            const newCategoryWrap = document.getElementById("new-category-wrap");
+
+            function toggleCategoryField() {
+                if (category.value === "new") {
+                    newCategoryWrap.style.display = "block";
+                } else {
+                    newCategoryWrap.style.display = "none";
+                }
+            }
+
+            toggleCategoryField();
+
+            category.addEventListener("change", toggleCategoryField);
+        });
+    </script>
 
     {{-- @include('includes.footer') --}}
 @endsection
