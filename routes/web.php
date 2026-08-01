@@ -71,3 +71,5 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/category/update', [CategoryController::class, 'update'])->name('admin-category-update');
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin-category-delete');
 });
+
+require __DIR__ . '/vendor-listings/cars.php';
