@@ -51,23 +51,13 @@
                         </a>
                     </li>
 
-                    {{-- <li class="menu-label pt-0 mt-3">
-                        <small class="label-border">
-                            <div class="border_left hidden-xs"></div>
-                            <div class="border_right"></div>
-                        </small>
-                        <span>Customer Enquires</span>
-                    </li> --}}
-
-                    {{-- <li class="nav-item">
-
-                        <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin-subcategory') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
-                            <span>Enquires</span>
+                            <span>Sub Category</span>
                         </a>
-
-
-                    </li> --}}
+                    </li>
 
                     {{-- <li class="menu-label pt-0 mt-3">
                         <small class="label-border">
