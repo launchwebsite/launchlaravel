@@ -137,7 +137,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <select name="CT_Id" id="CT_Id" class="form-control" required>
-                                    <option value="">-- Select Category --</option>
+                                    {{-- <option value="">-- Select Category --</option> --}}
 
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->CT_Id }}"
