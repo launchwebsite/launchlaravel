@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="shortcut icon" href="/storage/images/favicon.png">
 
     <!-- CSS -->
     <link href="/storage/admin/assets/libs/simple-datatables/style.css" rel="stylesheet">
