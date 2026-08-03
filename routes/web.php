@@ -63,6 +63,11 @@ Route::middleware('auth')->group(function () {
         ->name('admin.vendor.toggle-status');
     Route::delete('/admin/vendor/{id}/delete', [AdminController::class, 'deleteVendor'])->name('admin.vendor.delete');
 
+    Route::get('/admin/vendor/create', [VendorController::class, 'create'])->name('admin.vendor.create');
+    Route::post('/admin/vendor/store', [VendorController::class, 'store'])->name('admin.vendor.store');
+    Route::get('/admin/vendor/{id}/edit', [VendorController::class, 'edit'])->name('admin.vendor.edit');
+    Route::put('/admin/vendor/{id}/update', [VendorController::class, 'update'])->name('admin.vendor.update');
+
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin-category');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('admin-category-create');
     Route::post('/admin/category', [CategoryController::class, 'store'])->name('admin-category-store');
