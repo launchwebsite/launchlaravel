@@ -4,10 +4,9 @@
 
     <!-- Choose File Button -->
     <label for="{{ $name }}"
-        style="display: inline-block; width: 100%; max-width: 200px; padding: 6px 16px;
-           border-radius: 6px; text-align: left;
-           cursor: pointer; background-color: rgba(255,255,255,0.4);">
-        ({{ $title }} {{ $imagesize }})
+        class="inline-block w-full max-w-[200px] px-4 py-2 bg-white border border-gray-300
+            rounded-md text-center cursor-pointer whitespace-nowrap overflow-visible">
+        Choose File ({{ $title }} {{ $imagesize ?? '' }})
     </label>
 
     <!-- Hidden File Input -->
@@ -15,8 +14,13 @@
 
     <!-- Image Preview -->
     @if ($value)
-        <img src="/storage/uploads/{{ $folder }}/{{ $value }}" alt=""
-            class="max-w-[200px] rounded-md">
+        @if(Str::endsWith($value, ['mp4','webm','mov','avi']))
+            <video width="200" controls>
+                <source src="/storage/uploads/{{ $folder }}/{{ $value }}">
+            </video>
+        @else
+            <img src="/storage/uploads/{{ $folder }}/{{ $value }}" class="max-w-[200px] rounded-md">
+        @endif
     @endif
 
     @error($name)
