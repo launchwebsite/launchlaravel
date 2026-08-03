@@ -5,6 +5,20 @@ namespace App\Models {
     /**
      * App\Models\Attributes
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property string|null $AT_Structure
+     * @property string $AT_Inputs
+     * @property int $SC_Id
+     * @property int $CT_Id
+     * @property int $AT_Id
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereAtId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereCtId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereScId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereAtInputs($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereAtStructure($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes query()
