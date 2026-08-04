@@ -18,7 +18,7 @@
                                             <img src="/storage/admin/logo.png" height="50" alt="logo"
                                                 class="auth-logo">
                                         </a>
-                                        <h4 class="mt-3 mb-1 fw-semibold text-white fs-18 auth-name">Launch INCS</h4>
+                                        <h4 class="mt-3 mb-1 fw-semibold text-white fs-18 auth-name">Launch</h4>
                                         <p class="text-muted fw-medium mb-0">Admin Login</p>
                                     </div>
                                 </div>
@@ -28,24 +28,27 @@
                                         @if ($errors->has('login_error'))
                                             <div class="alert alert-danger">{{ $errors->first('login_error') }}</div>
                                         @endif
+
                                         <div class="form-group mb-2 mt-3">
-                                            <label class="form-label" for="username">Email or Username</label>
-                                            <input type="text" class="form-control" name="email"
-                                                placeholder="Enter Email or Username" required autofocus autocomplete="off">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input type="text" class="form-control" name="username" id="username"
+                                                placeholder="Enter Username" required autofocus autocomplete="off"
+                                                value="{{ old('username') }}">
+                                            @error('username')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group mb-2">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input type="text" class="form-control" name="email" id="email"
+                                                placeholder="Enter Email" required autocomplete="on"
+                                                value="{{ old('email') }}">
                                             @error('email')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
 
-
-                                        {{-- <div class="form-group">
-                                            <label class="form-label" for="userpassword">Password</label>
-                                            <input type="password" class="form-control" name="password" id="userpassword"
-                                                placeholder="Enter password">
-                                            @error('password')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div> --}}
                                         <div class="form-group">
                                             <label class="form-label">Password</label>
 

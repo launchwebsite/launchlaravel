@@ -59,6 +59,32 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('attributes.index') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
+                            <i class="iconoir-book menu-icon"></i>
+                            <span>Attributes</span>
+                        </a>
+                    </li>
+
+                    {{-- <li class="menu-label pt-0 mt-3">
+                        <small class="label-border">
+                            <div class="border_left hidden-xs"></div>
+                            <div class="border_right"></div>
+                        </small>
+                        <span>Customer Enquires</span>
+                    </li> --}}
+
+                    {{-- <li class="nav-item">
+
+                        <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
+                            <i class="iconoir-book menu-icon"></i>
+                            <span>Enquires</span>
+                        </a>
+
+
+                    </li> --}}
+
                     {{-- <li class="menu-label pt-0 mt-3">
                         <small class="label-border">
                             <div class="border_left hidden-xs"></div>
@@ -213,7 +239,7 @@
 
                     </li> --}}
 
-                    {{-- <li class="nav-item">
+                    <!-- <li class="nav-item">
 
                         <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
@@ -230,63 +256,9 @@
                         <span>Meta Section</span>
                     </li>
 
-                    <li class="nav-item">
-
-                        <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
-                            <i class="iconoir-book menu-icon"></i>
-                            <span>Static meta</span>
-                        </a>
 
 
-                    </li> --}}
-
-                    {{-- <li class="menu-label pt-0 mt-3">
-                        <small class="label-border">
-                            <div class="border_left hidden-xs"></div>
-                            <div class="border_right"></div>
-                        </small>
-                        <span>Country section</span>
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
-                            <i class="iconoir-book menu-icon"></i>
-                            <span>Countrys</span>
-                        </a>
-
-
-                    </li> --}}
-
-
-                    {{-- <li class="menu-label pt-0 mt-3">
-                        <small class="label-border">
-                            <div class="border_left hidden-xs"></div>
-                            <div class="border_right"></div>
-                        </small>
-                        <span>Cost Calculator</span>
-                    </li>
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" href="#" aria-expanded="false" aria-controls="sidebarElements">
-                            <i class="iconoir-book menu-icon"></i>
-                            <span>Qustions</span>
-                        </a>
-
-
-                    </li> --}}
-
-                    {{-- <li class="nav-item">
-
-                        <a class="nav-link" href="#" aria-expanded="false" aria-controls="sidebarElements">
-                            <i class="iconoir-book menu-icon"></i>
-                            <span>Options</span>
-                        </a>
-
-                    </li> --}}
-
-                </ul><!--end navbar-nav--->
+                </ul> -->
 
             </div>
         </div><!--end startbar-collapse-->

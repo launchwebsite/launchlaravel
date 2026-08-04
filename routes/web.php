@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
@@ -63,6 +64,11 @@ Route::middleware('auth')->group(function () {
         ->name('admin.vendor.toggle-status');
     Route::delete('/admin/vendor/{id}/delete', [AdminController::class, 'deleteVendor'])->name('admin.vendor.delete');
 
+    Route::get('/admin/vendor/create', [AdminController::class, 'vendorCreate'])->name('admin.vendor.create');
+    Route::post('/admin/vendor/store', [AdminController::class, 'vendorStore'])->name('admin.vendor.store');
+    Route::get('/admin/vendor/{id}/edit', [AdminController::class, 'vendorEdit'])->name('admin.vendor.edit');
+    Route::put('/admin/vendor/{id}/update', [AdminController::class, 'vendorUpdate'])->name('admin.vendor.update');
+
     Route::get('/admin/category', [CategoryController::class, 'index'])->name('admin-category');
     Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('admin-category-create');
     Route::post('/admin/category', [CategoryController::class, 'store'])->name('admin-category-store');
@@ -70,6 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/category/edit', [CategoryController::class, 'showEdit'])->name('admin-category-edit-show');
     Route::put('/admin/category/update', [CategoryController::class, 'update'])->name('admin-category-update');
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin-category-delete');
+
+    Route::get('/admin/attributes', [AttributeController::class, 'index'])->name('attributes.index');
+    Route::get('/admin/add-attributes', [AttributeController::class, 'create'])->name('attributes.add');
+    Route::post('/admin/attributes/store', [AttributeController::class, 'store'])->name('attributes.store');
+    Route::get('/admin/attributes/edit/{id}', [AttributeController::class, 'edit'])->name('attributes.edit');
+    Route::put('/admin/attributes/update/{id}', [AttributeController::class, 'update'])->name('attributes.update');
+    Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])->name('attributes.delete');
+
 });
 
-require __DIR__.'/admin/subcategory.php';
+require __DIR__ . '/admin/subcategory.php';
