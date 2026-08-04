@@ -8,7 +8,7 @@
         <div class="page-content">
             <div class="container-xxl">
                 <div class="row">
-                    <div class="col-lg-6 mx-auto">
+                    <div class="col-lg-12 mx-auto">
                         <div class="card mt-4">
                             <div class="card-header">
                                 <h1 class="card-title mb-0">Add Sub Category</h1>
