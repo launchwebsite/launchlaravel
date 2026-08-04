@@ -16,6 +16,8 @@
                         <div class="card">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h1 class="card-title mb-0">Vendor List</h1>
+                                <a href="{{ route('admin.vendor.create') }}" class="btn btn-primary btn-add btn-sm">Add
+                                    Vendor</a>
                             </div>
 
                             <div class="card-body">
@@ -71,9 +73,14 @@
                                                     </td>
 
                                                     <td>
+                                                        <a href="{{ route('admin.vendor.edit', $vendor->VR_Id) }}"
+                                                            class="btn btn-sm btn-success btn-outline-success">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                         <form action="{{ route('admin.vendor.delete', $vendor->VR_Id) }}"
                                                             method="POST"
-                                                            onsubmit="return confirm('Delete this vendor permanently?');">
+                                                            onsubmit="return confirm('Delete this vendor permanently?');"
+                                                            class="d-inline">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -88,7 +95,7 @@
                                             @empty
 
                                                 <tr>
-                                                    <td colspan="6" class="text-center py-4">
+                                                    <td colspan="7" class="text-center py-4">
                                                         No vendors found.
                                                     </td>
                                                 </tr>

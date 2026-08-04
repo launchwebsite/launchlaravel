@@ -1,9 +1,8 @@
-@props(['title', 'name', 'value', 'placeholder'])
+@props(['title', 'name', 'value'])
 
 <div class="mb-3 row ">
-    {{-- <label class="form-label" for="message">{{ $title }}</label> --}}
-    <textarea class="cs_form_field cs_radius_10" placeholder="{{ $placeholder }}" name="{{ $name }}" rows="5"
-        id="message" spellcheck="true">{{ $value }}</textarea>
+    <label class="form-label" for="message">{{ $title }}</label>
+    <textarea class="form-control" name="{{ $name }}" rows="5" id="message">{{ $value }}</textarea>
     @error($name)
         <span class="error">{{ $message }}</span>
     @enderror

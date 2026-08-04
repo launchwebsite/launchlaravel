@@ -25,14 +25,12 @@ class VendorController extends Controller
             'VR_Name'      => 'required|string|max:255',
             'VR_Phone'     => 'required|string|max:20',
             'CT_Id'        => 'required',
-            'new_category' => 'nullable:CT_Id,new|string|max:255',
+            'new_category' => 'required_if:CT_Id,new|string|max:255',
             'VR_Type'      => 'required|in:private-company,self-employed',
-            'VR_Email_1'   => 'required|email|unique:users,email|unique:vendors,VR_Email_1',
+            'VR_Email_1'   => 'required|email|unique:vendors,VR_Email_1',
             'VR_Email_2'   => 'nullable|email',
             'VR_Password'  => 'required|string|min:8',
         ]);
-
-        DB::beginTransaction();
 
         try {
 
@@ -61,13 +59,6 @@ class VendorController extends Controller
                 $categoryId = $category->CT_Id;
             }
 
-            User::create([
-                'name'     => $validated['VR_Name'],
-                'email'    => $validated['VR_Email_1'],
-                'password' => Hash::make($validated['VR_Password']),
-                'Role_Id'  => 2,
-            ]);
-
             Vendor::create([
                 'VR_Name'     => $validated['VR_Name'],
                 'VR_Email_1'  => $validated['VR_Email_1'],
@@ -79,15 +70,13 @@ class VendorController extends Controller
                 'VR_Status'   => 0,
             ]);
 
-            DB::commit();
-
-            return redirect()->route('user')->with('success', 'Vendor account created successfully.');
+            return redirect()->route('user')->with('success', 'Vendor account created successfully. Please wait while we verify your details.');
 
         } catch (\Exception $e) {
 
-            DB::rollBack();
+            // return back()->withInput()->with('error', $e->getMessage());
 
-            return back()->withInput()->with('error', $e->getMessage());
+            dd($e->getMessage());
         }
     }
 
@@ -185,18 +174,9 @@ class VendorController extends Controller
         }
     }
 
-    // public function dashboard()
-    // {
-    //     if (auth()->user()->VR_Status == 0) {
-    //         session()->flash('approval_pending', true);
-    //     }
-
-    //     return view('vendor.index');
-    // }
-
     public function dashboard()
     {
-        if (auth()->guard('vendor')->user()->VR_Status == 0) {
+        if (auth()->user()->VR_Status == 0) {
             session()->flash('approval_pending', true);
         }
 

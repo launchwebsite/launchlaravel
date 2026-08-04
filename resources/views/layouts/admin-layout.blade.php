@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="/images/favicon.png">
+    <link rel="shortcut icon" href="/storage/images/favicon.png">
 
     <!-- CSS -->
     <link href="/storage/admin/assets/libs/simple-datatables/style.css" rel="stylesheet">
@@ -75,6 +75,20 @@
         @if (session('info'))
             toastr.info("{{ session('info') }}");
         @endif
+    </script>
+
+    <script>
+        document.querySelectorAll('.toggle-password').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const input = document.getElementById(this.dataset.target);
+                const icon = this.querySelector('i');
+                const isHidden = input.type === 'password';
+
+                input.type = isHidden ? 'text' : 'password';
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        });
     </script>
 
     <script>

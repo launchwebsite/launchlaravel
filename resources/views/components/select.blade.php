@@ -7,8 +7,9 @@
         @endif
 
         @foreach ($value as $item)
-        {{ $item->id }}
-            <option value="{{ $item->id }}" {{ ($item->id == $default) ? 'selected' : '' }}>{{ $item->card_title }}</option>
+            {{ $item->id }}
+            <option value="{{ $item->id }}" {{ $item->id == $default ? 'selected' : '' }}>{{ $item->card_title }}
+            </option>
         @endforeach
     </select>
 
