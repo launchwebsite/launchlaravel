@@ -239,7 +239,7 @@
 
                     </li> --}}
 
-                    {{-- <li class="nav-item">
+                    <!-- <li class="nav-item">
 
                         <a class="nav-link" href="" aria-expanded="false" aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
@@ -258,7 +258,7 @@
 
 
 
-                </ul><!--end navbar-nav--->
+                </ul> -->
 
             </div>
         </div><!--end startbar-collapse-->
