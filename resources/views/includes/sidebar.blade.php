@@ -41,41 +41,4 @@
         </div>
     </div>
 </aside>
-<!--=====================================
-                    SIDEBAR PART END
-        =======================================-->
 
-<!--=====================================
-                    MOBILE-NAV PART START
-        =======================================-->
-<!-- <nav class="mobile-nav">
-            <div class="container">
-                <div class="mobile-group">
-                    <a class='mobile-widget' href='index.php'>
-                        <i class="fas fa-home"></i>
-                        <span>home</span>
-                    </a>
-                    <a class='mobile-widget' href='user-form.html'>
-                        <i class="fas fa-user"></i>
-                        <span>join me</span>
-                    </a>
-                    <a class='mobile-widget plus-btn' href='ad-post.php'>
-                        <i class="fas fa-plus"></i>
-                        <span>Ad Post</span>
-                    </a>
-                    <a class='mobile-widget' href='notification.html'>
-                        <i class="fas fa-bell"></i>
-                        <span>notify</span>
-                        <sup>0</sup>
-                    </a>
-                    <a class='mobile-widget' href='message.html'>
-                        <i class="fas fa-envelope"></i>
-                        <span>message</span>
-                        <sup>0</sup>
-                    </a>
-                </div>
-            </div>
-        </nav> -->
-<!--=====================================
-                    MOBILE-NAV PART END
-        =======================================-->
