@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
@@ -75,6 +76,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/category/edit', [CategoryController::class, 'showEdit'])->name('admin-category-edit-show');
     Route::put('/admin/category/update', [CategoryController::class, 'update'])->name('admin-category-update');
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin-category-delete');
+
+    Route::get('/admin/attributes', [AttributeController::class, 'index'])->name('attributes.index');
+    Route::get('/admin/add-attributes', [AttributeController::class, 'create'])->name('attributes.add');
+    Route::post('/admin/attributes/store', [AttributeController::class, 'store'])->name('attributes.store');
+    Route::get('/admin/attributes/edit/{id}', [AttributeController::class, 'edit'])->name('attributes.edit');
+    Route::put('/admin/attributes/update/{id}', [AttributeController::class, 'update'])->name('attributes.update');
+    Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])->name('attributes.delete');
+
 });
 
 require __DIR__ . '/admin/subcategory.php';
