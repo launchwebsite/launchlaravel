@@ -26,7 +26,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'CT_Name' => 'required|string|max:255',
-            'CT_Img'  => 'nullable|image|max:2048',
+            'CT_Img'  => 'required|image|max:2048',
         ]);
 
         if ($request->hasFile('CT_Img')) {
@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
         $validated = $request->validate([
             'CT_Name' => 'required|string|max:255',
-            'CT_Img'  => 'nullable|image|max:2048',
+            'CT_Img'  => 'required|image|max:2048',
         ]);
 
         if ($request->hasFile('CT_Img')) {

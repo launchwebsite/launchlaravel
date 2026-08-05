@@ -33,6 +33,7 @@ class AttributeController extends Controller
             'SC_Id'        => 'required|exists:sub_categories,SC_Id',
             'AT_Inputs'    => 'required|string|min:3',
             'AT_Structure' => 'nullable|string|min:3',
+             'AT_Options' => 'nullable|string|min:3',
         ]);
 
         if ($validator->fails()) {
@@ -44,6 +45,7 @@ class AttributeController extends Controller
             'SC_Id',
             'AT_Inputs',
             'AT_Structure',
+            'AT_Options',
 
         ]);
 
@@ -85,6 +87,7 @@ class AttributeController extends Controller
             'SC_Id'        => 'required|exists:sub_categories,SC_Id',
             'AT_Inputs'    => 'required|string|min:3',
             'AT_Structure' => 'nullable|string|min:3',
+              'AT_Options' => 'nullable|string|min:3',
         ]);
 
         if ($validator->fails()) {
@@ -99,6 +102,7 @@ class AttributeController extends Controller
             'SC_Id',
             'AT_Inputs',
             'AT_Structure',
+            'AT_Options',
 
         ]);
 
