@@ -108,6 +108,161 @@
         }
     </script>
 
+    <script>
+        $('#subcategory').on('change', function() {
+
+            let subCategoryId = $(this).val();
+
+            $.ajax({
+                url: '/subcategory/' + subCategoryId + '/attributes',
+                type: 'GET',
+
+                success: function(response) {
+
+                    let html = '';
+
+                    response.forEach(function(attribute) {
+
+                        html += `
+                        <div class="mb-3 row">
+
+                            <label class="col-sm-2 col-form-label">
+                                ${attribute.AT_Inputs}
+                            </label>
+
+                            <div class="col-sm-10">
+
+                                <input
+                                    type="${attribute.AT_Structure}"
+                                    name="AT_Inputs[${attribute.AT_Id}]"
+                                    class="form-control"
+                                    placeholder="Enter ${attribute.AT_Inputs}">
+
+                            </div>
+
+                        </div>
+                    `;
+                    });
+
+                    $('#attribute-container').html(html);
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        $('#category').on('change', function() {
+
+            let categoryId = $(this).val();
+
+            $('#subcategory').html(
+                '<option value="">Loading...</option>'
+            );
+
+            $.ajax({
+
+                url: '/category/' + categoryId + '/subcategories',
+
+                type: 'GET',
+
+                success: function(response) {
+
+                    let options =
+                        '<option value="">Select Sub Category</option>';
+
+                    response.forEach(function(subcategory) {
+
+                        options +=
+                            `<option value="${subcategory.SC_Id}">
+                            ${subcategory.SC_Name}
+                        </option>`;
+                    });
+
+                    $('#subcategory').html(options);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            // Hide all attributes initially
+            $('.attribute-row').hide();
+
+            // Category change
+            $('#category').change(function() {
+
+                let categoryId = $(this).val();
+
+                $('#subcategory').val('');
+                $('#subcategory-error').text('');
+
+                $('.attribute-row').hide();
+
+                if (categoryId === '') {
+
+                    $('#subcategory').prop('disabled', true);
+
+                    $('#subcategory option').hide();
+                    $('#subcategory option:first').show();
+
+                    return;
+                }
+
+                $('#subcategory').prop('disabled', false);
+
+                $('#subcategory option').hide();
+                $('#subcategory option:first').show();
+
+                $('#subcategory option').each(function() {
+
+                    if ($(this).data('category') == categoryId) {
+                        $(this).show();
+                    }
+
+                });
+
+            });
+
+            // Subcategory change
+            $('#subcategory').change(function() {
+
+                let categoryId = $('#category').val();
+
+                if (categoryId === '') {
+
+                    $('#subcategory-error').text(
+                        'Please select a category first.'
+                    );
+
+                    $(this).val('');
+
+                    return;
+                }
+
+                $('#subcategory-error').text('');
+
+                let subCategoryId = $(this).val();
+
+                $('.attribute-row').hide();
+
+                $('.attribute-row').each(function() {
+
+                    if ($(this).data('subcategory') == subCategoryId) {
+
+                        $(this).show();
+
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>

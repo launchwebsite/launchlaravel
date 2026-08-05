@@ -40,15 +40,20 @@
                                                     <td>{{ $index + 1 }}</td>
                                                     <td>{{ $attribute->category->CT_Name ?? '' }}</td>
                                                     <td>{{ $attribute->subcategory->SC_Name ?? '' }}</td>
-                                                     <td>{{ $attribute->AT_Inputs ?? '' }}</td>
+                                                    <td>{{ $attribute->AT_Inputs ?? '' }}</td>
                                                     <td>{{ $attribute->AT_Structure ?? '' }}</td>
 
 
                                                     <td>
-                                                        <a href="{{ route('attributes.edit', $attribute->AT_Id) }}"
-                                                            class="btn btn-sm btn-primary">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
+                                                        <form action="{{ route('attributes.edit') }}" method="POST"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $attribute->AT_Id }}">
+                                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </form>
                                                         <a href="{{ route('attributes.delete', $attribute->AT_Id) }}"
                                                             class="btn btn-sm btn-danger"onclick="return confirm('Are you sure?')">
                                                             <i class="fas fa-trash"></i>
@@ -65,12 +70,8 @@
                         </div><!--end card-->
                     </div> <!--end col-->
                 </div><!--end row-->
-
-
             </div><!-- container -->
-
-
-             @include('includes.admin-footer')
+            @include('includes.admin-footer')
 
             <!--end footer-->
         </div>

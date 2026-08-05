@@ -56,15 +56,31 @@ class AttributeController extends Controller
             ->with('success', 'Attributes  added successfully.');
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
+        $request->validate(['id' => 'required|integer']);
+
+        session(['editing_attribute_id' => $request->id]);
+
+        return redirect()->route('attributes.edit-show');
+    }
+
+    public function showEdit()
+    {
+        $id = session('editing_attribute_id');
+
+        if (! $id) {
+            return redirect()->route('attributes.index');
+        }
+
         $attributes     = Attributes::findOrFail($id);
         $categories     = Category::all();
         $sub_categories = SubCategory::all();
+
         return view('admin.add-attributes', compact('attributes', 'categories', 'sub_categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'CT_Id'        => 'required|exists:categories,CT_Id',
@@ -78,6 +94,7 @@ class AttributeController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
+        $id         = session('editing_attribute_id');
         $attributes = Attributes::findOrFail($id);
 
         $data = $request->only([
@@ -89,13 +106,8 @@ class AttributeController extends Controller
 
         ]);
 
-        /* ==========================
-       IMAGE UPLOADS (INLINE)
-    ========================== */
-
-
-
         $attributes->update($data);
+        session()->forget('editing_attribute_id');
 
         return redirect()
             ->route('attributes.index')
@@ -105,7 +117,6 @@ class AttributeController extends Controller
     public function destroy($id)
     {
         $attributes = Attributes::findOrFail($id);
-
 
         $attributes->delete();
 

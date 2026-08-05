@@ -78,15 +78,21 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/category/update', [CategoryController::class, 'update'])->name('admin-category-update');
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])->name('admin-category-delete');
 
-    Route::get('/admin/attributes', [AttributeController::class, 'index'])->name('attributes.index');
-    Route::get('/admin/add-attributes', [AttributeController::class, 'create'])->name('attributes.add');
+    Route::get('/attributes', [AttributeController::class, 'index'])->name('attributes.index');
+    Route::get('/create', [AttributeController::class, 'create'])->name('attributes.add');
     Route::post('/admin/attributes/store', [AttributeController::class, 'store'])->name('attributes.store');
-    Route::get('/admin/attributes/edit/{id}', [AttributeController::class, 'edit'])->name('attributes.edit');
-    Route::put('/admin/attributes/update/{id}', [AttributeController::class, 'update'])->name('attributes.update');
+    Route::post('/admin/attributes/edit', [AttributeController::class, 'edit'])->name('attributes.edit');
+    Route::get('/edit', [AttributeController::class, 'showEdit'])->name('attributes.edit-show');
+    Route::put('/admin/attributes/update', [AttributeController::class, 'update'])->name('attributes.update');
     Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])->name('attributes.delete');
 
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::post('/products/store', [ProductController::class, 'store'])->name('products.store');
 
- Route::get('/admin/product', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/subcategory/{id}/attributes', [ProductController::class, 'getAttributes']);
+    Route::get('/category/{id}/subcategories', [ProductController::class, 'getSubCategories']);
+
+    Route::get('/admin/product', [ProductController::class, 'index'])->name('products.index');
 });
 
 require __DIR__ . '/admin/subcategory.php';
