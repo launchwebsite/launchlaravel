@@ -34,11 +34,7 @@
                             <span>Dashboards</span>
                         </a>
 
-                        <a class="nav-link" href="{{ route('listings.cars.index') }}" aria-expanded="false"
-                            aria-controls="sidebarDashboards">
-                            <i class="iconoir-home-simple menu-icon"></i>
-                            <span>Cars</span>
-                        </a>
+                        
 
                     </li><!--end nav-item-->
 
