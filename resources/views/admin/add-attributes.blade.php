@@ -22,7 +22,7 @@
 
 
                                 <form
-                                    action="{{ isset($attributes) ? route('attributes.update', $attributes->AT_Id) : route('attributes.store') }}"
+                                    action="{{ isset($attributes) ? route('attributes.update') : route('attributes.store') }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @if (isset($attributes))
@@ -128,18 +128,11 @@
                 </div><!--end card-->
             </div> <!--end col-->
         </div><!--end row-->
-
-
-
         @include('includes.admin-footer')
         <!--end footer-->
     </div>
     <!-- end page content -->
     </div>
-
-    <!-- end page-wrapper -->
-
-    <!-- Javascript  -->
     <!-- vendor js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
