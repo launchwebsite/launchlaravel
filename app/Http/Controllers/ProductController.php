@@ -27,14 +27,36 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'CT_Id'     => 'required|exists:categories,CT_Id',
+                'SC_Id'     => 'required|exists:sub_categories,SC_Id',
+                'AT_Inputs' => 'required|array',
+            ],
+            [
+                'CT_Id.required'     => 'Please select a Category.',
+                'SC_Id.required'     => 'Please select a Subcategory.',
+                'AT_Inputs.required' => 'Please fill in the product details.',
+            ]
+        );
+
         $details = [];
 
-        foreach ($request->AT_Inputs as $attributeId => $value) {
+        if ($request->has('AT_Inputs')) {
 
-            $attribute = Attributes::find($attributeId);
+            foreach ($request->AT_Inputs as $attributeId => $value) {
 
-            if ($attribute) {
-                $details[$attribute->AT_Inputs] = $value;
+                $attribute = Attributes::find($attributeId);
+
+                if ($attribute) {
+
+                    // Checkbox values come as arrays
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    }
+
+                    $details[$attribute->AT_Inputs] = $value;
+                }
             }
         }
 
@@ -44,7 +66,9 @@ class ProductController extends Controller
             'PR_Details' => $details,
         ]);
 
-        return redirect()->back()->with('success', 'Product created successfully.');
+        return redirect()
+            ->back()
+            ->with('success', 'Product created successfully.');
     }
 
     public function getAttributes($id)

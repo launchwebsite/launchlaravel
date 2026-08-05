@@ -21,81 +21,113 @@
                             <div class="card-body pt-0">
 
 
-                                {{-- <form action="{{ route('attributes.store') }}" method="POST" enctype="multipart/form-data"> --}}
                                 <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-
                                     <div class="row">
+                                        <div class="col-lg-12">
 
-                                        {{-- Category --}}
-                                        <div class="mb-3 row">
-                                            <label class="col-sm-2 col-form-label">Category</label>
+                                            {{-- Category --}}
+                                            <div class="mb-3 row">
 
-                                            <div class="col-sm-10">
-                                                <select name="CT_Id" id="category" class="form-control" required>
+                                                <label class="col-sm-2 col-form-label">
+                                                    Category
+                                                </label>
 
-                                                    <option value="">Select Category</option>
+                                                <div class="col-sm-10">
 
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->CT_Id }}">
-                                                            {{ $category->CT_Name }}
+                                                    <select name="CT_Id" id="category" class="form-control">
+
+                                                        <option value="">
+                                                            Select Category
                                                         </option>
-                                                    @endforeach
 
-                                                </select>
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->CT_Id }}">
+                                                                {{ $category->CT_Name }}
+                                                            </option>
+                                                        @endforeach
+
+                                                    </select>
+
+                                                    @error('CT_Id')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+
+                                                </div>
+
                                             </div>
-                                        </div>
 
-                                        {{-- Subcategory --}}
-                                        <div class="mb-3 row">
-                                            <label class="col-sm-2 col-form-label">Sub Category</label>
+                                            {{-- Subcategory --}}
+                                            <div class="mb-3 row">
 
-                                            <div class="col-sm-10">
-                                                <select name="SC_Id" id="subcategory" class="form-control" disabled>
+                                                <label class="col-sm-2 col-form-label">
+                                                    Sub Category
+                                                </label>
 
-                                                    <option value="">Select Sub Category</option>
+                                                <div class="col-sm-10">
 
-                                                    @foreach ($sub_categories as $subcategory)
-                                                        <option value="{{ $subcategory->SC_Id }}"
-                                                            data-category="{{ $subcategory->CT_Id }}"
-                                                            style="display: none;">
+                                                    <select name="SC_Id" id="subcategory" class="form-control" disabled>
 
-                                                            {{ $subcategory->SC_Name }}
-
+                                                        <option value="">
+                                                            Select Sub Category
                                                         </option>
-                                                    @endforeach
 
-                                                </select>
+                                                        @foreach ($sub_categories as $subcategory)
+                                                            <option value="{{ $subcategory->SC_Id }}"
+                                                                data-category="{{ $subcategory->CT_Id }}"
+                                                                style="display:none;">
 
-                                                <small id="subcategory-error" class="text-danger"></small>
+                                                                {{ $subcategory->SC_Name }}
+
+                                                            </option>
+                                                        @endforeach
+
+                                                    </select>
+
+                                                    @error('SC_Id')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+
+                                                </div>
+
                                             </div>
-                                        </div>
 
-                                        {{-- Dynamic attributes --}}
-                                        <div id="attribute-container">
 
+                                            {{-- @foreach ($attributes as $attribute)
+                                                <div class="mb-3 row"> --}}
                                             @foreach ($attributes as $attribute)
                                                 <div class="mb-3 row attribute-row"
-                                                    data-subcategory="{{ $attribute->SC_Id }}">
+                                                    data-subcategory="{{ $attribute->SC_Id }}" style="display: none;">
 
                                                     <label class="col-sm-2 col-form-label">
                                                         {{ $attribute->AT_Inputs }}
                                                     </label>
 
                                                     <div class="col-sm-10">
-
                                                         @switch($attribute->AT_Structure)
+                                                            {{-- Single line text --}}
                                                             @case('string')
                                                             @case('text')
                                                                 <input type="text" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    class="form-control"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}">
+                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
+                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
+                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
+                                                                    class="form-control">
                                                             @break
 
+                                                            {{-- Multi line text --}}
+                                                            @case('textarea')
+                                                                <textarea name="AT_Inputs[{{ $attribute->AT_Id }}]" id="AT_Inputs_{{ $attribute->AT_Id }}"
+                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}" rows="4" class="form-control">{{ old('AT_Inputs.' . $attribute->AT_Id) }}</textarea>
+                                                            @break
+
+                                                            {{-- Number --}}
                                                             @case('number')
                                                                 <input type="number" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    class="form-control"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}">
+                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
+                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
+                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
+                                                                    class="form-control">
                                                             @break
 
                                                             {{-- Email --}}
@@ -166,53 +198,62 @@
 
                                                             {{-- Checkbox (single true/false) --}}
                                                             @case('checkbox')
-                                                                <div class="form-check">
-                                                                    <input type="checkbox"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}" value="1"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) ? 'checked' : '' }}
-                                                                        class="form-check-input">
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}">
-                                                                        {{ $attribute->AT_Inputs }}
-                                                                    </label>
+                                                                <div class="d-flex flex-wrap gap-4">
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}][]"
+                                                                                id="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
+                                                                                value="{{ trim($option) }}"
+                                                                                {{ in_array(trim($option), old('AT_Inputs.' . $attribute->AT_Id, [])) ? 'checked' : '' }}>
+
+                                                                            <label class="form-check-label"
+                                                                                for="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
+                                                                                {{ trim($option) }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endforeach
+
                                                                 </div>
                                                             @break
 
                                                             {{-- Radio (Yes/No example — customize as needed) --}}
                                                             @case('radio')
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}_yes" value="Yes"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) == 'Yes' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}_yes">Yes</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}_no" value="No"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) == 'No' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}_no">No</label>
+                                                                <div class="d-flex flex-wrap gap-4">
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}]"
+                                                                                id="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
+                                                                                value="{{ trim($option) }}"
+                                                                                {{ old('AT_Inputs.' . $attribute->AT_Id) == trim($option) ? 'checked' : '' }}>
+
+                                                                            <label class="form-check-label"
+                                                                                for="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
+                                                                                {{ trim($option) }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endforeach
+
                                                                 </div>
                                                             @break
 
                                                             {{-- Select dropdown (options come from AT_Options column, comma separated) --}}
                                                             @case('select')
                                                                 <select name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}" class="form-control">
-                                                                    <option value="">-- Select {{ $attribute->AT_Inputs }}
-                                                                        --</option>
-                                                                    @if (!empty($attribute->AT_Options))
-                                                                        @foreach (explode(',', $attribute->AT_Options) as $option)
-                                                                            <option value="{{ trim($option) }}"
-                                                                                {{ old('AT_Inputs.' . $attribute->AT_Id) == trim($option) ? 'selected' : '' }}>
-                                                                                {{ trim($option) }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    class="form-control">
+
+                                                                    <option value="">Select {{ $attribute->AT_Inputs }}
+                                                                    </option>
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <option value="{{ trim($option) }}">
+                                                                            {{ trim($option) }}
+                                                                        </option>
+                                                                    @endforeach
+
                                                                 </select>
                                                             @break
 
@@ -224,28 +265,33 @@
                                                                     class="form-control form-control-color">
                                                             @break
 
+                                                            {{-- Fallback --}}
+
                                                             @default
                                                                 <input type="text" name="AT_Inputs[{{ $attribute->AT_Id }}]"
+                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
+                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
+                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
                                                                     class="form-control">
                                                         @endswitch
 
+                                                        @error('AT_Inputs.' . $attribute->AT_Id)
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-
                                                 </div>
                                             @endforeach
 
-                                        </div>
+                                            <div class="text-end">
 
-                                        <div class="mb-3 row">
-                                            <div class="col-sm-12 text-end">
                                                 <button type="submit" class="btn btn-primary">
                                                     Submit
                                                 </button>
+
                                             </div>
+
                                         </div>
-
                                     </div>
-
                                 </form>
                             </div>
 
@@ -264,10 +310,40 @@
 
     </div>
 
-    <!-- end page-wrapper -->
+    <script>
+        $('#category').change(function() {
 
-    <!-- Javascript  -->
-    <!-- vendor js -->
+            let categoryId = $(this).val();
+
+            $('#subcategory').prop('disabled', categoryId === '');
+
+            $('#subcategory').val('');
+
+            $('#subcategory option').hide();
+
+            $('#subcategory option:first').show();
+
+            $('.attribute-row').hide();
+
+            if (categoryId) {
+
+                $('#subcategory option[data-category="' + categoryId + '"]').show();
+
+            }
+
+        });
+
+        $('#subcategory').change(function() {
+
+            let subcategoryId = $(this).val();
+
+            $('.attribute-row').hide();
+
+            $('.attribute-row[data-subcategory="' + subcategoryId + '"]').show();
+
+        });
+    </script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 @endsection
