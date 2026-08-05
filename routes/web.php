@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/attributes/update', [AttributeController::class, 'update'])->name('attributes.update');
     Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])->name('attributes.delete');
 
+
+ Route::get('/admin/product', [ProductController::class, 'index'])->name('products.index');
 });
 
 require __DIR__ . '/admin/subcategory.php';

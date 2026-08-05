@@ -67,6 +67,14 @@
                         </a>
                     </li>
 
+                       <li class="nav-item">
+                        <a class="nav-link" href="{{ route('products.index') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
+                            <i class="iconoir-book menu-icon"></i>
+                            <span>Product</span>
+                        </a>
+                    </li>
+
                     {{-- <li class="menu-label pt-0 mt-3">
                         <small class="label-border">
                             <div class="border_left hidden-xs"></div>
