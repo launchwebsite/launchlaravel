@@ -126,53 +126,62 @@
 
                                                             {{-- Checkbox (single true/false) --}}
                                                             @case('checkbox')
-                                                                <div class="form-check">
-                                                                    <input type="checkbox"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}" value="1"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) ? 'checked' : '' }}
-                                                                        class="form-check-input">
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}">
-                                                                        {{ $attribute->AT_Inputs }}
-                                                                    </label>
+                                                                <div class="d-flex flex-wrap gap-4">
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}][]"
+                                                                                id="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
+                                                                                value="{{ trim($option) }}"
+                                                                                {{ in_array(trim($option), old('AT_Inputs.' . $attribute->AT_Id, [])) ? 'checked' : '' }}>
+
+                                                                            <label class="form-check-label"
+                                                                                for="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
+                                                                                {{ trim($option) }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endforeach
+
                                                                 </div>
                                                             @break
 
                                                             {{-- Radio (Yes/No example — customize as needed) --}}
                                                             @case('radio')
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}_yes" value="Yes"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) == 'Yes' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}_yes">Yes</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                        id="AT_Inputs_{{ $attribute->AT_Id }}_no" value="No"
-                                                                        {{ old('AT_Inputs.' . $attribute->AT_Id) == 'No' ? 'checked' : '' }}>
-                                                                    <label class="form-check-label"
-                                                                        for="AT_Inputs_{{ $attribute->AT_Id }}_no">No</label>
+                                                                <div class="d-flex flex-wrap gap-4">
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}]"
+                                                                                id="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
+                                                                                value="{{ trim($option) }}"
+                                                                                {{ old('AT_Inputs.' . $attribute->AT_Id) == trim($option) ? 'checked' : '' }}>
+
+                                                                            <label class="form-check-label"
+                                                                                for="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
+                                                                                {{ trim($option) }}
+                                                                            </label>
+                                                                        </div>
+                                                                    @endforeach
+
                                                                 </div>
                                                             @break
 
                                                             {{-- Select dropdown (options come from AT_Options column, comma separated) --}}
                                                             @case('select')
                                                                 <select name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}" class="form-control">
-                                                                    <option value="">-- Select {{ $attribute->AT_Inputs }}
-                                                                        --</option>
-                                                                    @if (!empty($attribute->AT_Options))
-                                                                        @foreach (explode(',', $attribute->AT_Options) as $option)
-                                                                            <option value="{{ trim($option) }}"
-                                                                                {{ old('AT_Inputs.' . $attribute->AT_Id) == trim($option) ? 'selected' : '' }}>
-                                                                                {{ trim($option) }}
-                                                                            </option>
-                                                                        @endforeach
-                                                                    @endif
+                                                                    class="form-control">
+
+                                                                    <option value="">Select {{ $attribute->AT_Inputs }}
+                                                                    </option>
+
+                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
+                                                                        <option value="{{ trim($option) }}">
+                                                                            {{ trim($option) }}
+                                                                        </option>
+                                                                    @endforeach
+
                                                                 </select>
                                                             @break
 

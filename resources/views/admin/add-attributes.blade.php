@@ -98,6 +98,20 @@
                                             </div>
 
 
+
+                                                         <div class="mb-3 row">
+
+                                                <div class="col-sm-10">
+                                                    <label>Options</label>
+                                                    <textarea id="AT_Options" name="AT_Options" placeholder="Enter AT_Options" rows="4" class="form-control">{{ old('AT_Options', $attributes->AT_Options ?? '') }}</textarea>
+
+                                                </div>
+                                                @error('AT_Options')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+
                                             <div class="mb-3 row">
 
                                                 <div class="col-sm-10">

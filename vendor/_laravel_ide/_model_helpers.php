@@ -5,6 +5,7 @@ namespace App\Models {
     /**
      * App\Models\Attributes
      *
+     * @property string|null $AT_Options
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $AT_Structure
@@ -21,6 +22,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereAtStructure($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes whereAtOptions($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Attributes>|Attributes query()

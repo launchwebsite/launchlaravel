@@ -13,6 +13,7 @@ class Attributes extends Model
         'SC_Id',
         'AT_Inputs',
         'AT_Structure',
+        'AT_Options',
     ];
 
     public function category()

@@ -31,7 +31,7 @@ class SubCategoryController extends Controller
         $request->validate([
             'CT_Id'   => 'required|exists:categories,CT_Id',
             'SC_Name' => 'required|string|max:255',
-            'SC_Img'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'SC_Img'  => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $data = $request->only(['CT_Id', 'SC_Name']);
@@ -59,7 +59,7 @@ class SubCategoryController extends Controller
             'SC_Id'   => 'required|exists:sub_categories,SC_Id',
             'CT_Id'   => 'required|exists:categories,CT_Id',
             'SC_Name' => 'required|string|max:255',
-            'SC_Img'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'SC_Img'  => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $subCategory = SubCategory::findOrFail($request->SC_Id);
