@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AttributeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
@@ -91,6 +92,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/subcategory/{id}/attributes', [ProductController::class, 'getAttributes']);
     Route::get('/category/{id}/subcategories', [ProductController::class, 'getSubCategories']);
+
+    Route::get('/admin/career', [CareerController::class, 'index'])->name('career.index');
+    Route::get('/admin/add-career', [CareerController::class, 'create'])->name('career.add');
+    Route::post('/admin/career/store', [CareerController::class, 'store'])->name('career.store');
+    Route::get('/admin/career/edit/{id}', [CareerController::class, 'edit'])->name('career.edit');
+    Route::put('/admin/career/update/{id}', [CareerController::class, 'update'])->name('career.update');
+    Route::get('/admin/career/delete/{id}', [CareerController::class, 'destroy'])->name('career.delete');
 
     Route::get('/admin/product', [ProductController::class, 'index'])->name('products.index');
 });
