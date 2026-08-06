@@ -34,4 +34,9 @@ class Vendor extends Authenticatable
     {
         return 'VR_Id';
     }
+
+     public function category()
+    {
+        return $this->belongsTo(Category::class, 'CT_Id', 'CT_Id');
+    }
 }

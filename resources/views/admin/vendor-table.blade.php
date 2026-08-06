@@ -36,6 +36,7 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th width="200">Name</th>
+                                                <th width="200">Category</th>
                                                 <th width="200">Email</th>
                                                 <th width="200">Phone</th>
                                                 <th width="250">Type</th>
@@ -52,6 +53,7 @@
                                                     <td>{{ $vendors->firstItem() + $key }}</td>
 
                                                     <td>{{ $vendor->VR_Name }}</td>
+                                                 <td>{{ $vendor->category->CT_Name }}</td>
 
                                                     <td>{{ $vendor->VR_Email_1 }}</td>
 
