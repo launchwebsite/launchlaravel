@@ -22,7 +22,7 @@ class PageController extends Controller
     {
         $categoriess = Category::withCount('products')
             ->with([
-                'subCategories' => function ($query) {
+                'subcategories' => function ($query) {
                     $query->withCount('products');
                 },
             ])
