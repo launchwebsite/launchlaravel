@@ -109,6 +109,7 @@
 <input type="text"
        name="SC_Name"
        class="form-control"
+       
        list="subCategoryList"
        value="{{ old('SC_Name', $careers->subCategory->SC_Name ?? '') }}"
        autocomplete="off">
