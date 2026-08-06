@@ -9,7 +9,7 @@
                                <script>
                                    document.write(new Date().getFullYear())
                                </script>
-                               Launch INCS
+                               Launch
                                <span class="text-muted d-none d-sm-inline-block float-end">
                                    Designed by
                                    {{-- <i class="iconoir-heart text-danger"></i> --}}

@@ -1,12 +1,11 @@
 @extends('layouts.layout')
 @section('content')
-
     @include('includes.header')
     @include('includes.sidebar')
 
     <!--=====================================
-                          SINGLE BANNER PART START
-                =======================================-->
+                              SINGLE BANNER PART START
+                    =======================================-->
     <section class="inner-section single-banner">
         <div class="container">
             <div class="row">
@@ -19,150 +18,40 @@
         </div>
     </section>
     <!--=====================================
-                          SINGLE BANNER PART END
-                =======================================-->
+                              SINGLE BANNER PART END
+                    =======================================-->
 
 
     <!--=====================================
-                            CATEGORY PART START
-                =======================================-->
+                                CATEGORY PART START
+                    =======================================-->
     <section class="inner-section category-part">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="category-card golden">
-                        <div class="category-head">
-                            <img src="/storage/images/category/properties.jpg" alt="category">
-                            <a href="{{ route('categorydetails') }}" class="category-content">
-                                <h4>Properties</h4>
-                                <p>(3678)</p>
-                            </a>
+            <div class="row justify-content-center g-4">
+                @foreach ($categoriess as $item)
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                        <div class="category-card golden bluee">
+                            <div class="category-head">
+                                <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="category">
+                                <a href="{{ route('categorydetails', $item->CT_Id) }}" class="category-content">
+                                    <h4>{{ $item->CT_Name }}</h4>
+                                    <p>({{ $item->products_count }})</p>
+                                </a>
+                            </div>
+                            <ul class="category-list goldy">
+                                @foreach ($item->subcategories as $subcategory)
+                                    <li><a href="{{ route('addetails', $subcategory->SC_Id) }}">
+                                            <h6>{{ $subcategory->SC_Name }}</h6>
+                                            <p>({{ $subcategory->products_count }})</p>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                        <ul class="category-list goldy">
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Apartments</h6>
-                                    <p>(34)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Villas</h6>
-                                    <p>(24)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Townhouses</h6>
-                                    <p>(12)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Penthouses</h6>
-                                    <p>(19)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Hotel Apartments</h6>
-                                    <p>(56)</p>
-                                </a></li>
-                        </ul>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="category-card golden">
-                        <div class="category-head">
-                            <img src="/storage/images/category/automobiles.jpg" alt="category">
-                            <a href="{{ route('categorydetails') }}" class="category-content">
-                                <h4>Cars</h4>
-                                <p>(3678)</p>
-                            </a>
-                        </div>
-                        <ul class="category-list goldy">
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Sedan</h6>
-                                    <p>(34)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>SUV</h6>
-                                    <p>(24)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Pickup Trucks</h6>
-                                    <p>(12)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Luxury Cars</h6>
-                                    <p>(19)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Electric Cars</h6>
-                                    <p>(56)</p>
-                                </a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="category-card golden">
-                        <div class="category-head">
-                            <img src="/storage/images/category/fashions.jpg" alt="category">
-                            <a href="{{ route('categorydetails') }}" class="category-content">
-                                <h4>Jobs</h4>
-                                <p>(3678)</p>
-                            </a>
-                        </div>
-                        <ul class="category-list goldy">
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>IT & Software</h6>
-                                    <p>(34)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Sales & Marketing</h6>
-                                    <p>(24)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Accounting & Finance</h6>
-                                    <p>(12)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Engineering</h6>
-                                    <p>(19)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Hospitality</h6>
-                                    <p>(56)</p>
-                                </a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="category-card golden">
-                        <div class="category-head">
-                            <img src="/storage/images/category/gadgets.jpg" alt="category">
-                            <a href="{{ route('categorydetails') }}" class="category-content">
-                                <h4>Classifieds</h4>
-                                <p>(3678)</p>
-                            </a>
-                        </div>
-                        <ul class="category-list goldy">
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Electronics</h6>
-                                    <p>(34)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Furniture</h6>
-                                    <p>(24)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Home Appliances</h6>
-                                    <p>(12)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Fashion & Beauty</h6>
-                                    <p>(19)</p>
-                                </a></li>
-                            <li><a href="{{ route('addetails') }}">
-                                    <h6>Sports & Fitness</h6>
-                                    <p>(56)</p>
-                                </a></li>
-                        </ul>
-                    </div>
-                </div>
+                @endforeach
             </div>
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
                         <a href="{{ route('categorydetails') }}" class="btn btn-inline btn-blue">
@@ -171,17 +60,17 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </section>
     <!--=====================================
-                            CATEGORY PART END
-                =======================================-->
+                                CATEGORY PART END
+                    =======================================-->
 
 
     <!--=====================================
-                            INTRO PART START
-                =======================================-->
+                                INTRO PART START
+                    =======================================-->
     <section class="intro-part">
         <div class="container">
             <div class="row">
@@ -191,22 +80,22 @@
                         <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace for
                             property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
-                                        <i class="fas fa-plus-circle"></i>
-                                        <span>post your ad</span>
-                                    </a> -->
+                                            <i class="fas fa-plus-circle"></i>
+                                            <span>post your ad</span>
+                                        </a> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--=====================================
-                            INTRO PART END
-                =======================================-->
+                                INTRO PART END
+                    =======================================-->
 
 
     <!--=====================================
-                             PRICE PART START
-                =======================================-->
+                                 PRICE PART START
+                    =======================================-->
     <section class="inner-section price-part">
         <div class="container">
             <div class="row">
@@ -334,8 +223,8 @@
         </div>
     </section>
     <!--=====================================
-                             PRICE PART END
-                =======================================-->
+                                 PRICE PART END
+                    =======================================-->
 
     @include('includes.footer')
 @endsection

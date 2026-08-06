@@ -12,7 +12,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="row align-items-center">
+                                <div class="row align-items-center mb-2">
                                     <div class="col">
                                         <h4 class="card-title">Attributes</h4>
                                     </div><!--end col-->
@@ -33,10 +33,12 @@
 
 
                                             <div class="mb-3 row">
-                                                <label class="text-danger">*</label>
+                                                {{-- <label class="text-danger">*</label> --}}
+
                                                 <div class="col-sm-10">
-                                                    <select class="form-control" name="CT_Id" required>
-                                                        <option value="">-- Select Categories --</option>
+                                                    <select class="form-control" name="CT_Id" id="category" required>
+                                                        <option value="">-- Select Category --</option>
+
                                                         @foreach ($categories as $category)
                                                             <option value="{{ $category->CT_Id }}"
                                                                 {{ old('CT_Id', $attributes->CT_Id ?? '') == $category->CT_Id ? 'selected' : '' }}>
@@ -44,8 +46,8 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-
                                                 </div>
+
                                                 @error('CT_Id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -53,19 +55,31 @@
 
 
                                             <div class="mb-3 row">
-                                                <label class="text-danger">*</label>
+                                                {{-- <label class="text-danger"></label> --}}
+
                                                 <div class="col-sm-10">
-                                                    <select class="form-control" name="SC_Id" required>
-                                                        <option value="">-- Select Sub Categories --</option>
+
+                                                    <select class="form-control" name="SC_Id" id="subcategory">
+
+                                                        <option value="">-- Select Sub Category --</option>
+
                                                         @foreach ($sub_categories as $sub_category)
                                                             <option value="{{ $sub_category->SC_Id }}"
+                                                                data-category="{{ $sub_category->CT_Id }}"
+                                                                style="display: none;"
                                                                 {{ old('SC_Id', $attributes->SC_Id ?? '') == $sub_category->SC_Id ? 'selected' : '' }}>
+
                                                                 {{ $sub_category->SC_Name }}
+
                                                             </option>
                                                         @endforeach
+
                                                     </select>
 
+                                                    {{-- <small id="subcategory-error" class="text-danger"></small> --}}
+
                                                 </div>
+
                                                 @error('SC_Id')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -99,7 +113,7 @@
 
 
 
-                                                         <div class="mb-3 row">
+                                            <div class="mb-3 row">
 
                                                 <div class="col-sm-10">
                                                     <label>Options</label>
@@ -136,4 +150,46 @@
     <!-- vendor js -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#subcategory').click(function() {
+
+                if ($('#category').val() === '') {
+
+                    $('#subcategory-error').text(
+                        'Please select a category first.'
+                    );
+
+                }
+
+            });
+
+            $('#category').change(function() {
+
+                let categoryId = $(this).val();
+
+                $('#subcategory-error').text('');
+
+                $('#subcategory').val('');
+
+                $('#subcategory option').hide();
+
+                $('#subcategory option:first').show();
+
+                if (categoryId === '') {
+
+                    $('#subcategory').prop('disabled', true);
+
+                    return;
+                }
+
+                $('#subcategory').prop('disabled', false);
+
+                $('#subcategory option[data-category="' + categoryId + '"]').show();
+
+            });
+
+        });
+    </script>
 @endsection

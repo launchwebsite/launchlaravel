@@ -1,56 +1,84 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PageController extends Controller
 {
-    public function home(){
-        return view("home");
+    public function home()
+    {
+        $category   = Category::withCount('products')->get();
+        $categories = Category::withCount('products')->with([
+            'subcategories' => function ($query) {
+                $query->withCount('products');
+            },
+        ])
+            ->latest()->take(4)->get();
+
+        return view("home", compact('category', 'categories'));
     }
 
-    public function categorylist(){
-        return view("categorylist");
+    public function categorylist()
+    {
+        $categoriess = Category::withCount('products')
+            ->with([
+                'subcategories' => function ($query) {
+                    $query->withCount('products');
+                },
+            ])
+            ->latest()
+            ->get();
+
+        return view('categorylist', compact('categoriess'));
     }
 
-    public function categorydetails(){
+    public function categorydetails()
+    {
         return view("categorydetails");
     }
 
-    public function jobopening(){
+    public function jobopening()
+    {
         return view("jobopening");
     }
 
-    public function contact(){
+    public function contact()
+    {
         return view("contact");
     }
 
-    public function applyjob(){
+    public function applyjob()
+    {
         return view("applyjob");
     }
 
-    public function adpost(){
+    public function adpost()
+    {
         return view("addpost");
     }
 
-    public function addetails(){
+    public function addetails()
+    {
         return view("ad-details");
     }
 
-    public function adlist1(){
+    public function adlist1()
+    {
         return view("ad-list-column1");
     }
 
-    public function adlist2(){
+    public function adlist2()
+    {
         return view("ad-list-column2");
     }
 
-    public function adlist3(){
+    public function adlist3()
+    {
         return view("ad-list-column3");
     }
 
-    public function user(){
+    public function user()
+    {
         return view("user-form");
     }
 

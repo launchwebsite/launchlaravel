@@ -62,7 +62,7 @@
                                     <span class="text-danger"
                                         style="color:#ff4d4f; display:block; margin-top:4px;">{{ $message }}</span>
                                 @enderror
-                                <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button>
+                                {{-- <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button> --}}
                                 <small class="form-alert">Please enter a valid email address.</small>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                                <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button>
+                                {{-- <button type="button" class="form-icon"><i class="eye fas fa-eye"></i></button> --}}
                                 <small class="form-alert">Enter your password.</small>
                             </div>
                         </div>
@@ -219,7 +219,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <input name="VR_Password" type="password" class="form-control" placeholder="Password">
-                                <button class="form-icon"><i class="eye fas fa-eye"></i></button>
+                                {{-- <button class="form-icon"><i class="eye fas fa-eye"></i></button> --}}
                                 <small class="form-alert">Use a strong password.</small>
                                 @error('VR_Password')
                                     <span class="text-danger">{{ $message }}</span>

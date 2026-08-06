@@ -30,21 +30,11 @@
                                         @endif
 
                                         <div class="form-group mb-2 mt-3">
-                                            <label class="form-label" for="username">Username</label>
+                                            <label class="form-label" for="username">Username or Email</label>
                                             <input type="text" class="form-control" name="username" id="username"
-                                                placeholder="Enter Username" required autofocus autocomplete="off"
+                                                placeholder="Enter Username or Email" required autofocus autocomplete="on"
                                                 value="{{ old('username') }}">
                                             @error('username')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="form-group mb-2">
-                                            <label class="form-label" for="email">Email</label>
-                                            <input type="text" class="form-control" name="email" id="email"
-                                                placeholder="Enter Email" required autocomplete="on"
-                                                value="{{ old('email') }}">
-                                            @error('email')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
