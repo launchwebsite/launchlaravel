@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->bigIncrements('AT_Id');      // Custom primary key
+        Schema::create('careers', function (Blueprint $table) {
+            $table->bigIncrements('CR_Id');      // Custom primary key
             $table->unsignedBigInteger('CT_Id'); // Foreign key to category table
             $table->unsignedBigInteger('SC_Id'); // Foreign key to category table
-            $table->string('AT_Inputs');
-            $table->text('AT_Structure')->nullable();
+            $table->string('CR_Name');
+            $table->text('CR_Location')->nullable();
+            $table->text('CR_SalaryRange')->nullable();
+            $table->text('CR_Img')->nullable();
+            $table->text('CR_Type')->nullable();
             $table->timestamps();
             $table->foreign('CT_Id')->references('CT_Id')->on('categories')->onDelete('cascade');
             $table->foreign('SC_Id')->references('SC_Id')->on('sub_categories')->onDelete('cascade');
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attributes');
+        Schema::dropIfExists('careers');
     }
 };
