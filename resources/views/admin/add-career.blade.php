@@ -108,6 +108,7 @@
                                                 <div class="col-sm-12">
                                                     <input type="text" name="SC_Name" class="form-control"
                                                         list="subCategoryList"
+                                                        placeholder="Sub Category"
                                                         value="{{ old('SC_Name', $careers->subCategory->SC_Name ?? '') }}"
                                                         autocomplete="off">
 
