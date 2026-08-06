@@ -694,8 +694,10 @@ namespace App\Models {
      * @property string|null $CT_Img
      * @property string $CT_Name
      * @property int $CT_Id
-     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubCategory> $subCategories
-     * @property-read int|null $sub_categories_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubCategory> $subcategories
+     * @property-read int|null $subcategories_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtImg($value)
@@ -1364,6 +1366,8 @@ namespace App\Models {
      * @property int $CT_Id
      * @property int $SC_Id
      * @property-read \App\Models\Category $category
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereScId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereScName($value)
