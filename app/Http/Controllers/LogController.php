@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
+
 // use App\Models\User;
 // use Illuminate\Support\Facades\Hash;
 
@@ -17,27 +18,29 @@ class LogController extends Controller
 
     public function loginuser(Request $request)
     {
-
-        $validation = $request->validate([
-            'email'    => 'required|email|exists:users,email',
-            'password' => ['required', Password::min(8)->letters()->mixedCase()->symbols()],
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        if (Auth::attempt($validation)) {
+        $field = filter_var($request->username, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'username';
 
-            //for storing the login token.
+        if (Auth::attempt([
+            $field     => $request->username,
+            'password' => $request->password,
+        ])) {
+
             $request->session()->regenerate();
+
             return redirect()->route('page.dashboard');
-
-        } else {
-            throw ValidationException::withMessages([
-                'email' => ['Those credentials does not match'],
-            ]);
-
         }
 
+        throw ValidationException::withMessages([
+            'username' => ['These credentials do not match our records.'],
+        ]);
     }
-
 // public function register()
 // {
 //     return view('auth.login'); // SAME page reuse
