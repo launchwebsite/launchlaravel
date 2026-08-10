@@ -5,8 +5,8 @@ use App\Models\Career;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class CareerController extends Controller
 {
@@ -39,6 +39,7 @@ class CareerController extends Controller
             'CR_Location'    => 'nullable|string',
             'CR_SalaryRange' => 'nullable|string',
             'CR_Type'        => 'nullable|string',
+            'CR_Company'     => 'nullable|string',
             'CR_Img'         => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -66,6 +67,7 @@ class CareerController extends Controller
             'CR_Location'    => $request->CR_Location,
             'CR_SalaryRange' => $request->CR_SalaryRange,
             'CR_Type'        => $request->CR_Type,
+            'CR_Company'     => $request->CR_Company,
         ];
 
         // Upload Image
@@ -111,6 +113,7 @@ class CareerController extends Controller
             'CR_Location'    => 'nullable|string',
             'CR_SalaryRange' => 'nullable|string',
             'CR_Type'        => 'nullable|string',
+            'CR_Company'     => 'nullable|string',
             'CR_Img'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -118,29 +121,29 @@ class CareerController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-      $newName = trim($request->SC_Name);
+        $newName = trim($request->SC_Name);
 
 // Check if another subcategory already has this name
-$existing = SubCategory::where('CT_Id', $request->CT_Id)
-    ->where('SC_Name', $newName)
-    ->first();
+        $existing = SubCategory::where('CT_Id', $request->CT_Id)
+            ->where('SC_Name', $newName)
+            ->first();
 
-if ($existing) {
+        if ($existing) {
 
-    // Use existing subcategory
-    $SC_Id = $existing->SC_Id;
+            // Use existing subcategory
+            $SC_Id = $existing->SC_Id;
 
-} else {
+        } else {
 
-    // Rename the current subcategory instead of creating a new one
-    $subCategory = SubCategory::findOrFail($career->SC_Id);
+            // Rename the current subcategory instead of creating a new one
+            $subCategory = SubCategory::findOrFail($career->SC_Id);
 
-    $subCategory->update([
-        'SC_Name' => $newName,
-    ]);
+            $subCategory->update([
+                'SC_Name' => $newName,
+            ]);
 
-    $SC_Id = $subCategory->SC_Id;
-}
+            $SC_Id = $subCategory->SC_Id;
+        }
 
         $data = [
             'CT_Id'          => $request->CT_Id,
@@ -149,6 +152,7 @@ if ($existing) {
             'CR_Location'    => $request->CR_Location,
             'CR_SalaryRange' => $request->CR_SalaryRange,
             'CR_Type'        => $request->CR_Type,
+            'CR_Company'     => $request->CR_Company,
         ];
 
         // Upload Image

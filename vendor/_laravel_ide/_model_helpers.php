@@ -343,66 +343,9 @@ namespace App\Models {
     }
 
     /**
-<<<<<<< HEAD
-     * App\Models\Category
-     *
-     * @property \Illuminate\Support\Carbon|null $updated_at
-     * @property \Illuminate\Support\Carbon|null $created_at
-     * @property string|null $CT_Img
-     * @property string $CT_Name
-     * @property int $CT_Id
-     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubCategory> $subcategories
-     * @property-read int|null $subcategories_count
-     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
-     * @property-read int|null $products_count
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtImg($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereUpdatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category query()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category select(mixed $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category selectSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category selectExpression(\Illuminate\Contracts\Database\Query\Expression|literal-string $expression, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category selectRaw(literal-string $expression)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category fromSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category fromRaw(literal-string $expression, mixed $bindings)
-     * @method static array createSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static array parseSub(mixed $query)
-     * @method static mixed prependDatabaseNameIfCrossDatabaseQuery(mixed $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addSelect(mixed $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category selectVectorDistance(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, string|null $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category distinct()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category from(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $table, string|null $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category useIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category forceIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category ignoreIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category join(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second, string $type, bool $where)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category joinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second, string $type)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category joinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second, string $type, bool $where)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category joinLateral(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category leftJoinLateral(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category leftJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category leftJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category leftJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category rightJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category rightJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category rightJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category crossJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string|null $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category crossJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category straightJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category straightJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category straightJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Query\JoinClause newJoinClause(string $type, \Illuminate\Contracts\Database\Query\Expression|string $table)
-     * @method static \Illuminate\Database\Query\JoinLateralClause newJoinLateralClause(string $type, \Illuminate\Contracts\Database\Query\Expression|string $table)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category mergeWheres(array $wheres, array $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category where(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addArrayOfWheres(array $column, string $boolean, string $method)
-=======
      * App\Models\Career
      *
+     * @property string|null $CR_Company
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $CR_Type
@@ -425,6 +368,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrCompany($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career query()
@@ -465,144 +409,10 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career mergeWheres(array $wheres, array $bindings)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career where(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career addArrayOfWheres(array $column, string $boolean, string $method)
->>>>>>> feature/vehicles-listing
      * @method static array prepareValueAndOperator(string $value, string $operator, bool $useDefault)
      * @method static bool invalidOperatorAndValue(string $operator, mixed $value)
      * @method static bool invalidOperator(string $operator)
      * @method static bool isBitwiseOperator(string $operator)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhere(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereColumn(\Illuminate\Contracts\Database\Query\Expression|string|array $first, string|null $operator, string|null $second, string|null $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereColumn(\Illuminate\Contracts\Database\Query\Expression|string|array $first, string|null $operator, string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereVectorSimilarTo(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $minSimilarity A value between 0.0 and 1.0, where 1.0 is identical., bool $order)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereVectorDistanceLessThan(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $maxDistance, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereVectorDistanceLessThan(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $maxDistance)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereRaw(\Illuminate\Contracts\Database\Query\Expression|literal-string $sql, mixed $bindings, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereRaw(literal-string $sql, mixed $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNullSafeEquals(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNullSafeEquals(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereIntegerInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereIntegerInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereIntegerNotInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereIntegerNotInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNull(string|array|\Illuminate\Contracts\Database\Query\Expression $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNull(string|array|\Illuminate\Contracts\Database\Query\Expression $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotNull(string|array|\Illuminate\Contracts\Database\Query\Expression $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereValueBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereValueBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereValueNotBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereValueNotBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotNull(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereDate(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereDate(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereTime(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereTime(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereDay(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereDay(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereMonth(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereMonth(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereYear(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereYear(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addDateBasedWhere(string $type, \Illuminate\Contracts\Database\Query\Expression|string $column, string $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNested(string $boolean)
-     * @method static \Illuminate\Database\Query\Builder forNestedWhere()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addNestedWhereQuery(\Illuminate\Database\Query\Builder $query, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereSub(\Illuminate\Contracts\Database\Query\Expression|string $column, string $operator, \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNotExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNotExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addWhereExistsQuery(string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereRowValues(array $columns, string $operator, array $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereRowValues(array $columns, string $operator, array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonContains(string $column, mixed $value, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonContains(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonDoesntContain(string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonDoesntContain(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonOverlaps(string $column, mixed $value, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonOverlaps(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonDoesntOverlap(string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonDoesntOverlap(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonContainsKey(string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonContainsKey(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonDoesntContainKey(string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonDoesntContainKey(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereJsonLength(string $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereJsonLength(string $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category dynamicWhere(string $method, array $parameters)
-     * @method static void addDynamic(string $segment, string $connector, array $parameters, int $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereFullText(string|string[] $columns, string $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereFullText(string|string[] $columns, string $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereAll(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereAll(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereAny(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereAny(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNone(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNone(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category groupBy(array|\Illuminate\Contracts\Database\Query\Expression|string ...$groups)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category groupByRaw(literal-string $sql)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category having(\Illuminate\Contracts\Database\Query\Expression|\Closure|string $column, \DateTimeInterface|string|int|float|null $operator, \Illuminate\Contracts\Database\Query\Expression|\DateTimeInterface|string|int|float|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHaving(\Illuminate\Contracts\Database\Query\Expression|\Closure|string $column, \DateTimeInterface|string|int|float|null $operator, \Illuminate\Contracts\Database\Query\Expression|\DateTimeInterface|string|int|float|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingNested(string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addNestedHavingQuery(\Illuminate\Database\Query\Builder $query, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingNull(array|string $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHavingNull(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingNotNull(array|string $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHavingNotNull(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingBetween(string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingNotBetween(string $column, iterable $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHavingBetween(string $column, iterable $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHavingNotBetween(string $column, iterable $values)
-     * @method static array{\DateTimeInterface, \DateTimeInterface} resolveDatePeriodBounds(\DatePeriod $period)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category havingRaw(literal-string $sql, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orHavingRaw(literal-string $sql)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orderBy(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, \SortDirection|"asc"|"desc" $direction)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orderByDesc(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category latest(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category oldest(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orderByVectorDistance(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float> $vector)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category inRandomOrder(string|int $seed)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category inOrderOf(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orderByRaw(literal-string $sql, array $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category skip(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category offset(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category take(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category limit(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category groupLimit(int $value, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category forPage(int $page, int $perPage)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category forPageBeforeId(int $perPage, int|null $lastId, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category forPageAfterId(int $perPage, int|null $lastId, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category reorder(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string|null $column, \SortDirection|"asc"|"desc" $direction)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category reorderDesc(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string|null $column)
-     * @method static array removeExistingOrdersFor(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category union(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $query, bool $all)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category unionAll(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category lock(string|bool $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category lockForUpdate()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category sharedLock()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category timeout(int|null $seconds)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category beforeQuery()
-     * @method static void applyBeforeQueryCallbacks()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category afterQuery()
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career orWhere(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career orWhereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
@@ -734,7 +544,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career beforeQuery()
      * @method static void applyBeforeQueryCallbacks()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career afterQuery()
->>>>>>> feature/vehicles-listing
      * @method static mixed applyAfterQueryCallbacks(mixed $result)
      * @method static string toSql()
      * @method static string toRawSql()
@@ -752,11 +561,7 @@ namespace App\Models {
      * @method static \Illuminate\Support\Collection ensureOrderForCursorPagination(bool $shouldReverse)
      * @method static int<0, max> getCountForPagination(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
      * @method static mixed runPaginationCountQuery(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category cloneForPaginationCount()
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career cloneForPaginationCount()
->>>>>>> feature/vehicles-listing
      * @method static array<string|\Illuminate\Contracts\Database\Query\Expression> withoutSelectAliases(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
      * @method static \Illuminate\Support\LazyCollection<int, \stdClass> cursor()
      * @method static void enforceOrderBy()
@@ -777,11 +582,7 @@ namespace App\Models {
      * @method static mixed average(\Illuminate\Contracts\Database\Query\Expression|string $column)
      * @method static mixed aggregate(string $function, array $columns)
      * @method static float|int numericAggregate(string $function, array $columns)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category setAggregate(string $function, array<\Illuminate\Contracts\Database\Query\Expression|string> $columns)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career setAggregate(string $function, array<\Illuminate\Contracts\Database\Query\Expression|string> $columns)
->>>>>>> feature/vehicles-listing
      * @method static bool insert()
      * @method static int<0, max> insertOrIgnore()
      * @method static \Illuminate\Support\Collection insertOrIgnoreReturning(non-empty-array<non-empty-string> $returning, non-empty-string|non-empty-array<non-empty-string>|null $uniqueBy)
@@ -807,17 +608,10 @@ namespace App\Models {
      * @method static mixed getOffset()
      * @method static mixed getBindings()
      * @method static mixed getRawBindings()
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category setBindings(list<mixed> $bindings, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addBinding(mixed $value, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
-     * @method static mixed castBinding(mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category mergeBindings(self $query)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career setBindings(list<mixed> $bindings, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career addBinding(mixed $value, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
      * @method static mixed castBinding(mixed $value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career mergeBindings(self $query)
->>>>>>> feature/vehicles-listing
      * @method static mixed cleanBindings(mixed[] $bindings)
      * @method static mixed flattenValue(mixed $value)
      * @method static string defaultKeyName()
@@ -825,38 +619,6 @@ namespace App\Models {
      * @method static void ensureConnectionSupportsVectors()
      * @method static \Illuminate\Database\Query\Processors\Processor getProcessor()
      * @method static \Illuminate\Database\Query\Grammars\Grammar getGrammar()
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category useWritePdo()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category fetchUsing(mixed ...$fetchUsing)
-     * @method static bool isQueryable(mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category clone()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category cloneWithout()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category cloneWithoutBindings()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category dump(mixed ...$args)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category dumpRawSql()
-     * @method static void dd()
-     * @method static void ddRawSql()
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category wherePast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNowOrPast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWherePast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNowOrPast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNowOrFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNowOrFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category wherePastOrFuture(array|string $columns, string $operator, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereToday(array|string $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereBeforeToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereTodayOrBefore(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereAfterToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereTodayOrAfter(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereBeforeToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereTodayOrBefore(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereAfterToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereTodayOrAfter(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereTodayBeforeOrAfter(array|string $columns, string $operator, string $boolean)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career useWritePdo()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career fetchUsing(mixed ...$fetchUsing)
      * @method static bool isQueryable(mixed $value)
@@ -887,7 +649,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career orWhereAfterToday(array|string $columns)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career orWhereTodayOrAfter(array|string $columns)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereTodayBeforeOrAfter(array|string $columns, string $operator, string $boolean)
->>>>>>> feature/vehicles-listing
      * @method static bool chunk(int $count, callable(\Illuminate\Support\Collection<int, mixed>, int): mixed $callback)
      * @method static mixed chunkMap(callable(mixed): \TReturn $callback, int $count)
      * @method static bool each(callable(mixed, int): mixed $callback, int $count)
@@ -899,25 +660,15 @@ namespace App\Models {
      * @method static mixed lazyById(int $chunkSize, string|null $column, string|null $alias)
      * @method static mixed lazyByIdDesc(int $chunkSize, string|null $column, string|null $alias)
      * @method static \Illuminate\Support\LazyCollection orderedLazyById(int $chunkSize, string|null $column, string|null $alias, \SortDirection|bool $descending)
-<<<<<<< HEAD
-     * @method static Category|null first(array|string $columns)
-     * @method static Category firstOrFail(array|string $columns, string|null $message)
-     * @method static Category sole(array|string $columns)
-=======
      * @method static Career|null first(array|string $columns)
      * @method static Career firstOrFail(array|string $columns, string|null $message)
      * @method static Career sole(array|string $columns)
->>>>>>> feature/vehicles-listing
      * @method static \Illuminate\Contracts\Pagination\CursorPaginator paginateUsingCursor(int $perPage, array|string $columns, string $cursorName, \Illuminate\Pagination\Cursor|string|null $cursor)
      * @method static string getOriginalColumnNameForCursorPagination(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $builder, string $parameter)
      * @method static \Illuminate\Pagination\LengthAwarePaginator paginator(\Illuminate\Support\Collection $items, int $total, int $perPage, int $currentPage, array $options)
      * @method static \Illuminate\Pagination\Paginator simplePaginator(\Illuminate\Support\Collection $items, int $perPage, int $currentPage, array $options)
      * @method static \Illuminate\Pagination\CursorPaginator cursorPaginator(\Illuminate\Support\Collection $items, int $perPage, \Illuminate\Pagination\Cursor $cursor, array $options)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category tap(callable($this): mixed $callback)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career tap(callable($this): mixed $callback)
->>>>>>> feature/vehicles-listing
      * @method static mixed pipe(callable($this): \TReturn $callback)
      * @method static mixed when(\Closure($this): \TWhenParameter|\TWhenParameter|null $value, callable($this, \TWhenParameter): \TWhenReturnType|null $callback, callable($this, \TWhenParameter): \TWhenReturnType|null $default)
      * @method static mixed unless(\Closure($this): \TUnlessParameter|\TUnlessParameter|null $value, callable($this, \TUnlessParameter): \TUnlessReturnType|null $callback, callable($this, \TUnlessParameter): \TUnlessReturnType|null $default)
@@ -932,72 +683,12 @@ namespace App\Models {
      * @method static mixed macroCall(string $method, array $parameters)
      * @mixin \Illuminate\Database\Query\Builder
      */
-<<<<<<< HEAD
-    class Category extends \Illuminate\Database\Eloquent\Model
-=======
     class Career extends \Illuminate\Database\Eloquent\Model
->>>>>>> feature/vehicles-listing
     {
         //
     }
 
     /**
-<<<<<<< HEAD
-     * App\Models\Product
-     *
-     * @property \Illuminate\Support\Carbon|null $updated_at
-     * @property \Illuminate\Support\Carbon|null $created_at
-     * @property array $PR_Details
-     * @property int $SC_Id
-     * @property int $CT_Id
-     * @property int $PR_Id
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrDetails($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product query()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product select(mixed $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product selectSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product selectExpression(\Illuminate\Contracts\Database\Query\Expression|literal-string $expression, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product selectRaw(literal-string $expression)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product fromSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product fromRaw(literal-string $expression, mixed $bindings)
-     * @method static array createSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static array parseSub(mixed $query)
-     * @method static mixed prependDatabaseNameIfCrossDatabaseQuery(mixed $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addSelect(mixed $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product selectVectorDistance(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, string|null $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product distinct()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product from(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $table, string|null $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product useIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product forceIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product ignoreIndex(string $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product join(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second, string $type, bool $where)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product joinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second, string $type)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product joinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second, string $type, bool $where)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product joinLateral(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product leftJoinLateral(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product leftJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product leftJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product leftJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product rightJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product rightJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product rightJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product crossJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string|null $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product crossJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product straightJoin(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product straightJoinWhere(\Illuminate\Contracts\Database\Query\Expression|string $table, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string $operator, \Illuminate\Contracts\Database\Query\Expression|string $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product straightJoinSub(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|string $query, string $as, \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first, string|null $operator, \Illuminate\Contracts\Database\Query\Expression|string|null $second)
-     * @method static \Illuminate\Database\Query\JoinClause newJoinClause(string $type, \Illuminate\Contracts\Database\Query\Expression|string $table)
-     * @method static \Illuminate\Database\Query\JoinLateralClause newJoinLateralClause(string $type, \Illuminate\Contracts\Database\Query\Expression|string $table)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product mergeWheres(array $wheres, array $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product where(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addArrayOfWheres(array $column, string $boolean, string $method)
-=======
      * App\Models\Category
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
@@ -1054,144 +745,10 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category mergeWheres(array $wheres, array $bindings)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category where(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addArrayOfWheres(array $column, string $boolean, string $method)
->>>>>>> feature/vehicles-listing
      * @method static array prepareValueAndOperator(string $value, string $operator, bool $useDefault)
      * @method static bool invalidOperatorAndValue(string $operator, mixed $value)
      * @method static bool invalidOperator(string $operator)
      * @method static bool isBitwiseOperator(string $operator)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhere(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereColumn(\Illuminate\Contracts\Database\Query\Expression|string|array $first, string|null $operator, string|null $second, string|null $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereColumn(\Illuminate\Contracts\Database\Query\Expression|string|array $first, string|null $operator, string|null $second)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereVectorSimilarTo(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $minSimilarity A value between 0.0 and 1.0, where 1.0 is identical., bool $order)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereVectorDistanceLessThan(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $maxDistance, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereVectorDistanceLessThan(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float>|string $vector, float $maxDistance)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereRaw(\Illuminate\Contracts\Database\Query\Expression|literal-string $sql, mixed $bindings, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereRaw(literal-string $sql, mixed $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotLike(\Illuminate\Contracts\Database\Query\Expression|string $column, string $value, bool $caseSensitive)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNullSafeEquals(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNullSafeEquals(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotIn(\Illuminate\Contracts\Database\Query\Expression|string $column, mixed $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereIntegerInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereIntegerInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereIntegerNotInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereIntegerNotInRaw(string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNull(string|array|\Illuminate\Contracts\Database\Query\Expression $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNull(string|array|\Illuminate\Contracts\Database\Query\Expression $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotNull(string|array|\Illuminate\Contracts\Database\Query\Expression $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotBetween(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotBetweenColumns(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereValueBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereValueBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereValueNotBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereValueNotBetween(mixed $value, array{\Illuminate\Contracts\Database\Query\Expression|string, \Illuminate\Contracts\Database\Query\Expression|string} $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotNull(\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDate(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereDate(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTime(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereTime(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|null $operator, \DateTimeInterface|string|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereDay(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereDay(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereMonth(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereMonth(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereYear(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereYear(\Illuminate\Contracts\Database\Query\Expression|string $column, \DateTimeInterface|string|int|null $operator, \DateTimeInterface|string|int|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addDateBasedWhere(string $type, \Illuminate\Contracts\Database\Query\Expression|string $column, string $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNested(string $boolean)
-     * @method static \Illuminate\Database\Query\Builder forNestedWhere()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addNestedWhereQuery(\Illuminate\Database\Query\Builder $query, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereSub(\Illuminate\Contracts\Database\Query\Expression|string $column, string $operator, \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNotExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNotExists(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $callback)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addWhereExistsQuery(string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereRowValues(array $columns, string $operator, array $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereRowValues(array $columns, string $operator, array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonContains(string $column, mixed $value, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonContains(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonDoesntContain(string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonDoesntContain(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonOverlaps(string $column, mixed $value, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonOverlaps(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonDoesntOverlap(string $column, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonDoesntOverlap(string $column, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonContainsKey(string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonContainsKey(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonDoesntContainKey(string $column, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonDoesntContainKey(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereJsonLength(string $column, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereJsonLength(string $column, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product dynamicWhere(string $method, array $parameters)
-     * @method static void addDynamic(string $segment, string $connector, array $parameters, int $index)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereFullText(string|string[] $columns, string $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereFullText(string|string[] $columns, string $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereAll(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereAll(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereAny(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereAny(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNone(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNone(\Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns, mixed $operator, mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product groupBy(array|\Illuminate\Contracts\Database\Query\Expression|string ...$groups)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product groupByRaw(literal-string $sql)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product having(\Illuminate\Contracts\Database\Query\Expression|\Closure|string $column, \DateTimeInterface|string|int|float|null $operator, \Illuminate\Contracts\Database\Query\Expression|\DateTimeInterface|string|int|float|null $value, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHaving(\Illuminate\Contracts\Database\Query\Expression|\Closure|string $column, \DateTimeInterface|string|int|float|null $operator, \Illuminate\Contracts\Database\Query\Expression|\DateTimeInterface|string|int|float|null $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingNested(string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addNestedHavingQuery(\Illuminate\Database\Query\Builder $query, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingNull(array|string $columns, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHavingNull(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingNotNull(array|string $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHavingNotNull(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingBetween(string $column, string $boolean, bool $not)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingNotBetween(string $column, iterable $values, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHavingBetween(string $column, iterable $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHavingNotBetween(string $column, iterable $values)
-     * @method static array{\DateTimeInterface, \DateTimeInterface} resolveDatePeriodBounds(\DatePeriod $period)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product havingRaw(literal-string $sql, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orHavingRaw(literal-string $sql)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orderBy(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column, \SortDirection|"asc"|"desc" $direction)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orderByDesc(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed>|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product latest(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product oldest(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orderByVectorDistance(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Support\Collection<int, float>|\Illuminate\Contracts\Support\Arrayable|array<int, float> $vector)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product inRandomOrder(string|int $seed)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product inOrderOf(\Illuminate\Contracts\Database\Query\Expression|string $column, \Illuminate\Contracts\Support\Arrayable|array $values)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orderByRaw(literal-string $sql, array $bindings)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product skip(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product offset(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product take(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product limit(int $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product groupLimit(int $value, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product forPage(int $page, int $perPage)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product forPageBeforeId(int $perPage, int|null $lastId, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product forPageAfterId(int $perPage, int|null $lastId, string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product reorder(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string|null $column, \SortDirection|"asc"|"desc" $direction)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product reorderDesc(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Contracts\Database\Query\Expression|string|null $column)
-     * @method static array removeExistingOrdersFor(string $column)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product union(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $query, bool $all)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product unionAll(\Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $query)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product lock(string|bool $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product lockForUpdate()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product sharedLock()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product timeout(int|null $seconds)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product beforeQuery()
-     * @method static void applyBeforeQueryCallbacks()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product afterQuery()
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhere(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value, string $boolean)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereNot(\Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column, mixed $operator, mixed $value)
@@ -1323,7 +880,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category beforeQuery()
      * @method static void applyBeforeQueryCallbacks()
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category afterQuery()
->>>>>>> feature/vehicles-listing
      * @method static mixed applyAfterQueryCallbacks(mixed $result)
      * @method static string toSql()
      * @method static string toRawSql()
@@ -1341,11 +897,7 @@ namespace App\Models {
      * @method static \Illuminate\Support\Collection ensureOrderForCursorPagination(bool $shouldReverse)
      * @method static int<0, max> getCountForPagination(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
      * @method static mixed runPaginationCountQuery(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product cloneForPaginationCount()
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category cloneForPaginationCount()
->>>>>>> feature/vehicles-listing
      * @method static array<string|\Illuminate\Contracts\Database\Query\Expression> withoutSelectAliases(array<string|\Illuminate\Contracts\Database\Query\Expression> $columns)
      * @method static \Illuminate\Support\LazyCollection<int, \stdClass> cursor()
      * @method static void enforceOrderBy()
@@ -1366,11 +918,7 @@ namespace App\Models {
      * @method static mixed average(\Illuminate\Contracts\Database\Query\Expression|string $column)
      * @method static mixed aggregate(string $function, array $columns)
      * @method static float|int numericAggregate(string $function, array $columns)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product setAggregate(string $function, array<\Illuminate\Contracts\Database\Query\Expression|string> $columns)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category setAggregate(string $function, array<\Illuminate\Contracts\Database\Query\Expression|string> $columns)
->>>>>>> feature/vehicles-listing
      * @method static bool insert()
      * @method static int<0, max> insertOrIgnore()
      * @method static \Illuminate\Support\Collection insertOrIgnoreReturning(non-empty-array<non-empty-string> $returning, non-empty-string|non-empty-array<non-empty-string>|null $uniqueBy)
@@ -1396,17 +944,10 @@ namespace App\Models {
      * @method static mixed getOffset()
      * @method static mixed getBindings()
      * @method static mixed getRawBindings()
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product setBindings(list<mixed> $bindings, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product addBinding(mixed $value, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
-     * @method static mixed castBinding(mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product mergeBindings(self $query)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category setBindings(list<mixed> $bindings, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category addBinding(mixed $value, "select"|"from"|"join"|"where"|"groupBy"|"having"|"order"|"union"|"unionOrder" $type)
      * @method static mixed castBinding(mixed $value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category mergeBindings(self $query)
->>>>>>> feature/vehicles-listing
      * @method static mixed cleanBindings(mixed[] $bindings)
      * @method static mixed flattenValue(mixed $value)
      * @method static string defaultKeyName()
@@ -1414,38 +955,6 @@ namespace App\Models {
      * @method static void ensureConnectionSupportsVectors()
      * @method static \Illuminate\Database\Query\Processors\Processor getProcessor()
      * @method static \Illuminate\Database\Query\Grammars\Grammar getGrammar()
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product useWritePdo()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product fetchUsing(mixed ...$fetchUsing)
-     * @method static bool isQueryable(mixed $value)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product clone()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product cloneWithout()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product cloneWithoutBindings()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product dump(mixed ...$args)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product dumpRawSql()
-     * @method static void dd()
-     * @method static void ddRawSql()
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNowOrPast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWherePast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNowOrPast(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereNowOrFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereNowOrFuture(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePastOrFuture(array|string $columns, string $operator, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereToday(array|string $columns, string $boolean)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereBeforeToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTodayOrBefore(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereAfterToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTodayOrAfter(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereBeforeToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereTodayOrBefore(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereAfterToday(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product orWhereTodayOrAfter(array|string $columns)
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereTodayBeforeOrAfter(array|string $columns, string $operator, string $boolean)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category useWritePdo()
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category fetchUsing(mixed ...$fetchUsing)
      * @method static bool isQueryable(mixed $value)
@@ -1476,7 +985,6 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereAfterToday(array|string $columns)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category orWhereTodayOrAfter(array|string $columns)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereTodayBeforeOrAfter(array|string $columns, string $operator, string $boolean)
->>>>>>> feature/vehicles-listing
      * @method static bool chunk(int $count, callable(\Illuminate\Support\Collection<int, mixed>, int): mixed $callback)
      * @method static mixed chunkMap(callable(mixed): \TReturn $callback, int $count)
      * @method static bool each(callable(mixed, int): mixed $callback, int $count)
@@ -1488,25 +996,15 @@ namespace App\Models {
      * @method static mixed lazyById(int $chunkSize, string|null $column, string|null $alias)
      * @method static mixed lazyByIdDesc(int $chunkSize, string|null $column, string|null $alias)
      * @method static \Illuminate\Support\LazyCollection orderedLazyById(int $chunkSize, string|null $column, string|null $alias, \SortDirection|bool $descending)
-<<<<<<< HEAD
-     * @method static Product|null first(array|string $columns)
-     * @method static Product firstOrFail(array|string $columns, string|null $message)
-     * @method static Product sole(array|string $columns)
-=======
      * @method static Category|null first(array|string $columns)
      * @method static Category firstOrFail(array|string $columns, string|null $message)
      * @method static Category sole(array|string $columns)
->>>>>>> feature/vehicles-listing
      * @method static \Illuminate\Contracts\Pagination\CursorPaginator paginateUsingCursor(int $perPage, array|string $columns, string $cursorName, \Illuminate\Pagination\Cursor|string|null $cursor)
      * @method static string getOriginalColumnNameForCursorPagination(\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<mixed> $builder, string $parameter)
      * @method static \Illuminate\Pagination\LengthAwarePaginator paginator(\Illuminate\Support\Collection $items, int $total, int $perPage, int $currentPage, array $options)
      * @method static \Illuminate\Pagination\Paginator simplePaginator(\Illuminate\Support\Collection $items, int $perPage, int $currentPage, array $options)
      * @method static \Illuminate\Pagination\CursorPaginator cursorPaginator(\Illuminate\Support\Collection $items, int $perPage, \Illuminate\Pagination\Cursor $cursor, array $options)
-<<<<<<< HEAD
-     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product tap(callable($this): mixed $callback)
-=======
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category tap(callable($this): mixed $callback)
->>>>>>> feature/vehicles-listing
      * @method static mixed pipe(callable($this): \TReturn $callback)
      * @method static mixed when(\Closure($this): \TWhenParameter|\TWhenParameter|null $value, callable($this, \TWhenParameter): \TWhenReturnType|null $callback, callable($this, \TWhenParameter): \TWhenReturnType|null $default)
      * @method static mixed unless(\Closure($this): \TUnlessParameter|\TUnlessParameter|null $value, callable($this, \TUnlessParameter): \TUnlessReturnType|null $callback, callable($this, \TUnlessParameter): \TUnlessReturnType|null $default)
@@ -1521,29 +1019,28 @@ namespace App\Models {
      * @method static mixed macroCall(string $method, array $parameters)
      * @mixin \Illuminate\Database\Query\Builder
      */
-<<<<<<< HEAD
-    class Product extends \Illuminate\Database\Eloquent\Model
-=======
     class Category extends \Illuminate\Database\Eloquent\Model
->>>>>>> feature/vehicles-listing
     {
         //
     }
 
     /**
-<<<<<<< HEAD
-=======
      * App\Models\Product
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property array $PR_Details
+     * @property string|null $Role_Id
+     * @property int|null $VR_Id
      * @property int $SC_Id
      * @property int $CT_Id
      * @property int $PR_Id
+     * @property-read \App\Models\Vendor $vendor
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereVrId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereRoleId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrDetails($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
@@ -1867,7 +1364,6 @@ namespace App\Models {
     }
 
     /**
->>>>>>> feature/vehicles-listing
      * App\Models\SubCategory
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
@@ -2213,6 +1709,7 @@ namespace App\Models {
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email
+     * @property string $username
      * @property string $name
      * @property int|null $Role_Id
      * @property int $id
@@ -2221,6 +1718,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereRoleId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereUsername($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmailVerifiedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User wherePassword($value)
@@ -2560,10 +2058,9 @@ namespace App\Models {
      * @property string $VR_Email_1
      * @property string|null $VR_Name
      * @property int $VR_Id
-<<<<<<< HEAD
-=======
      * @property-read \App\Models\Category $category
->>>>>>> feature/vehicles-listing
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrEmail1($value)

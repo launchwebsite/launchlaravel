@@ -1,7 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Attributes;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -185,15 +187,6 @@ class VendorController extends Controller
         }
     }
 
-    // public function dashboard()
-    // {
-    //     if (auth()->user()->VR_Status == 0) {
-    //         session()->flash('approval_pending', true);
-    //     }
-
-    //     return view('vendor.index');
-    // }
-
     public function dashboard()
     {
         if (auth()->guard('vendor')->user()->VR_Status == 0) {
@@ -201,5 +194,94 @@ class VendorController extends Controller
         }
 
         return view('vendor.index');
+    }
+
+    public function VendorPostAdd(Request $request)
+    {
+        $request->validate(
+            [
+                'CT_Id'       => 'required|exists:categories,CT_Id',
+                'SC_Id'       => 'required|exists:sub_categories,SC_Id',
+                'AT_Inputs'   => 'required|array',
+
+                'VR_Type'     => 'required|in:private-company,self-employed',
+                'VR_Name'     => 'required|string|max:255',
+                'VR_Email_1'  => 'required|email|max:255',
+                'VR_Email_2'  => 'nullable|email|max:255',
+                'VR_Phone'    => 'required|string|max:15',
+                'VR_Password' => 'required|string|max:15',
+
+            ],
+            [
+                'CT_Id.required'       => 'Please select a Category.',
+                'SC_Id.required'       => 'Please select a Subcategory.',
+                'AT_Inputs.required'   => 'Please fill in the product details.',
+
+                'VR_Type.required'     => 'Please select seller type.',
+                'VR_Name.required'     => 'Please enter your name.',
+                'VR_Email_1.required'  => 'Please enter your email.',
+                'VR_Email_1.email'     => 'Please enter a valid email address.',
+                'VR_Phone.required'    => 'Please enter your mobile number.',
+                'VR_Password.required' => 'Please enter your mobile number.',
+            ]
+        );
+
+        $details = [];
+
+        if ($request->has('AT_Inputs')) {
+
+            foreach ($request->AT_Inputs as $attributeId => $value) {
+
+                $attribute = Attributes::find($attributeId);
+
+                if ($attribute) {
+
+                    // Checkbox values come as arrays
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    }
+
+                    $details[$attribute->AT_Inputs] = $value;
+                }
+            }
+        }
+
+        User::create([
+            'name'     => $request->VR_Name,
+            'email'    => $request->VR_Email_1,
+            'password' => Hash::make($request->VR_Password),
+            'Role_Id'  => 2,
+        ]);
+
+        /*
+        |--------------------------------------------------------------------------
+        | 2. Create Vendor
+        |--------------------------------------------------------------------------
+        */
+
+        $vendor = Vendor::create([
+            'VR_Name'     => $request->VR_Name,
+            'VR_Email_1'  => $request->VR_Email_1,
+            'VR_Email_2'  => $request->VR_Email_2,
+            'VR_Password' => $request->VR_Password,
+            'VR_Phone'    => $request->VR_Phone,
+            'VR_Type'     => $request->VR_Type,
+
+            // Set these according to your application
+            'VR_Status'   => 0,
+            'CT_Id'       => $request->CT_Id,
+        ]);
+
+        Product::create([
+            'CT_Id'      => $request->CT_Id,
+            'SC_Id'      => $request->SC_Id,
+            'Role_Id'    => 2,
+            'VR_Id'      => $vendor->VR_Id,
+            'PR_Details' => $details,
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Your Post  created successfully.');
     }
 }

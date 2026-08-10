@@ -5,8 +5,8 @@
     @include('includes.sidebar')
 
     <!--=====================================
-                                        BANNER PART START
-                            =======================================-->
+                                                BANNER PART START
+                                    =======================================-->
     <section class="banner-part">
         <div class="container">
             <div class="banner-content">
@@ -21,13 +21,13 @@
         </div>
     </section>
     <!--=====================================
-                                        BANNER PART END
-                            =======================================-->
+                                                BANNER PART END
+                                    =======================================-->
 
 
     <!--=====================================
-                                        SUGGEST PART START
-                            =======================================-->
+                                                SUGGEST PART START
+                                    =======================================-->
     <section class="suggest-part">
         <div class="container">
             <div class="suggest-slider slider-arrow">
@@ -43,13 +43,13 @@
         </div>
     </section>
     <!--=====================================
-                                        SUGGEST PART END
-                            =======================================-->
+                                                SUGGEST PART END
+                                    =======================================-->
 
 
     <!--=====================================
-                                        CATEGORY PART START
-                            =======================================-->
+                                                CATEGORY PART START
+                                    =======================================-->
     <section class="section category-part top-categories">
         <div class="container">
             <div class="row">
@@ -102,12 +102,12 @@
         </div>
     </section>
     <!--=====================================
-                                        CATEGORY PART END
-                            =======================================-->
+                                                CATEGORY PART END
+                                    =======================================-->
 
     <!--=====================================
-                                        RECOMEND PART START
-                            =======================================-->
+                                                RECOMEND PART START
+                                    =======================================-->
     <section class="section recomend-part">
         <div class="container">
             <div class="row">
@@ -122,39 +122,32 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="recomend-slider slider-arrow">
+                        @foreach($careers as $career)
                         <div class="product-card jobbies">
                             <div class="product-media">
                                 <div class="product-img">
-                                    <img src="/storage/images/product/01.jpg" alt="product">
+                                    <img src="{{ asset('uploads/career/' . $career->CR_Img) }}" alt="Jobs">
                                 </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                            <span>recommend</span>
-                                                        </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">Full Time</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul> -->
+                                <div class="product-type">
+                                    <span class="flat-badge sale">{{ $career->CR_Type }}</span>
+                                </div>
+
                             </div>
                             <div class="product-content bil-bil">
                                 <ol class="breadcrumb product-category odyssey">
-                                    <!-- <li><i class="fas fa-tags"></i></li> -->
-                                    <!-- <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li> -->
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">Duplex House</li> -->
+
+
                                 </ol>
                                 <h5 class="product-title blue-reccom">
-                                    <a href='{{ route('addetails') }}'>Digital Marketing Specialist</a>
+                                    <a href='{{ route('addetails') }}'>{{ $career->CR_Name }}</a>
                                 </h5>
                                 <div class="product-meta blue-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Sharjah</span>
-                                    <span><i class="fas fa-clock"></i>Posted 1 day ago</span>
+                                    <span><i class="fas fa-map-marker-alt"></i>{{ $career->CR_Name }}</span>
+                                    <span><i class="fas fa-clock"></i>posted {{ $career->updated_at }}</span>
                                 </div>
                                 <div class="product-info blue-price">
-                                    <h5 class="product-price panam">AED 5,000 - 8,000 / Month</h5>
+                                    <h5 class="product-price panam">{{ $career->CR_SalaryRange }}</h5>
                                     <div class="product-btn">
                                         <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
                                         <button type="button" title="Wishlist" class="far fa-heart"></button>
@@ -162,175 +155,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product-card jobbies">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/03.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                            <span>recommend</span>
-                                                        </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">Full Time</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+@endforeach
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul> -->
-                            </div>
-                            <div class="product-content bil-bil">
-                                <ol class="breadcrumb product-category odyssey">
-                                    <!-- <li><i class="fas fa-tags"></i></li> -->
-                                    <!-- <li class="breadcrumb-item"><a href="{{ route('addetails') }}">stationary</a></li> -->
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">books</li> -->
-                                </ol>
-                                <h5 class="product-title blue-reccom">
-                                    <a href='{{ route('addetails') }}'>Senior PHP Laravel Developer</a>
-                                </h5>
-                                <div class="product-meta blue-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Dubai Internet City, Dubai</span>
-                                    <!-- </div>
-                                                        <div class="product-meta blue-meta"> -->
-                                    <span><i class="fas fa-clock"></i>Posted 2 hours ago</span>
-                                </div>
-                                <div class="product-info blue-price">
-                                    <h5 class="product-price panam">AED 8,000 - 12,000 / Month</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card jobbies">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/10.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                            <span>recommend</span>
-                                                        </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge rent">Remote</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
-
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul> -->
-                            </div>
-                            <div class="product-content bil-bil">
-                                <ol class="breadcrumb product-category odyssey">
-                                    <!-- <li><i class="fas fa-tags"></i></li>
-                                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li> -->
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
-                                </ol>
-                                <h5 class="product-title blue-reccom">
-                                    <a href='{{ route('addetails') }}'>Frontend Developer (React.js)</a>
-                                </h5>
-                                <div class="product-meta blue-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Business Bay, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>Posted 5 hours ago</span>
-                                </div>
-                                <div class="product-info blue-price">
-                                    <h5 class="product-price panam">AED 7,000 - 10,000 / Month</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card jobbies">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/09.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                            <span>recommend</span>
-                                                        </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">Full Time</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
-
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul> -->
-                            </div>
-                            <div class="product-content bil-bil">
-                                <ol class="breadcrumb product-category odyssey">
-                                    <!-- <li><i class="fas fa-tags"></i></li>
-                                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">animals</a></li> -->
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
-                                </ol>
-                                <h5 class="product-title blue-reccom">
-                                    <a href='{{ route('addetails') }}'>AWS Cloud Engineer</a>
-                                </h5>
-                                <div class="product-meta blue-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Abu Dhabi</span>
-                                    <span><i class="fas fa-clock"></i>Posted Today</span>
-                                </div>
-                                <div class="product-info blue-price">
-                                    <h5 class="product-price panam">AED 10,000 - 15,000 / Month</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-card jobbies">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/02.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-clipboard-check"></i>
-                                                            <span>recommend</span>
-                                                        </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge booking">Hybrid</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
-
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul> -->
-                            </div>
-                            <div class="product-content bil-bil">
-                                <ol class="breadcrumb product-category odyssey">
-                                    <!-- <li><i class="fas fa-tags"></i></li>
-                                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">fashion</a></li> -->
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">shoes</li> -->
-                                </ol>
-                                <h5 class="product-title blue-reccom">
-                                    <a href='{{ route('addetails') }}'>UI / UX Designer</a>
-                                </h5>
-                                <div class="product-meta blue-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Dubai Marina</span>
-                                    <span><i class="fas fa-clock"></i>Posted Yesterday</span>
-                                </div>
-                                <div class="product-info blue-price">
-                                    <h5 class="product-price panam">AED 6,000 - 9,000 / Month</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-50">
-                        <a class='btn btn-inline btn-greeny' href='{{ route('adlist3') }}'>
+                        <a class='btn btn-inline btn-greeny' href='{{ route('jobopening') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all recommend</span>
                         </a>
@@ -340,13 +173,13 @@
         </div>
     </section>
     <!--=====================================
-                                        RECOMEND PART START
-                            =======================================-->
+                                                RECOMEND PART START
+                                    =======================================-->
 
 
     <!--=====================================
-                                        TREND PART START
-                            =======================================-->
+                                                TREND PART START
+                                    =======================================-->
     <section class="section trend-part">
         <div class="container">
             <div class="row">
@@ -365,19 +198,19 @@
                                 <img src="/storage/images/product/01.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge booking">booking</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                        <ul class="product-action">
-                                                            <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                                                                <ul class="product-action">
+                                                                    <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                        </ul>
-                                                    </ul> -->
+                                                                    <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
+                                                                </ul>
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -409,17 +242,17 @@
                                 <img src="/storage/images/product/02.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge sale">sale</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                        <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                                                                <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                    </ul> -->
+                                                                    <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -451,17 +284,17 @@
                                 <img src="/storage/images/product/03.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge sale">sale</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                          <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                                                                  <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                    </ul> -->
+                                                                    <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -493,17 +326,17 @@
                                 <img src="/storage/images/product/04.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge sale">sale</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                        <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                                                                <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                            <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                    </ul> -->
+                                                                    <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -535,17 +368,17 @@
                                 <img src="/storage/images/product/05.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge sale">sale</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                             <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                             <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                    </ul> -->
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -577,17 +410,17 @@
                                 <img src="/storage/images/product/06.jpg" alt="product">
                             </div>
                             <!-- <div class="cross-vertical-badge product-badge">
-                                                        <i class="fas fa-bolt"></i>
-                                                        <span>trending</span>
-                                                    </div> -->
+                                                                <i class="fas fa-bolt"></i>
+                                                                <span>trending</span>
+                                                            </div> -->
                             <div class="product-type">
                                 <span class="flat-badge rent">rent</span>
                             </div>
                             <!-- <ul class="product-action">
-                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                             <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                             <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                    </ul> -->
+                                                            </ul> -->
                         </div>
                         <div class="product-content">
                             <ol class="breadcrumb product-category">
@@ -626,13 +459,13 @@
         </div>
     </section>
     <!--=====================================
-                                        TREND PART END
-                            =======================================-->
+                                                TREND PART END
+                                    =======================================-->
 
 
     <!--=====================================
-                                        NICHE PART START
-                            =======================================-->
+                                                NICHE PART START
+                                    =======================================-->
     <section class="section niche-part">
         <div class="container">
             <div class="row">
@@ -665,17 +498,17 @@
                                     <img src="/storage/images/product/07.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -708,17 +541,17 @@
                                     <img src="/storage/images/product/08.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -750,17 +583,17 @@
                                     <img src="/storage/images/product/09.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -792,17 +625,17 @@
                                     <img src="/storage/images/product/10.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -834,17 +667,17 @@
                                     <img src="/storage/images/product/11.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -876,17 +709,17 @@
                                     <img src="/storage/images/product/13.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -918,17 +751,17 @@
                                     <img src="/storage/images/product/14.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -960,17 +793,17 @@
                                     <img src="/storage/images/product/15.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1007,17 +840,17 @@
                                     <img src="/storage/images/product/08.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1049,17 +882,17 @@
                                     <img src="/storage/images/product/07.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1092,17 +925,17 @@
                                     <img src="/storage/images/product/10.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1134,17 +967,17 @@
                                     <img src="/storage/images/product/09.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1176,17 +1009,17 @@
                                     <img src="/storage/images/product/13.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1219,17 +1052,17 @@
                                     <img src="/storage/images/product/11.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1261,17 +1094,17 @@
                                     <img src="/storage/images/product/15.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1303,17 +1136,17 @@
                                     <img src="/storage/images/product/14.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                            <i class="fas fa-fire"></i>
-                                                            <span>top niche</span>
-                                                        </div> -->
+                                                                    <i class="fas fa-fire"></i>
+                                                                    <span>top niche</span>
+                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                            <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                        </ul> -->
+                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
@@ -1697,13 +1530,13 @@
         </div>
     </section>
     <!--=====================================
-                                        NICHE PART END
-                            =======================================-->
+                                                NICHE PART END
+                                    =======================================-->
 
 
     <!--=====================================
-                                        CITY PART START
-                            =======================================-->
+                                                CITY PART START
+                                    =======================================-->
     <section class="section city-part">
         <div class="container">
             <div class="row">
@@ -1784,16 +1617,16 @@
         </div>
     </section>
     <!--=====================================
-                                        CITY PART END
-                            =======================================-->
+                                                CITY PART END
+                                    =======================================-->
 
 
 
 
 
     <!--=====================================
-                                        INTRO PART START
-                            =======================================-->
+                                                INTRO PART START
+                                    =======================================-->
     <section class="intro-part">
         <div class="container">
             <div class="row">
@@ -1803,22 +1636,22 @@
                         <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace
                             for property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
-                                                    <i class="fas fa-plus-circle"></i>
-                                                    <span>post your ad</span>
-                                                </a> -->
+                                                            <i class="fas fa-plus-circle"></i>
+                                                            <span>post your ad</span>
+                                                        </a> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--=====================================
-                                        INTRO PART END
-                            =======================================-->
+                                                INTRO PART END
+                                    =======================================-->
 
 
     <!--=====================================
-                                         PRICE PART START
-                            =======================================-->
+                                                 PRICE PART START
+                                    =======================================-->
     <section class="inner-section price-part">
         <div class="container">
             {{-- <div class="row">
@@ -1946,8 +1779,8 @@
         </div>
     </section>
     <!--=====================================
-                                         PRICE PART END
-                            =======================================-->
+                                                 PRICE PART END
+                                    =======================================-->
 
     @include('includes.footer')
 @endsection

@@ -1,12 +1,18 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Attributes;
+use App\Models\Career;
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\SubCategory;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function home()
     {
+        $careers    = Career::all();
         $category   = Category::withCount('products')->get();
         $categories = Category::withCount('products')->with([
             'subcategories' => function ($query) {
@@ -15,7 +21,7 @@ class PageController extends Controller
         ])
             ->latest()->take(4)->get();
 
-        return view("home", compact('category', 'categories'));
+        return view("home", compact('category', 'categories', 'careers'));
     }
 
     public function categorylist()
@@ -39,7 +45,9 @@ class PageController extends Controller
 
     public function jobopening()
     {
-        return view("jobopening");
+        $careers = Career::all();
+
+        return view("jobopening", compact('careers'));
     }
 
     public function contact()
@@ -52,10 +60,21 @@ class PageController extends Controller
         return view("applyjob");
     }
 
-    public function adpost()
-    {
-        return view("addpost");
-    }
+ public function adpost()
+{
+    $attributes = Attributes::all();
+    $categories = Category::all();
+    $sub_categories = SubCategory::all();
+
+    return view('addpost', compact(
+        'attributes',
+        'categories',
+        'sub_categories'
+    ));
+}
+
+
+
 
     public function addetails()
     {
