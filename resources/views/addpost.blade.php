@@ -97,10 +97,6 @@
 
                                 </div>
 
-
-
-
-
                                 @foreach ($attributes as $attribute)
                                     <div class="mb-3 row attribute-row" data-subcategory="{{ $attribute->SC_Id }}"
                                         style="display: none;">

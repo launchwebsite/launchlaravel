@@ -1036,6 +1036,8 @@ namespace App\Models {
      * @property int $CT_Id
      * @property int $PR_Id
      * @property-read \App\Models\Vendor $vendor
+     * @property-read \App\Models\Category $category
+     * @property-read \App\Models\SubCategory $subcategory
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
@@ -1709,7 +1711,7 @@ namespace App\Models {
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email
-     * @property string $username
+     * @property string|null $username
      * @property string $name
      * @property int|null $Role_Id
      * @property int $id
