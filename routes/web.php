@@ -56,6 +56,11 @@ Route::middleware('auth:vendor')->group(function () {
         return redirect()->route('home')->with('success', 'You have been logged out successfully.');
     })->name('vendor.logout');
 
+    Route::get('/vendor/ad-your-post', [VendorController::class, 'postlist'])->name('vendor.postlist');
+
+      Route::get('/vendor-products', [VendorController::class, 'addpost'])->name('vendor.post.form');
+    Route::post('/venddor-products/store', [VendorController::class, 'poststore'])->name('vendor.post-store');
+
 });
 
 Route::middleware('auth')->group(function () {
