@@ -39,4 +39,9 @@ class Vendor extends Authenticatable
     {
         return $this->belongsTo(Category::class, 'CT_Id', 'CT_Id');
     }
+
+    public function products()
+{
+    return $this->hasMany(Product::class, 'VR_Id', 'VR_Id');
+}
 }

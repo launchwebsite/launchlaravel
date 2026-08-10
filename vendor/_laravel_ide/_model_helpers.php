@@ -345,6 +345,7 @@ namespace App\Models {
     /**
      * App\Models\Career
      *
+     * @property string|null $CR_Company
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $CR_Type
@@ -367,6 +368,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrCompany($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career query()
@@ -694,8 +696,10 @@ namespace App\Models {
      * @property string|null $CT_Img
      * @property string $CT_Name
      * @property int $CT_Id
-     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubCategory> $subCategories
-     * @property-read int|null $sub_categories_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SubCategory> $subcategories
+     * @property-read int|null $subcategories_count
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Category>|Category whereCtImg($value)
@@ -1026,12 +1030,17 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property array $PR_Details
+     * @property string|null $Role_Id
+     * @property int|null $VR_Id
      * @property int $SC_Id
      * @property int $CT_Id
      * @property int $PR_Id
+     * @property-read \App\Models\Vendor $vendor
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereVrId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereRoleId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrDetails($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
@@ -1364,6 +1373,8 @@ namespace App\Models {
      * @property int $CT_Id
      * @property int $SC_Id
      * @property-read \App\Models\Category $category
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereScId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<SubCategory>|SubCategory whereScName($value)
@@ -1698,7 +1709,7 @@ namespace App\Models {
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email
-     * @property string|null $username
+     * @property string $username
      * @property string $name
      * @property int|null $Role_Id
      * @property int $id
@@ -2048,6 +2059,8 @@ namespace App\Models {
      * @property string|null $VR_Name
      * @property int $VR_Id
      * @property-read \App\Models\Category $category
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrEmail1($value)

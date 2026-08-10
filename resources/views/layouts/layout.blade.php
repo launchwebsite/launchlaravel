@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="/storage/css/custom/contact.css">
     <link rel="stylesheet" href="/storage/css/custom/user-form.css">
     <link rel="stylesheet" href="/storage/css/custom/ad-details.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- <link rel="stylesheet" href="/storage/css/custom/price.css"> -->
     <!--=====================================
                     CSS LINK PART END
@@ -87,6 +88,17 @@
     <!--=====================================
                     JS LINK PART END
         =======================================-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+    </script>
 </body>
 
 </html>
