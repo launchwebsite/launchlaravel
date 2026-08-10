@@ -5016,11 +5016,15 @@ body[data-sidebar-size="condensed"] .logo-icon {
     color: #ffff;
 }
 
-.text-violet{
-    color: #BF7BFF;
+.text-violet {
+    color: #bf7bff;
 }
 
-.text-orange{
-    color: #FF7043;
+.text-orange {
+    color: #ff7043;
 }
 
+.product-kiki {
+    margin-left: 160px;
+    margin-top: 140px;
+}
