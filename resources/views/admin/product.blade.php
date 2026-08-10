@@ -311,35 +311,147 @@
     </div>
 
     <script>
-        $('#category').change(function() {
+        $(document).ready(function() {
 
-            let categoryId = $(this).val();
+            const category = $('#category');
+            const subcategory = $('#subcategory');
+            const attributeContainer = $('#attribute-container');
+            const attributeRows = $('.attribute-row');
 
-            $('#subcategory').prop('disabled', categoryId === '');
+            /*
+            |--------------------------------------------------------------------------
+            | CATEGORY CHANGE
+            |--------------------------------------------------------------------------
+            */
+            category.on('change', function() {
 
-            $('#subcategory').val('');
+                let categoryId = $(this).val();
 
-            $('#subcategory option').hide();
+                // Reset subcategory
+                subcategory.html(
+                    '<option value="">Select Sub Category</option>'
+                );
 
-            $('#subcategory option:first').show();
+                // Reset attributes
+                attributeContainer.empty();
+                attributeRows.hide();
 
-            $('.attribute-row').hide();
+                if (!categoryId) {
+                    subcategory.prop('disabled', true);
+                    return;
+                }
 
-            if (categoryId) {
+                subcategory.prop('disabled', true);
 
-                $('#subcategory option[data-category="' + categoryId + '"]').show();
+                $.ajax({
+                    url: '/category/' + categoryId + '/subcategories',
+                    type: 'GET',
 
-            }
+                    success: function(response) {
 
-        });
+                        let options =
+                            '<option value="">Select Sub Category</option>';
 
-        $('#subcategory').change(function() {
+                        response.forEach(function(item) {
 
-            let subcategoryId = $(this).val();
+                            options += `
+                            <option value="${item.SC_Id}">
+                                ${item.SC_Name}
+                            </option>
+                        `;
+                        });
 
-            $('.attribute-row').hide();
+                        subcategory.html(options);
+                        subcategory.prop('disabled', false);
+                    },
 
-            $('.attribute-row[data-subcategory="' + subcategoryId + '"]').show();
+                    error: function() {
+
+                        subcategory.html(
+                            '<option value="">Unable to load subcategories</option>'
+                        );
+
+                        subcategory.prop('disabled', true);
+                    }
+                });
+            });
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | SUBCATEGORY CHANGE
+            |--------------------------------------------------------------------------
+            */
+            subcategory.on('change', function() {
+
+                let subCategoryId = $(this).val();
+
+                // Clear old attributes
+                attributeContainer.empty();
+                attributeRows.hide();
+
+                if (!subCategoryId) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/subcategory/' + subCategoryId + '/attributes',
+                    type: 'GET',
+
+                    success: function(response) {
+
+                        let html = '';
+
+                        response.forEach(function(attribute) {
+
+                            /*
+                            |--------------------------------------------------------------------------
+                            | TEXT / NUMBER / EMAIL ETC.
+                            |--------------------------------------------------------------------------
+                            */
+
+                            let inputType = attribute.AT_Structure;
+
+                            // HTML does not support "string" as input type
+                            if (inputType === 'string') {
+                                inputType = 'text';
+                            }
+
+                            html += `
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attribute.AT_Inputs}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="${inputType}"
+                                        name="AT_Inputs[${attribute.AT_Id}]"
+                                        class="form-control"
+                                        placeholder="Enter ${attribute.AT_Inputs}"
+                                    >
+
+                                </div>
+
+                            </div>
+                        `;
+                        });
+
+                        attributeContainer.html(html);
+                    },
+
+                    error: function() {
+
+                        attributeContainer.html(`
+                        <div class="alert alert-danger">
+                            Unable to load attributes.
+                        </div>
+                    `);
+                    }
+                });
+            });
 
         });
     </script>

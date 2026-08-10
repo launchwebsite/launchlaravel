@@ -67,7 +67,7 @@
                         </a>
                     </li>
 
-                       <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index') }}" aria-expanded="false"
                             aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
@@ -77,11 +77,19 @@
 
 
 
-     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('career.index') }}" aria-expanded="false"
                             aria-controls="sidebarElements">
                             <i class="iconoir-book menu-icon"></i>
                             <span>Jobs</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.product.list') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
+                            <i class="iconoir-book menu-icon"></i>
+                            <span>Vendor Added Products</span>
                         </a>
                     </li>
 
