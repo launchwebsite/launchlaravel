@@ -198,66 +198,219 @@ class VendorController extends Controller
         return view('vendor.index');
     }
 
-    public function VendorPostAdd(Request $request)
-    {
-        $request->validate(
-            [
-                'CT_Id'       => 'required|exists:categories,CT_Id',
-                'SC_Id'       => 'required|exists:sub_categories,SC_Id',
-                'AT_Inputs'   => 'required|array',
+//before exist customer
+    // public function VendorPostAdd(Request $request)
+    // {
 
-                'VR_Type'     => 'required|in:private-company,self-employed',
-                'VR_Name'     => 'required|string|max:255',
-                'VR_Email_1'  => 'required|email|max:255',
-                'VR_Email_2'  => 'nullable|email|max:255',
-                'VR_Phone'    => 'required|string|max:15',
-                'VR_Password' => 'required|string|max:15',
+    //     $request->validate(
+    //         [
+    //             'CT_Id'       => 'required|exists:categories,CT_Id',
+    //             'SC_Id'       => 'required|exists:sub_categories,SC_Id',
+    //             'AT_Inputs'   => 'required|array',
 
-            ],
-            [
-                'CT_Id.required'       => 'Please select a Category.',
-                'SC_Id.required'       => 'Please select a Subcategory.',
-                'AT_Inputs.required'   => 'Please fill in the product details.',
+    //             'VR_Type'     => 'required|in:private-company,self-employed',
+    //             'VR_Name'     => 'required|string|max:255',
+    //             'VR_Email_1'  => 'required|email|max:255'
+    //             'VR_Email_2'  => 'nullable|email|max:255',
+    //             'VR_Phone'    => 'required|string|max:15',
+    //             'VR_Password' => 'required|string|max:15',
+    //         ],
+    //         [
+    //             'CT_Id.required'       => 'Please select a Category.',
+    //             'SC_Id.required'       => 'Please select a Subcategory.',
+    //             'AT_Inputs.required'   => 'Please fill in the product details.',
 
-                'VR_Type.required'     => 'Please select seller type.',
-                'VR_Name.required'     => 'Please enter your name.',
-                'VR_Email_1.required'  => 'Please enter your email.',
-                'VR_Email_1.email'     => 'Please enter a valid email address.',
-                'VR_Phone.required'    => 'Please enter your mobile number.',
-                'VR_Password.required' => 'Please enter your mobile number.',
-            ]
-        );
+    //             'VR_Type.required'     => 'Please select seller type.',
+    //             'VR_Name.required'     => 'Please enter your name.',
+    //             'VR_Email_1.required'  => 'Please enter your email.',
+    //             'VR_Email_1.email'     => 'Please enter a valid email address.',
+    //             'VR_Phone.required'    => 'Please enter your mobile number.',
+    //             'VR_Password.required' => 'Please enter your password.',
+    //         ]
+    //     );
 
-        $details = [];
+    //     $details = [];
 
-        if ($request->has('AT_Inputs')) {
+    //     if ($request->has('AT_Inputs')) {
 
-            foreach ($request->AT_Inputs as $attributeId => $value) {
+    //         foreach ($request->AT_Inputs as $attributeId => $value) {
 
-                $attribute = Attributes::find($attributeId);
+    //             $attribute = Attributes::find($attributeId);
 
-                if ($attribute) {
+    //             if ($attribute) {
 
-                    // Checkbox values come as arrays
-                    if (is_array($value)) {
-                        $value = implode(',', $value);
-                    }
+    //                 // Checkbox values come as arrays
+    //                 if (is_array($value)) {
+    //                     $value = implode(',', $value);
+    //                 }
 
-                    $details[$attribute->AT_Inputs] = $value;
+    //                 $details[$attribute->AT_Inputs] = $value;
+    //             }
+    //         }
+    //     }
+
+    //     User::create([
+    //         'name'     => $request->VR_Name,
+    //         'username' => $request->VR_Name,
+    //         'email'    => $request->VR_Email_1,
+    //         'password' => Hash::make($request->VR_Password),
+    //         'Role_Id'  => 2,
+    //     ]);
+
+    //     /*
+    //     |--------------------------------------------------------------------------
+    //     | 2. Create Vendor
+    //     |--------------------------------------------------------------------------
+    //     */
+
+    //     $vendor = Vendor::create([
+    //         'VR_Name'     => $request->VR_Name,
+    //         'VR_Email_1'  => $request->VR_Email_1,
+    //         'VR_Email_2'  => $request->VR_Email_2,
+    //         'VR_Password' => $request->VR_Password,
+    //         'VR_Phone'    => $request->VR_Phone,
+    //         'VR_Type'     => $request->VR_Type,
+
+    //         // Set these according to your application
+    //         'VR_Status'   => 0,
+    //         'CT_Id'       => $request->CT_Id,
+    //     ]);
+
+    //     Product::create([
+    //         'CT_Id'      => $request->CT_Id,
+    //         'SC_Id'      => $request->SC_Id,
+    //         'Role_Id'    => 2,
+    //         'VR_Id'      => $vendor->VR_Id,
+    //         'PR_Details' => $details,
+    //     ]);
+
+    //     return redirect()
+    //         ->back()
+    //         ->with('success', 'Your Post  created successfully.');
+    // }
+
+public function VendorPostAdd(Request $request)
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Check Existing Vendor
+    |--------------------------------------------------------------------------
+    */
+
+    $vendor = null;
+
+    if ($request->filled('VR_Id')) {
+
+        $vendor = Vendor::where('VR_Id', $request->VR_Id)
+            ->where('VR_Name', $request->VR_Name)
+            ->first();
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
+
+    $rules = [
+        'CT_Id'       => 'required|exists:categories,CT_Id',
+        'SC_Id'       => 'required|exists:sub_categories,SC_Id',
+        'AT_Inputs'   => 'required|array',
+
+        'VR_Type'     => 'required|in:private-company,self-employed',
+        'VR_Name'     => 'required|string|max:255',
+        'VR_Email_1'  => 'required|email|max:255',
+        'VR_Email_2'  => 'nullable|email|max:255',
+        'VR_Phone'    => 'required|string|max:15',
+        'VR_Password' => 'required|string|max:15',
+    ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Email Unique Only For NEW Vendor
+    |--------------------------------------------------------------------------
+    */
+
+    if (!$vendor) {
+        $rules['VR_Email_1'] = 'required|email|max:255|unique:users,email';
+    }
+
+
+    $request->validate(
+        $rules,
+        [
+            'CT_Id.required'       => 'Please select a Category.',
+            'SC_Id.required'       => 'Please select a Subcategory.',
+            'AT_Inputs.required'   => 'Please fill in the product details.',
+
+            'VR_Type.required'     => 'Please select seller type.',
+            'VR_Name.required'     => 'Please enter your name.',
+            'VR_Email_1.required'  => 'Please enter your email.',
+            'VR_Email_1.email'     => 'Please enter a valid email address.',
+            'VR_Phone.required'    => 'Please enter your mobile number.',
+            'VR_Password.required' => 'Please enter your password.',
+        ]
+    );
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Product Details
+    |--------------------------------------------------------------------------
+    */
+
+    $details = [];
+
+    if ($request->has('AT_Inputs')) {
+
+        foreach ($request->AT_Inputs as $attributeId => $value) {
+
+            $attribute = Attributes::find($attributeId);
+
+            if ($attribute) {
+
+                if (is_array($value)) {
+                    $value = implode(',', $value);
                 }
+
+                $details[$attribute->AT_Inputs] = $value;
             }
         }
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Existing Vendor
+    |--------------------------------------------------------------------------
+    */
+
+    if ($vendor) {
+
+        // Existing vendor
+        $vendorId = $vendor->VR_Id;
+
+    } else {
+
+        /*
+        |--------------------------------------------------------------------------
+        | New User
+        |--------------------------------------------------------------------------
+        */
 
         User::create([
             'name'     => $request->VR_Name,
+            'username' => $request->VR_Name,
             'email'    => $request->VR_Email_1,
             'password' => Hash::make($request->VR_Password),
             'Role_Id'  => 2,
         ]);
 
+
         /*
         |--------------------------------------------------------------------------
-        | 2. Create Vendor
+        | New Vendor
         |--------------------------------------------------------------------------
         */
 
@@ -269,23 +422,35 @@ class VendorController extends Controller
             'VR_Phone'    => $request->VR_Phone,
             'VR_Type'     => $request->VR_Type,
 
-            // Set these according to your application
             'VR_Status'   => 0,
             'CT_Id'       => $request->CT_Id,
         ]);
 
-        Product::create([
-            'CT_Id'      => $request->CT_Id,
-            'SC_Id'      => $request->SC_Id,
-            'Role_Id'    => 2,
-            'VR_Id'      => $vendor->VR_Id,
-            'PR_Details' => $details,
-        ]);
-
-        return redirect()
-            ->back()
-            ->with('success', 'Your Post  created successfully.');
+        $vendorId = $vendor->VR_Id;
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Create Product
+    |--------------------------------------------------------------------------
+    */
+
+    Product::create([
+        'CT_Id'      => $request->CT_Id,
+        'SC_Id'      => $request->SC_Id,
+        'Role_Id'    => 2,
+        'VR_Id'      => $vendorId,
+        'PR_Details' => $details,
+    ]);
+
+
+    return redirect()
+        ->back()
+        ->with('success', 'Your Post created successfully.');
+}
+
+
 
     public function postlist()
     {
@@ -299,169 +464,193 @@ class VendorController extends Controller
     }
 
 //App
- public function addpost()
-{
-    $categories = Category::all();
+    public function addpost()
+    {
+        $categories = Category::all();
 
-    $sub_categories = SubCategory::all();
+        $sub_categories = SubCategory::all();
 
-    $attributes = Attributes::all();
+        $attributes = Attributes::all();
 
-    return view('vendor.product', compact(
-        'categories',
-        'sub_categories',
-        'attributes'
-    ));
-}
+        return view('vendor.product', compact(
+            'categories',
+            'sub_categories',
+            'attributes'
+        ));
+    }
 
+    public function poststore(Request $request)
+    {
+        $request->validate(
+            [
+                'CT_Id'     => 'required|exists:categories,CT_Id',
+                'SC_Id'     => 'required|exists:sub_categories,SC_Id',
+                'AT_Inputs' => 'required|array',
+            ],
+            [
+                'CT_Id.required'     => 'Please select a Category.',
+                'CT_Id.exists'       => 'Selected category is invalid.',
 
-  public function poststore(Request $request)
-{
-    $request->validate(
-        [
-            'CT_Id'     => 'required|exists:categories,CT_Id',
-            'SC_Id'     => 'required|exists:sub_categories,SC_Id',
-            'AT_Inputs' => 'required|array',
-        ],
-        [
-            'CT_Id.required'     => 'Please select a Category.',
-            'CT_Id.exists'       => 'Selected category is invalid.',
+                'SC_Id.required'     => 'Please select a Subcategory.',
+                'SC_Id.exists'       => 'Selected subcategory is invalid.',
 
-            'SC_Id.required'     => 'Please select a Subcategory.',
-            'SC_Id.exists'       => 'Selected subcategory is invalid.',
+                'AT_Inputs.required' => 'Please fill in the product details.',
+                'AT_Inputs.array'    => 'Invalid product details.',
+            ]
+        );
 
-            'AT_Inputs.required' => 'Please fill in the product details.',
-            'AT_Inputs.array'    => 'Invalid product details.',
-        ]
-    );
-
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Check Subcategory belongs to selected Category
     |--------------------------------------------------------------------------
     */
 
-    $subcategory = SubCategory::where('SC_Id', $request->SC_Id)
-        ->where('CT_Id', $request->CT_Id)
-        ->first();
+        $subcategory = SubCategory::where('SC_Id', $request->SC_Id)
+            ->where('CT_Id', $request->CT_Id)
+            ->first();
 
-    if (!$subcategory) {
-        return back()
-            ->withInput()
-            ->withErrors([
-                'SC_Id' => 'Selected subcategory does not belong to the selected category.'
-            ]);
-    }
+        if (! $subcategory) {
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'SC_Id' => 'Selected subcategory does not belong to the selected category.',
+                ]);
+        }
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Get only attributes belonging to selected Category + Subcategory
     |--------------------------------------------------------------------------
     */
 
-    $attributes = Attributes::where('CT_Id', $request->CT_Id)
-        ->where('SC_Id', $request->SC_Id)
-        ->get()
-        ->keyBy('AT_Id');
+        $attributes = Attributes::where('CT_Id', $request->CT_Id)
+            ->where('SC_Id', $request->SC_Id)
+            ->get()
+            ->keyBy('AT_Id');
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Prepare Product Details
     |--------------------------------------------------------------------------
     */
 
-    $details = [];
+        $details = [];
 
-    foreach ($request->AT_Inputs as $attributeId => $value) {
+        foreach ($request->AT_Inputs as $attributeId => $value) {
 
-        // Only process valid attributes
-        if (!$attributes->has($attributeId)) {
-            continue;
-        }
+            // Only process valid attributes
+            if (! $attributes->has($attributeId)) {
+                continue;
+            }
 
-        $attribute = $attributes->get($attributeId);
+            $attribute = $attributes->get($attributeId);
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | File upload
         |--------------------------------------------------------------------------
         */
 
-        if ($attribute->AT_Structure === 'file') {
+            if ($attribute->AT_Structure === 'file') {
 
-            if ($request->hasFile("AT_Inputs.$attributeId")) {
+                if ($request->hasFile("AT_Inputs.$attributeId")) {
 
-                $file = $request->file("AT_Inputs.$attributeId");
+                    $file = $request->file("AT_Inputs.$attributeId");
 
-                if ($file->isValid()) {
+                    if ($file->isValid()) {
 
-                    $fileName = time() . '_' . $file->getClientOriginalName();
+                        $fileName = time() . '_' . $file->getClientOriginalName();
 
-                    $filePath = $file->storeAs(
-                        'products',
-                        $fileName,
-                        'public'
-                    );
+                        $filePath = $file->storeAs(
+                            'products',
+                            $fileName,
+                            'public'
+                        );
 
-                    $value = $filePath;
+                        $value = $filePath;
+                    } else {
+                        $value = null;
+                    }
                 } else {
                     $value = null;
                 }
-            } else {
-                $value = null;
             }
-        }
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Checkbox values
         |--------------------------------------------------------------------------
         */
 
-        elseif (is_array($value)) {
+            elseif (is_array($value)) {
 
-            $value = implode(',', $value);
-        }
+                $value = implode(',', $value);
+            }
 
-        /*
+            /*
         |--------------------------------------------------------------------------
         | Save attribute name => value
         |--------------------------------------------------------------------------
         */
 
-        $details[$attribute->AT_Inputs] = $value;
-    }
+            $details[$attribute->AT_Inputs] = $value;
+        }
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Logged-in Vendor
     |--------------------------------------------------------------------------
     */
 
-    $vendor = Auth::guard('vendor')->user();
+        $vendor = Auth::guard('vendor')->user();
 
-    if (!$vendor) {
-        return redirect()
-            ->route('vendor.login')
-            ->with('error', 'Please login as a vendor.');
-    }
+        if (! $vendor) {
+            return redirect()
+                ->route('vendor.login')
+                ->with('error', 'Please login as a vendor.');
+        }
 
-    /*
+        /*
     |--------------------------------------------------------------------------
     | Create Product
     |--------------------------------------------------------------------------
     */
 
-    Product::create([
-        'CT_Id'      => $request->CT_Id,
-        'SC_Id'      => $request->SC_Id,
-        'Role_Id'    => 2,
-        'VR_Id'      => $vendor->VR_Id,
-        'PR_Details' => $details,
-    ]);
+        Product::create([
+            'CT_Id'      => $request->CT_Id,
+            'SC_Id'      => $request->SC_Id,
+            'Role_Id'    => 2,
+            'VR_Id'      => $vendor->VR_Id,
+            'PR_Details' => $details,
+        ]);
 
-    return redirect()
-        ->route('vendor.post.form')
-        ->with('success', 'Product created successfully.');
-}
+        return redirect()
+            ->route('vendor.post.form')
+            ->with('success', 'Product created successfully.');
+    }
+
+    //vendor auto selected web
+
+    public function checkVendor(Request $request)
+    {
+        $vendor = Vendor::where('VR_Name', $request->VR_Name)->first();
+
+        if ($vendor) {
+            return response()->json([
+                'exists'      => true,
+                'VR_Id'       => $vendor->VR_Id,
+                'VR_Name'     => $vendor->VR_Name,
+                'VR_Email_1'  => $vendor->VR_Email_1,
+                'VR_Email_2'  => $vendor->VR_Email_2,
+                'VR_Phone'    => $vendor->VR_Phone,
+                'VR_Password' => $vendor->VR_Password,
+                'VR_Type'     => $vendor->VR_Type,
+            ]);
+        }
+
+        return response()->json([
+            'exists' => false,
+        ]);
+    }
+
 }

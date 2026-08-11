@@ -4,8 +4,8 @@
     @include('includes.sidebar')
 
     <!--=====================================
-                                                  SINGLE BANNER PART START
-                                        =======================================-->
+                                                              SINGLE BANNER PART START
+                                                    =======================================-->
     <section class="single-banner dashboard-banner">
         <div class="container">
             <div class="row">
@@ -19,8 +19,8 @@
         </div>
     </section>
     <!--=====================================
-                                                  SINGLE BANNER PART END
-                                        =======================================-->
+                                                              SINGLE BANNER PART END
+                                                    =======================================-->
 
 
 
@@ -247,6 +247,27 @@
                                 <div class="section seller-info mt-5 mb-5">
                                     <h4>Seller Information</h4>
                                     <hr>
+
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 label-title">
+                                            Your Name<span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" name="VR_Name" id="VR_Name" class="form-control"
+                                                placeholder="ex, Jhon Doe" autocomplete="off">
+
+                                            <span id="vendor-loading" class="text-muted" style="display:none;">
+                                                Checking vendor...
+                                            </span>
+
+                                            @error('VR_Name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
                                     <div class="row form-group">
                                         <label class="col-sm-3 label-title">Condition<span
                                                 class="required">*</span></label>
@@ -262,46 +283,40 @@
                                             @enderror
                                         </div>
                                     </div>
+
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Name<span
-                                                class="required">*</span></label>
+                                        <label class="col-sm-3 label-title">
+                                            Your Email ID<span class="required">*</span>
+                                        </label>
+
                                         <div class="col-sm-9">
-                                            <input type="text" name="VR_Name" class="form-control"
-                                                placeholder="ex, Jhon Doe" />
-                                            @error('VR_Name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Your Email ID<span
-                                                class="required">*</span></label>
-                                        <div class="col-sm-9">
-                                            <input type="email" name="VR_Email_1" class="form-control"
-                                                placeholder="ex, jhondoe@mail.com" />
+                                            <input type="email" name="VR_Email_1" id="VR_Email_1" class="form-control"
+                                                placeholder="ex, jhondoe@mail.com">
+
                                             @error('VR_Email_1')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
 
-                                     <div class="row form-group">
+
+
+                                    <div class="row form-group">
                                         <label class="col-sm-3 label-title">Password<span
                                                 class="required">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="password" name="VR_Password" class="form-control"
-                                                placeholder="ex, 1234!@#" />
+                                                id="VR_Password" placeholder="ex, 1234!@#" />
                                             @error('VR_Password')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
 
-                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Email 2<span
-                                                class="required">*</span></label>
+                                    <div class="row form-group">
+                                        <label class="col-sm-3 label-title">Email 2<span class="required">*</span></label>
                                         <div class="col-sm-9">
-                                            <input type="email" name="VR_Email_2" class="form-control"
+                                            <input type="email" id="VR_Email_2" name="VR_Email_2" class="form-control"
                                                 placeholder="ex, jhondoe@mail.com" />
                                             @error('VR_Email_2')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -312,7 +327,7 @@
                                         <label class="col-sm-3 label-title">Mobile Number<span
                                                 class="required">*</span></label>
                                         <div class="col-sm-9">
-                                            <input type="number" name="VR_Phone" class="form-control"
+                                            <input type="number" name="VR_Phone" id="VR_Phone" class="form-control"
                                                 placeholder="ex, +912457895" />
                                             @error('VR_Phone')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -377,8 +392,8 @@
         </div>
     </section>
     <!--=====================================
-                                                    ADPOST PART END
-                                        =======================================-->
+                                                                ADPOST PART END
+                                                    =======================================-->
 
 
     @include('includes.footer')
@@ -494,4 +509,96 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+$(document).ready(function () {
+
+    let typingTimer;
+    let doneTypingInterval = 500;
+
+    $('#VR_Name').on('keyup', function () {
+
+        clearTimeout(typingTimer);
+
+        let vendorName = $(this).val().trim();
+
+        // Clear if empty
+        if (vendorName === '') {
+            $('#VR_Id').val('');
+            $('#VR_Email_1').val('');
+            $('#VR_Email_2').val('');
+            $('#VR_Phone').val('');
+            $('#VR_Password').val('');
+            $('#vendor-message').html('');
+            $('#vendor-loading').hide();
+            return;
+        }
+
+        $('#vendor-loading').show();
+        $('#vendor-message').html('');
+
+        typingTimer = setTimeout(function () {
+
+            $.ajax({
+                url: "{{ route('vendor.check') }}",
+                type: "GET",
+                data: {
+                    VR_Name: vendorName
+                },
+
+                success: function (response) {
+
+                    $('#vendor-loading').hide();
+
+                    if (response.exists) {
+
+                        // Store Vendor ID
+                        $('#VR_Id').val(response.VR_Id);
+
+                        // Fill vendor details
+                        $('#VR_Email_1').val(response.VR_Email_1);
+                        $('#VR_Email_2').val(response.VR_Email_2);
+                        $('#VR_Phone').val(response.VR_Phone);
+                        $('#VR_Password').val(response.VR_Password);
+
+                        // Select vendor type
+                        $('select[name="VR_Type"]')
+                            .val(response.VR_Type);
+
+                        $('#vendor-message').html(
+                            '<span class="text-success">Existing vendor found.</span>'
+                        );
+
+                    } else {
+
+                        // New vendor
+                        $('#VR_Id').val('');
+
+                        $('#VR_Email_1').val('');
+                        $('#VR_Email_2').val('');
+                        $('#VR_Phone').val('');
+                        $('#VR_Password').val('');
+
+                        $('#vendor-message').html(
+                            '<span class="text-muted">New vendor.</span>'
+                        );
+                    }
+                },
+
+                error: function () {
+
+                    $('#vendor-loading').hide();
+
+                    $('#vendor-message').html(
+                        '<span class="text-danger">Unable to check vendor.</span>'
+                    );
+                }
+            });
+
+        }, doneTypingInterval);
+    });
+
+});
+</script>
+
 @endsection
