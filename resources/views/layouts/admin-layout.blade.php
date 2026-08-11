@@ -112,7 +112,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         $('#subcategory').on('change', function() {
 
             let subCategoryId = $(this).val();
@@ -265,7 +265,7 @@
             });
 
         });
-    </script>
+    </script> --}}
 
 </body>
 

@@ -1,12 +1,11 @@
 @extends('layouts.layout')
 @section('content')
-
     @include('includes.header')
     @include('includes.sidebar')
 
     <!--=====================================
-                      SINGLE BANNER PART START
-            =======================================-->
+                          SINGLE BANNER PART START
+                =======================================-->
     <section class="single-banner">
         <div class="container">
             <div class="row">
@@ -20,238 +19,55 @@
         </div>
     </section>
     <!--=====================================
-                      SINGLE BANNER PART END
-            =======================================-->
+                          SINGLE BANNER PART END
+                =======================================-->
 
 
     <!--=====================================
-                         PRICE PART START
-            =======================================-->
+                             PRICE PART START
+                =======================================-->
     <section class="price-part">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
+                @foreach ($careers as $career)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="job-card">
 
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="easy-apply text-warning"></span>
 
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
+                                <div class="job-icons">
+                                    <a href="#"><i class="far fa-bookmark"></i></a>
+                                    <a href="#"><i class="far fa-thumbs-down"></i></a>
+                                </div>
                             </div>
-                        </div>
 
-                        <h3 class="job-title">Senior PHP Developer</h3>
+                            <h3 class="job-title">{{ $career->CR_Name }}</h3>
 
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
+                            <p class="company-name">
+                                {{ $career->CR_Company }}
+                            </p>
 
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
+                            <p class="location">
+                                {{ $career->CR_Location }}
+                            </p>
 
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
+                            <div class="job-tags">
+                                <span class="salary">{{ $career->CR_SalaryRange }}</span>
 
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="jobby">
-                            <a href="{{ route('applyjob') }}" class="btn btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
-
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
-
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
+                                <span class="fulltime">
+                                    <i class="fas fa-check"></i> {{ $career->CR_Type }}
+                                </span>
                             </div>
-                        </div>
 
-                        <h3 class="job-title">Senior PHP Developer</h3>
-
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
-
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
-
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
-
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="">
-                            <a href="{{ route('applyjob') }}" class="btn  btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
-
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
-
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
+                            <div class="jobby">
+                                <a href="{{ route('applyjob') }}" class="btn btn-outline-warning btn-sm">Apply Now</a>
                             </div>
+
                         </div>
-
-                        <h3 class="job-title">Senior PHP Developer</h3>
-
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
-
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
-
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
-
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="">
-                            <a href="{{ route('applyjob') }}" class="btn  btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
                     </div>
-                </div>
+                @endforeach
 
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
-
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
-
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
-                            </div>
-                        </div>
-
-                        <h3 class="job-title">Senior PHP Developer</h3>
-
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
-
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
-
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
-
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="">
-                            <a href="{{ route('applyjob') }}" class="btn  btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
-
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
-
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
-                            </div>
-                        </div>
-
-                        <h3 class="job-title">Senior PHP Developer</h3>
-
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
-
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
-
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
-
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="">
-                            <a href="{{ route('applyjob') }}" class="btn  btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="job-card">
-
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">Easily apply</span>
-
-                            <div class="job-icons">
-                                <a href="#"><i class="far fa-bookmark"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down"></i></a>
-                            </div>
-                        </div>
-
-                        <h3 class="job-title">Senior PHP Developer</h3>
-
-                        <p class="company-name">
-                            Genova Technologies
-                        </p>
-
-                        <p class="location">
-                            Calicut, Kerala
-                        </p>
-
-                        <div class="job-tags">
-                            <span class="salary">AED 4000</span>
-
-                            <span class="fulltime">
-                                <i class="fas fa-check"></i> Full-time
-                            </span>
-                        </div>
-
-                        <div class="">
-                            <a href="{{ route('applyjob') }}" class="btn  btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
             <div class="row mt-5">
@@ -270,8 +86,8 @@
         </div>
     </section>
     <!--=====================================
-                         PRICE PART END
-            =======================================-->
+                             PRICE PART END
+                =======================================-->
 
     @include('includes.footer')
 @endsection

@@ -1,21 +1,55 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Attributes;
+use App\Models\Career;
 use App\Models\Category;
+use App\Models\SubCategory;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
     public function home()
     {
-        $category   = Category::withCount('products')->get();
-        $categories = Category::withCount('products')->with([
-            'subcategories' => function ($query) {
-                $query->withCount('products');
-            },
-        ])
-            ->latest()->take(4)->get();
+        $category = Category::withCount('products')->get();
 
-        return view("home", compact('category', 'categories'));
+        // Career count for each category
+        $careerCategoryCounts = Career::select(
+            'CT_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('CT_Id')
+            ->pluck('total', 'CT_Id');
+
+        // Career count for each subcategory
+        $careerSubcategoryCounts = Career::select(
+            'SC_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('SC_Id')
+            ->pluck('total', 'SC_Id');
+
+        $categories = Category::withCount('products')
+            ->with([
+                'subcategories' => function ($query) {
+                    $query->withCount('products');
+                },
+            ])
+            ->latest()
+            ->take(4)
+            ->get();
+
+        $careerCount = Career::count();
+        $careers = Career::get();
+
+        return view('home', compact(
+            'category',
+            'categories',
+            'careerCategoryCounts',
+            'careerCount',
+            'careerSubcategoryCounts',
+            'careers'
+        ));
     }
 
     public function categorylist()
@@ -39,7 +73,9 @@ class PageController extends Controller
 
     public function jobopening()
     {
-        return view("jobopening");
+        $careers = Career::all();
+
+        return view("jobopening", compact('careers'));
     }
 
     public function contact()
@@ -54,7 +90,15 @@ class PageController extends Controller
 
     public function adpost()
     {
-        return view("addpost");
+        $attributes     = Attributes::all();
+        $categories     = Category::all();
+        $sub_categories = SubCategory::all();
+
+        return view('addpost', compact(
+            'attributes',
+            'categories',
+            'sub_categories'
+        ));
     }
 
     public function addetails()

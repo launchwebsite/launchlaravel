@@ -34,6 +34,28 @@
                             <span>Dashboards</span>
                         </a>
 
+                            <li class="menu-label pt-0 mt-4">
+                        <small class="label-border">
+                            <div class="border_left hidden-xs"></div>
+                            <div class="border_right"></div>
+                        </small>
+                        <span>Ads Section</span>
+                    </li>
+
+                              <a class="nav-link" href="{{ route('vendor.postlist') }}" aria-expanded="false"
+                            aria-controls="sidebarDashboards">
+                            <i class="iconoir-home-simple menu-icon"></i>
+                            <span>Post Ads</span>
+                        </a>
+
+                          <a class="nav-link" href="{{ route('vendor.post.form') }}" aria-expanded="false"
+                            aria-controls="sidebarDashboards">
+                            <i class="iconoir-home-simple menu-icon"></i>
+                            <span>Add Your Products</span>
+                        </a>
+
+                        
+
                     </li><!--end nav-item-->
 
                 </ul><!--end navbar-nav--->

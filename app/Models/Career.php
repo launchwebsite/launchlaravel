@@ -17,6 +17,7 @@ class Career extends Model
         'CR_SalaryRange',
         'CR_Img',
         'CR_Type',
+        'CR_Company',
     ];
 
     public function category()

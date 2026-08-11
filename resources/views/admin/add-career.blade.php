@@ -106,18 +106,16 @@
                                             <div class="mb-3 row">
                                                 <label class="text-danger">*</label>
                                                 <div class="col-sm-10">
-<input type="text"
-       name="SC_Name"
-       class="form-control"
-       list="subCategoryList"
-       value="{{ old('SC_Name', $careers->subCategory->SC_Name ?? '') }}"
-       autocomplete="off">
+                                                    <input type="text" name="SC_Name" class="form-control"
+                                                        list="subCategoryList"
+                                                        value="{{ old('SC_Name', $careers->subCategory->SC_Name ?? '') }}"
+                                                        autocomplete="off">
 
-<datalist id="subCategoryList">
-    @foreach($sub_categories as $sub_category)
-        <option value="{{ $sub_category->SC_Name }}">
-    @endforeach
-</datalist>
+                                                    <datalist id="subCategoryList">
+                                                        @foreach ($sub_categories as $sub_category)
+                                                            <option value="{{ $sub_category->SC_Name }}">
+                                                        @endforeach
+                                                    </datalist>
                                                 </div>
 
                                                 @error('SC_Id')
@@ -171,6 +169,18 @@
 
                                                 </div>
                                                 @error('CR_Type')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+
+                                                         <div class="mb-3 row">
+
+                                                <div class="col-sm-10">
+                                                    <textarea id="CR_Company" name="CR_Company" placeholder="Enter Job Type" rows="4" class="form-control">{{ old('CR_Company', $careers->CR_Company ?? '') }}</textarea>
+
+                                                </div>
+                                                @error('CR_Company')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>

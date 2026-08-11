@@ -1039,6 +1039,9 @@ namespace App\Models {
      * @property int $SC_Id
      * @property int $CT_Id
      * @property int $PR_Id
+     * @property-read \App\Models\Vendor $vendor
+     * @property-read \App\Models\Category $category
+     * @property-read \App\Models\SubCategory $subcategory
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
@@ -2062,6 +2065,8 @@ namespace App\Models {
      * @property string|null $VR_Name
      * @property int $VR_Id
      * @property-read \App\Models\Category $category
+     * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+     * @property-read int|null $products_count
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Vendor>|Vendor whereVrEmail1($value)

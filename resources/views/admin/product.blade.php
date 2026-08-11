@@ -1,350 +1,865 @@
 @extends('layouts.admin-layout')
+
 @section('content')
-    @include('includes.admin-header')
-    @include('includes.admin-sidebar')
-    <div class="page-wrapper">
 
-        <!-- Page Content-->
-        <div class="page-content">
-            <div class="container-xxl">
+@include('includes.admin-header')
+@include('includes.admin-sidebar')
 
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h4 class="card-title">Products</h4>
-                                    </div><!--end col-->
-                                </div> <!--end row-->
-                            </div><!--end card-header-->
-                            <div class="card-body pt-0">
+<div class="page-content">
+    <div class="container-xxl">
 
+        <div class="row justify-content-center product-kiki">
+            <div class="col-12">
 
-                                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-lg-12">
+                <div class="card">
 
-                                            {{-- Category --}}
-                                            <div class="mb-3 row">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h4 class="card-title">Products</h4>
+                            </div>
+                        </div>
+                    </div>
 
-                                                <label class="col-sm-2 col-form-label">
-                                                    Category
-                                                </label>
+                    <div class="card-body pt-0">
 
-                                                <div class="col-sm-10">
+                        <form action="{{ route('products.store') }}"
+                              method="POST"
+                              enctype="multipart/form-data">
 
-                                                    <select name="CT_Id" id="category" class="form-control">
+                            @csrf
 
-                                                        <option value="">
-                                                            Select Category
-                                                        </option>
+                            {{-- =========================================
+                                 CATEGORY
+                            ========================================== --}}
+                            <div class="mb-3 row">
 
-                                                        @foreach ($categories as $category)
-                                                            <option value="{{ $category->CT_Id }}">
-                                                                {{ $category->CT_Name }}
-                                                            </option>
-                                                        @endforeach
+                                <label class="col-sm-2 col-form-label">
+                                    Category
+                                </label>
 
-                                                    </select>
+                                <div class="col-sm-10">
 
-                                                    @error('CT_Id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                    <select name="CT_Id"
+                                            id="category"
+                                            class="form-control">
 
-                                                </div>
+                                        <option value="">
+                                            Select Category
+                                        </option>
 
-                                            </div>
+                                        @foreach ($categories as $category)
 
-                                            {{-- Subcategory --}}
-                                            <div class="mb-3 row">
+                                            <option value="{{ $category->CT_Id }}"
+                                                {{ old('CT_Id') == $category->CT_Id ? 'selected' : '' }}>
 
-                                                <label class="col-sm-2 col-form-label">
-                                                    Sub Category
-                                                </label>
+                                                {{ $category->CT_Name }}
 
-                                                <div class="col-sm-10">
+                                            </option>
 
-                                                    <select name="SC_Id" id="subcategory" class="form-control" disabled>
+                                        @endforeach
 
-                                                        <option value="">
-                                                            Select Sub Category
-                                                        </option>
+                                    </select>
 
-                                                        @foreach ($sub_categories as $subcategory)
-                                                            <option value="{{ $subcategory->SC_Id }}"
-                                                                data-category="{{ $subcategory->CT_Id }}"
-                                                                style="display:none;">
+                                    @error('CT_Id')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
 
-                                                                {{ $subcategory->SC_Name }}
+                                </div>
 
-                                                            </option>
-                                                        @endforeach
-
-                                                    </select>
-
-                                                    @error('SC_Id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-
-                                                </div>
-
-                                            </div>
-
-
-                                            {{-- @foreach ($attributes as $attribute)
-                                                <div class="mb-3 row"> --}}
-                                            @foreach ($attributes as $attribute)
-                                                <div class="mb-3 row attribute-row"
-                                                    data-subcategory="{{ $attribute->SC_Id }}" style="display: none;">
-
-                                                    <label class="col-sm-2 col-form-label">
-                                                        {{ $attribute->AT_Inputs }}
-                                                    </label>
-
-                                                    <div class="col-sm-10">
-                                                        @switch($attribute->AT_Structure)
-                                                            {{-- Single line text --}}
-                                                            @case('string')
-                                                            @case('text')
-                                                                <input type="text" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Multi line text --}}
-                                                            @case('textarea')
-                                                                <textarea name="AT_Inputs[{{ $attribute->AT_Id }}]" id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}" rows="4" class="form-control">{{ old('AT_Inputs.' . $attribute->AT_Id) }}</textarea>
-                                                            @break
-
-                                                            {{-- Number --}}
-                                                            @case('number')
-                                                                <input type="number" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Email --}}
-                                                            @case('email')
-                                                                <input type="email" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Password --}}
-                                                            @case('password')
-                                                                <input type="password" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Phone --}}
-                                                            @case('tel')
-                                                                <input type="tel" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- URL --}}
-                                                            @case('url')
-                                                                <input type="url" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Date --}}
-                                                            @case('date')
-                                                                <input type="date" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Date + Time --}}
-                                                            @case('datetime')
-                                                                <input type="datetime-local"
-                                                                    name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- Time --}}
-                                                            @case('time')
-                                                                <input type="time" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                            @break
-
-                                                            {{-- File upload --}}
-                                                            @case('file')
-                                                                <input type="file" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}" class="form-control">
-                                                            @break
-
-                                                            {{-- Checkbox (single true/false) --}}
-                                                            @case('checkbox')
-                                                                <div class="d-flex flex-wrap gap-4">
-
-                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="checkbox"
-                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}][]"
-                                                                                id="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
-                                                                                value="{{ trim($option) }}"
-                                                                                {{ in_array(trim($option), old('AT_Inputs.' . $attribute->AT_Id, [])) ? 'checked' : '' }}>
-
-                                                                            <label class="form-check-label"
-                                                                                for="check_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
-                                                                                {{ trim($option) }}
-                                                                            </label>
-                                                                        </div>
-                                                                    @endforeach
-
-                                                                </div>
-                                                            @break
-
-                                                            {{-- Radio (Yes/No example — customize as needed) --}}
-                                                            @case('radio')
-                                                                <div class="d-flex flex-wrap gap-4">
-
-                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
-                                                                        <div class="form-check">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                                id="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}"
-                                                                                value="{{ trim($option) }}"
-                                                                                {{ old('AT_Inputs.' . $attribute->AT_Id) == trim($option) ? 'checked' : '' }}>
-
-                                                                            <label class="form-check-label"
-                                                                                for="radio_{{ $attribute->AT_Id }}_{{ Str::slug($option) }}">
-                                                                                {{ trim($option) }}
-                                                                            </label>
-                                                                        </div>
-                                                                    @endforeach
-
-                                                                </div>
-                                                            @break
-
-                                                            {{-- Select dropdown (options come from AT_Options column, comma separated) --}}
-                                                            @case('select')
-                                                                <select name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    class="form-control">
-
-                                                                    <option value="">Select {{ $attribute->AT_Inputs }}
-                                                                    </option>
-
-                                                                    @foreach (explode(',', $attribute->AT_Options) as $option)
-                                                                        <option value="{{ trim($option) }}">
-                                                                            {{ trim($option) }}
-                                                                        </option>
-                                                                    @endforeach
-
-                                                                </select>
-                                                            @break
-
-                                                            {{-- Color picker --}}
-                                                            @case('color')
-                                                                <input type="color" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id, '#000000') }}"
-                                                                    class="form-control form-control-color">
-                                                            @break
-
-                                                            {{-- Fallback --}}
-
-                                                            @default
-                                                                <input type="text" name="AT_Inputs[{{ $attribute->AT_Id }}]"
-                                                                    id="AT_Inputs_{{ $attribute->AT_Id }}"
-                                                                    placeholder="Enter {{ $attribute->AT_Inputs }}"
-                                                                    value="{{ old('AT_Inputs.' . $attribute->AT_Id) }}"
-                                                                    class="form-control">
-                                                        @endswitch
-
-                                                        @error('AT_Inputs.' . $attribute->AT_Id)
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            @endforeach
-
-                                            <div class="text-end">
-
-                                                <button type="submit" class="btn btn-primary">
-                                                    Submit
-                                                </button>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
 
-                        </div> <!--end row-->
-                    </div><!--end card-body-->
-                </div><!--end card-->
-            </div> <!--end col-->
-        </div><!--end row-->
+
+                            {{-- =========================================
+                                 SUBCATEGORY
+                            ========================================== --}}
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    Sub Category
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <select name="SC_Id"
+                                            id="subcategory"
+                                            class="form-control"
+                                            disabled>
+
+                                        <option value="">
+                                            Select Sub Category
+                                        </option>
+
+                                    </select>
+
+                                    <span id="subcategory-error"
+                                          class="text-danger"></span>
+
+                                    @error('SC_Id')
+                                        <span class="text-danger">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+
+                                </div>
+
+                            </div>
 
 
+                            {{-- =========================================
+                                 AJAX ATTRIBUTE CONTAINER
+                            ========================================== --}}
+
+                            <div id="attribute-container">
+
+                                {{-- Attributes will be loaded here by AJAX --}}
+
+                            </div>
 
 
-        <!--end footer-->
+                            {{-- =========================================
+                                 SUBMIT
+                            ========================================== --}}
+
+                            <div class="text-end mt-4">
+
+                                <button type="submit"
+                                        class="btn btn-primary">
+
+                                    Submit
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
     </div>
-    <!-- end page content -->
+</div>
 
-    </div>
 
-    <script>
-        $('#category').change(function() {
+{{-- ============================================================
+     JQUERY
+============================================================= --}}
 
-            let categoryId = $(this).val();
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            $('#subcategory').prop('disabled', categoryId === '');
 
-            $('#subcategory').val('');
+<script>
 
-            $('#subcategory option').hide();
+$(document).ready(function () {
 
-            $('#subcategory option:first').show();
+    /*
+    |--------------------------------------------------------------------------
+    | CATEGORY CHANGE
+    |--------------------------------------------------------------------------
+    */
 
-            $('.attribute-row').hide();
+    $('#category').on('change', function () {
 
-            if (categoryId) {
+        let categoryId = $(this).val();
 
-                $('#subcategory option[data-category="' + categoryId + '"]').show();
+        /*
+        |--------------------------------------------------------------------------
+        | RESET SUBCATEGORY
+        |--------------------------------------------------------------------------
+        */
+
+        $('#subcategory')
+            .prop('disabled', true)
+            .html(`
+                <option value="">
+                    Select Sub Category
+                </option>
+            `);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RESET ATTRIBUTES
+        |--------------------------------------------------------------------------
+        */
+
+        $('#attribute-container').html('');
+
+        /*
+        |--------------------------------------------------------------------------
+        | IF CATEGORY IS NOT SELECTED
+        |--------------------------------------------------------------------------
+        */
+
+        if (!categoryId) {
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | SHOW LOADING
+        |--------------------------------------------------------------------------
+        */
+
+        $('#subcategory').html(`
+            <option value="">
+                Loading subcategories...
+            </option>
+        `);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | AJAX - GET SUBCATEGORIES
+        |--------------------------------------------------------------------------
+        */
+
+        $.ajax({
+
+            url: '/category/' + categoryId + '/subcategories',
+
+            type: 'GET',
+
+            dataType: 'json',
+
+            success: function (response) {
+
+                let options = `
+                    <option value="">
+                        Select Sub Category
+                    </option>
+                `;
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NO SUBCATEGORIES
+                |--------------------------------------------------------------------------
+                */
+
+                if (response.length === 0) {
+
+                    options = `
+                        <option value="">
+                            No Sub Categories Found
+                        </option>
+                    `;
+
+                    $('#subcategory')
+                        .html(options)
+                        .prop('disabled', true);
+
+                    return;
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | ADD SUBCATEGORIES
+                |--------------------------------------------------------------------------
+                */
+
+                response.forEach(function (subcategory) {
+
+                    options += `
+                        <option value="${subcategory.SC_Id}">
+                            ${subcategory.SC_Name}
+                        </option>
+                    `;
+
+                });
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | UPDATE DROPDOWN
+                |--------------------------------------------------------------------------
+                */
+
+                $('#subcategory')
+                    .html(options)
+                    .prop('disabled', false);
+
+            },
+
+
+            error: function (xhr) {
+
+                console.log(xhr.responseText);
+
+                $('#subcategory')
+                    .html(`
+                        <option value="">
+                            Unable to load subcategories
+                        </option>
+                    `)
+                    .prop('disabled', true);
 
             }
 
         });
 
-        $('#subcategory').change(function() {
+    });
 
-            let subcategoryId = $(this).val();
 
-            $('.attribute-row').hide();
 
-            $('.attribute-row[data-subcategory="' + subcategoryId + '"]').show();
+    /*
+    |--------------------------------------------------------------------------
+    | SUBCATEGORY CHANGE
+    |--------------------------------------------------------------------------
+    */
+
+    $('#subcategory').on('change', function () {
+
+        let subCategoryId = $(this).val();
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CLEAR OLD ATTRIBUTES
+        |--------------------------------------------------------------------------
+        */
+
+        $('#attribute-container').html('');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | NOTHING SELECTED
+        |--------------------------------------------------------------------------
+        */
+
+        if (!subCategoryId) {
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | LOADING
+        |--------------------------------------------------------------------------
+        */
+
+        $('#attribute-container').html(`
+            <div class="alert alert-info">
+                Loading attributes...
+            </div>
+        `);
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | AJAX - GET ATTRIBUTES
+        |--------------------------------------------------------------------------
+        */
+
+        $.ajax({
+
+            url: '/subcategory/' + subCategoryId + '/attributes',
+
+            type: 'GET',
+
+            dataType: 'json',
+
+            success: function (response) {
+
+                let html = '';
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | NO ATTRIBUTES
+                |--------------------------------------------------------------------------
+                */
+
+                if (response.length === 0) {
+
+                    $('#attribute-container').html(`
+                        <div class="alert alert-warning">
+                            No attributes found for this subcategory.
+                        </div>
+                    `);
+
+                    return;
+                }
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | CREATE ATTRIBUTE FIELDS
+                |--------------------------------------------------------------------------
+                */
+
+                response.forEach(function (attribute) {
+
+                    let type = attribute.AT_Structure;
+
+                    let attributeId = attribute.AT_Id;
+
+                    let attributeName = attribute.AT_Inputs;
+
+                    let options = attribute.AT_Options;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | STRING -> TEXT
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (type === 'string') {
+
+                        type = 'text';
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | TEXT / NUMBER / EMAIL / PASSWORD / TEL / URL
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (
+                        type === 'text' ||
+                        type === 'number' ||
+                        type === 'email' ||
+                        type === 'password' ||
+                        type === 'tel' ||
+                        type === 'url' ||
+                        type === 'date' ||
+                        type === 'time'
+                    ) {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="${type}"
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control"
+                                        placeholder="Enter ${attributeName}"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | TEXTAREA
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'textarea') {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <textarea
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control"
+                                        rows="4"
+                                        placeholder="Enter ${attributeName}"
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | DATETIME
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'datetime') {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="datetime-local"
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | COLOR
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'color') {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="color"
+                                        name="AT_Inputs[${attributeId}]"
+                                        value="#000000"
+                                        class="form-control form-control-color"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | FILE
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'file') {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="file"
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control"
+                                        accept="image/*"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | SELECT
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'select') {
+
+                        let selectOptions = `
+                            <option value="">
+                                Select ${attributeName}
+                            </option>
+                        `;
+
+
+                        if (options) {
+
+                            options.split(',').forEach(function (option) {
+
+                                option = option.trim();
+
+                                selectOptions += `
+                                    <option value="${option}">
+                                        ${option}
+                                    </option>
+                                `;
+
+                            });
+
+                        }
+
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <select
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control">
+
+                                        ${selectOptions}
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | RADIO
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'radio') {
+
+                        let radioHtml = '';
+
+                        if (options) {
+
+                            options.split(',').forEach(function (option, index) {
+
+                                option = option.trim();
+
+                                radioHtml += `
+
+                                    <div class="form-check form-check-inline">
+
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="AT_Inputs[${attributeId}]"
+                                            id="radio_${attributeId}_${index}"
+                                            value="${option}"
+                                        >
+
+                                        <label
+                                            class="form-check-label"
+                                            for="radio_${attributeId}_${index}">
+
+                                            ${option}
+
+                                        </label>
+
+                                    </div>
+
+                                `;
+
+                            });
+
+                        }
+
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    ${radioHtml}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | CHECKBOX
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else if (type === 'checkbox') {
+
+                        let checkboxHtml = '';
+
+                        if (options) {
+
+                            options.split(',').forEach(function (option, index) {
+
+                                option = option.trim();
+
+                                checkboxHtml += `
+
+                                    <div class="form-check form-check-inline">
+
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="AT_Inputs[${attributeId}][]"
+                                            id="checkbox_${attributeId}_${index}"
+                                            value="${option}"
+                                        >
+
+                                        <label
+                                            class="form-check-label"
+                                            for="checkbox_${attributeId}_${index}">
+
+                                            ${option}
+
+                                        </label>
+
+                                    </div>
+
+                                `;
+
+                            });
+
+                        }
+
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    ${checkboxHtml}
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | DEFAULT
+                    |--------------------------------------------------------------------------
+                    */
+
+                    else {
+
+                        html += `
+
+                            <div class="mb-3 row">
+
+                                <label class="col-sm-2 col-form-label">
+                                    ${attributeName}
+                                </label>
+
+                                <div class="col-sm-10">
+
+                                    <input
+                                        type="text"
+                                        name="AT_Inputs[${attributeId}]"
+                                        class="form-control"
+                                        placeholder="Enter ${attributeName}"
+                                    >
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+
+                });
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | DISPLAY ATTRIBUTES
+                |--------------------------------------------------------------------------
+                */
+
+                $('#attribute-container').html(html);
+
+            },
+
+
+            error: function (xhr) {
+
+                console.log(xhr.responseText);
+
+                $('#attribute-container').html(`
+
+                    <div class="alert alert-danger">
+
+                        Unable to load attributes.
+
+                    </div>
+
+                `);
+
+            }
 
         });
-    </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-    {{-- @include('includes.admin-footer') --}}
+    });
+
+});
+
+</script>
+
 @endsection
