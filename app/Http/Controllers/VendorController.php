@@ -461,7 +461,7 @@ class VendorController extends Controller
     ]);
 
     return redirect()
-        ->route('vendor.post-form')
+        ->route('vendor.post.form')
         ->with('success', 'Product created successfully.');
 }
 }
