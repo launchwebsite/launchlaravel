@@ -40,6 +40,12 @@ Route::get('/ad_post', [PageController::class, 'adpost'])
 Route::post('/add-your-ad', [VendorController::class, 'VendorPostAdd'])
     ->name('vendoraddpost.store');
 
+// vendor auto select
+Route::get('/check-vendor', [VendorController::class, 'checkVendor'])
+    ->name('vendor.check');
+
+
+
 Route::get('/apply_job', [PageController::class, 'applyjob'])
     ->name('applyjob');
 
