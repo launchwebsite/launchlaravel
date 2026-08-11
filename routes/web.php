@@ -125,6 +125,30 @@ Route::middleware('auth:vendor')->group(function () {
       Route::get('/vendor-products', [VendorController::class, 'addpost'])->name('vendor.post.form');
     Route::post('/venddor-products/store', [VendorController::class, 'poststore'])->name('vendor.post-store');
 
+       /*
+    |--------------------------------------------------------------------------
+    | Career
+    |--------------------------------------------------------------------------
+    */
+
+    Route::get('/vendor/career', [CareerController::class, 'VendorIndex'])
+        ->name('vendor.career.index');
+
+    Route::get('/vendor/add-career', [CareerController::class, 'VendorCreate'])
+        ->name('vendor.career.add');
+
+    Route::post('/vendor/career/store', [CareerController::class, 'VendorStore'])
+        ->name('vendor.career.store');
+
+    Route::get('/vendor/career/edit/{id}', [CareerController::class, 'VendorEdit'])
+        ->name('vendor.career.edit');
+
+    Route::put('/vendor/career/update/{id}', [CareerController::class, 'VendorUpdate'])
+        ->name('vendor.career.update');
+
+    Route::get('/vendor/career/delete/{id}', [CareerController::class, 'VendorDestroy'])
+        ->name('vendor.career.delete');
+
 });
 
 

@@ -11,20 +11,20 @@
         }
 
         .product-detail-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    padding: 4px;
-    background: #fff;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            padding: 4px;
+            background: #fff;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
 
-.product-detail-image:hover {
-    transform: scale(1.05);
-}
+        .product-detail-image:hover {
+            transform: scale(1.05);
+        }
 
         /* Header */
         .products-header {
@@ -149,9 +149,9 @@
             color: #505963;
             font-size: 12px;
             font-weight: 600;
-        }s
+        }
 
-        .category-badge i {
+        s .category-badge i {
             color: #6875f5;
         }
 
@@ -580,424 +580,393 @@
 
                 <h3>My Posts</h3>
 
-@if($products->count() > 0)
+                @if ($products->count() > 0)
+                    <div class="products-wrapper">
 
-    <div class="products-wrapper">
+                        {{-- Header --}}
+                        <div class="products-header">
+                            <div>
+                                <h4 class="products-title text-white">
+                                    My Products
+                                </h4>
 
-        {{-- Header --}}
-        <div class="products-header">
-            <div>
-                <h4 class="products-title text-white">
-                    My Products
-                </h4>
+                                <p class="products-subtitle">
+                                    Manage and view all your posted products
+                                </p>
+                            </div>
 
-                <p class="products-subtitle">
-                    Manage and view all your posted products
-                </p>
-            </div>
-
-            <div class="products-count">
-                <i class="bi bi-box-seam"></i>
-                {{ $products->count() }} Products
-            </div>
-        </div>
-
-
-        {{-- Table --}}
-        <div class="table-responsive">
-
-            <table class="products-table">
-
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Sub Category</th>
-                        <th>Product ID</th>
-
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach($products as $product)
-
-                        <tr>
-
-                            {{-- Number --}}
-                            <td>
-                                <span class="row-number">
-                                    {{ $loop->iteration }}
-                                </span>
-                            </td>
+                            <div class="products-count">
+                                <i class="bi bi-box-seam"></i>
+                                {{ $products->count() }} Products
+                            </div>
+                        </div>
 
 
-                            {{-- Product Name --}}
-                            <td>
+                        {{-- Table --}}
+                        <div class="table-responsive">
 
-                                <div class="product-name-wrapper">
+                            <table class="products-table">
 
-                                    <div class="product-icon">
-                                        <i class="bi bi-box-seam"></i>
-                                    </div>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th>Sub Category</th>
+                                        <th>Product ID</th>
 
-                                    <div>
-                                        <div class="product-name">
-                                            {{ $product->PR_Name }}
-                                        </div>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
 
-                                        <div class="product-small-id">
-                                            Product #{{ $product->PR_Id }}
-                                        </div>
-                                    </div>
+                                <tbody>
 
-                                </div>
+                                    @foreach ($products as $product)
+                                        <tr>
 
-                            </td>
-
-
-                            {{-- Category --}}
-                            <td>
-
-                                <span class="category-badge">
-                                    <i class="bi bi-grid"></i>
-                                    {{ $product->category->CT_Name }}
-                                </span>
-
-                            </td>
+                                            {{-- Number --}}
+                                            <td>
+                                                <span class="row-number">
+                                                    {{ $loop->iteration }}
+                                                </span>
+                                            </td>
 
 
-                            {{-- Sub Category --}}
-                            <td>
+                                            {{-- Product Name --}}
+                                            <td>
 
-                                <span class="subcategory-text">
-                                    {{ $product->subcategory->SC_Name }}
-                                </span>
+                                                <div class="product-name-wrapper">
 
-                            </td>
+                                                    <div class="product-icon">
+                                                        <i class="bi bi-box-seam"></i>
+                                                    </div>
+
+                                                    <div>
+                                                        <div class="product-name">
+                                                            {{ $product->PR_Name }}
+                                                        </div>
+
+                                                        <div class="product-small-id">
+                                                            Product #{{ $product->PR_Id }}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </td>
 
 
-                            {{-- Product ID --}}
-                            <td>
+                                            {{-- Category --}}
+                                            <td>
 
-                                <span class="product-id">
-                                    #{{ $product->PR_Id }}
-                                </span>
+                                                <span class="category-badge">
+                                                    <i class="bi bi-grid"></i>
+                                                    {{ $product->category->CT_Name }}
+                                                </span>
 
-                            </td>
+                                            </td>
+
+
+                                            {{-- Sub Category --}}
+                                            <td>
+
+                                                <span class="subcategory-text">
+                                                    {{ $product->subcategory->SC_Name }}
+                                                </span>
+
+                                            </td>
+
+
+                                            {{-- Product ID --}}
+                                            <td>
+
+                                                <span class="product-id">
+                                                    #{{ $product->PR_Id }}
+                                                </span>
+
+                                            </td>
 
 
 
 
 
-                            {{-- View --}}
-                            <td class="action-cell">
+                                            {{-- View --}}
+                                            <td class="action-cell">
 
-                                <button
-                                    type="button"
-                                    class="view-product-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#productModal{{ $product->PR_Id }}"
-                                    title="View Product">
+                                                <button type="button" class="view-product-btn" data-bs-toggle="modal"
+                                                    data-bs-target="#productModal{{ $product->PR_Id }}"
+                                                    title="View Product">
 
-                                    <i class="bi bi-eye"></i>
+                                                    <i class="bi bi-eye"></i>
 
-                                </button>
+                                                </button>
 
-                            </td>
+                                            </td>
 
-                        </tr>
+                                        </tr>
 
 
-                        {{-- =========================
+                                        {{-- =========================
                              PRODUCT DETAILS MODAL
                         ========================== --}}
 
-                        <div class="modal fade"
-                             id="productModal{{ $product->PR_Id }}"
-                             tabindex="-1"
-                             aria-hidden="true">
+                                        <div class="modal fade" id="productModal{{ $product->PR_Id }}" tabindex="-1"
+                                            aria-hidden="true">
 
-                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                            <div class="modal-dialog modal-dialog-centered modal-xl">
 
-                                <div class="modal-content product-modal">
+                                                <div class="modal-content product-modal">
 
 
-                                    {{-- Modal Header --}}
-                                    <div class="modal-header product-modal-header">
+                                                    {{-- Modal Header --}}
+                                                    <div class="modal-header product-modal-header">
 
-                                        <div class="modal-product-heading">
+                                                        <div class="modal-product-heading">
 
-                                            <div class="modal-product-icon">
-                                                <i class="bi bi-box-seam"></i>
-                                            </div>
+                                                            <div class="modal-product-icon">
+                                                                <i class="bi bi-box-seam"></i>
+                                                            </div>
 
-                                            <div>
+                                                            <div>
 
-                                                <div class="modal-product-label">
-                                                    PRODUCT DETAILS
-                                                </div>
+                                                                <div class="modal-product-label">
+                                                                    PRODUCT DETAILS
+                                                                </div>
 
-                                                <h4 class="modal-product-name">
-                                                    {{ $product->PR_Name }}
-                                                </h4>
+                                                                <h4 class="modal-product-name">
+                                                                    {{ $product->PR_Name }}
+                                                                </h4>
 
-                                                <div class="modal-product-id">
-                                                    Product ID #{{ $product->PR_Id }}
+                                                                <div class="modal-product-id">
+                                                                    Product ID #{{ $product->PR_Id }}
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
+                                                        </button>
+
+                                                    </div>
+
+
+                                                    {{-- Modal Body --}}
+                                                    <div class="modal-body product-modal-body">
+
+                                                        {{-- Basic Information --}}
+                                                        <div class="details-section">
+
+                                                            <div class="details-section-title">
+
+                                                                <div class="section-icon">
+                                                                    <i class="bi bi-info-circle"></i>
+                                                                </div>
+
+                                                                <div>
+                                                                    <h6>Basic Information</h6>
+                                                                    <span>General information about this product</span>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="details-grid">
+
+
+                                                                {{-- Product Name --}}
+
+
+
+                                                                {{-- Product ID --}}
+
+
+
+                                                                {{-- Vendor --}}
+                                                                <div class="detail-box">
+
+                                                                    <div class="detail-label">
+                                                                        Vendor Name
+                                                                    </div>
+
+                                                                    <div class="detail-value">
+                                                                        {{ $product->vendor->VR_Name }}
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                {{-- Category --}}
+                                                                <div class="detail-box">
+
+                                                                    <div class="detail-label">
+                                                                        Category
+                                                                    </div>
+
+                                                                    <div class="detail-value">
+                                                                        {{ $product->category->CT_Name }}
+                                                                    </div>
+
+                                                                </div>
+
+
+                                                                {{-- Sub Category --}}
+                                                                <div class="detail-box">
+
+                                                                    <div class="detail-label">
+                                                                        Sub Category
+                                                                    </div>
+
+                                                                    <div class="detail-value">
+                                                                        {{ $product->subcategory->SC_Name }}
+                                                                    </div>
+
+                                                                </div>
+
+
+
+
+
+                                                            </div>
+
+                                                        </div>
+
+
+                                                        {{-- Product Attributes / Details --}}
+                                                        <div class="details-section mt-4">
+
+                                                            <div class="details-section-title">
+
+                                                                <div class="section-icon">
+                                                                    <i class="bi bi-list-ul"></i>
+                                                                </div>
+
+                                                                <div>
+                                                                    <h6>Product Information</h6>
+                                                                    <span>
+                                                                        Complete information submitted for this product
+                                                                    </span>
+                                                                </div>
+
+                                                            </div>
+
+
+                                                            <div class="product-details-container">
+
+                                                                @php
+                                                                    $details = $product->PR_Details;
+
+                                                                    if (is_string($details)) {
+                                                                        $decodedDetails = json_decode($details, true);
+                                                                    } else {
+                                                                        $decodedDetails = $details;
+                                                                    }
+                                                                @endphp
+
+
+                                                                @if (is_array($decodedDetails))
+                                                                    <div class="details-list">
+
+                                                                        @foreach ($decodedDetails as $key => $value)
+                                                                            <div class="detail-row">
+
+                                                                                <div class="detail-row-label">
+                                                                                    {{ ucwords(str_replace(['_', '-'], ' ', $key)) }}
+                                                                                </div>
+
+                                                                                <div class="detail-row-value">
+
+                                                                                    @if (is_array($value))
+                                                                                        {{ implode(', ', $value) }}
+                                                                                    @elseif(is_string($value) && preg_match('/\.(jpg|jpeg|png|gif|webp|svg)$/i', $value))
+                                                                                        <img src="{{ asset('storage/' . $value) }}"
+                                                                                            alt="{{ $key }}"
+                                                                                            class="product-detail-image">
+                                                                                    @else
+                                                                                        {{ $value }}
+                                                                                    @endif
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        @endforeach
+
+                                                                    </div>
+                                                                @else
+                                                                    <div class="raw-details">
+                                                                        {{ $product->PR_Details }}
+                                                                    </div>
+                                                                @endif
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    {{-- Modal Footer --}}
+                                                    <div class="modal-footer product-modal-footer">
+
+                                                        <div class="modal-footer-left">
+
+                                                            <i class="bi bi-shield-check"></i>
+
+                                                            <span>
+                                                                Product information
+                                                            </span>
+
+                                                        </div>
+
+
+                                                        <button type="button" class="modal-close-btn"
+                                                            data-bs-dismiss="modal">
+
+                                                            <i class="bi bi-x-lg"></i>
+                                                            Close
+
+                                                        </button>
+
+                                                    </div>
+
                                                 </div>
 
                                             </div>
 
                                         </div>
+                                    @endforeach
 
+                                </tbody>
 
-                                        <button type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                        </button>
-
-                                    </div>
-
-
-                                    {{-- Modal Body --}}
-                                    <div class="modal-body product-modal-body">
-
-                                        {{-- Basic Information --}}
-                                        <div class="details-section">
-
-                                            <div class="details-section-title">
-
-                                                <div class="section-icon">
-                                                    <i class="bi bi-info-circle"></i>
-                                                </div>
-
-                                                <div>
-                                                    <h6>Basic Information</h6>
-                                                    <span>General information about this product</span>
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="details-grid">
-
-
-                                                {{-- Product Name --}}
-
-
-
-                                                {{-- Product ID --}}
-
-
-
-                                                {{-- Vendor --}}
-                                                <div class="detail-box">
-
-                                                    <div class="detail-label">
-                                                        Vendor Name
-                                                    </div>
-
-                                                    <div class="detail-value">
-                                                        {{ $product->vendor->VR_Name }}
-                                                    </div>
-
-                                                </div>
-
-
-                                                {{-- Category --}}
-                                                <div class="detail-box">
-
-                                                    <div class="detail-label">
-                                                        Category
-                                                    </div>
-
-                                                    <div class="detail-value">
-                                                        {{ $product->category->CT_Name }}
-                                                    </div>
-
-                                                </div>
-
-
-                                                {{-- Sub Category --}}
-                                                <div class="detail-box">
-
-                                                    <div class="detail-label">
-                                                        Sub Category
-                                                    </div>
-
-                                                    <div class="detail-value">
-                                                        {{ $product->subcategory->SC_Name }}
-                                                    </div>
-
-                                                </div>
-
-
-
-
-
-                                            </div>
-
-                                        </div>
-
-
-                                        {{-- Product Attributes / Details --}}
-                                        <div class="details-section mt-4">
-
-                                            <div class="details-section-title">
-
-                                                <div class="section-icon">
-                                                    <i class="bi bi-list-ul"></i>
-                                                </div>
-
-                                                <div>
-                                                    <h6>Product Information</h6>
-                                                    <span>
-                                                        Complete information submitted for this product
-                                                    </span>
-                                                </div>
-
-                                            </div>
-
-
-                                            <div class="product-details-container">
-
-                                                @php
-                                                    $details = $product->PR_Details;
-
-                                                    if (is_string($details)) {
-                                                        $decodedDetails = json_decode($details, true);
-                                                    } else {
-                                                        $decodedDetails = $details;
-                                                    }
-                                                @endphp
-
-
-                                                @if(is_array($decodedDetails))
-
-                                                    <div class="details-list">
-
- @foreach($decodedDetails as $key => $value)
-
-            <div class="detail-row">
-
-                <div class="detail-row-label">
-                    {{ ucwords(str_replace(['_', '-'], ' ', $key)) }}
-                </div>
-
-                <div class="detail-row-value">
-
-                    @if(is_array($value))
-
-                        {{ implode(', ', $value) }}
-
-                    @elseif(
-                        is_string($value) &&
-                        preg_match('/\.(jpg|jpeg|png|gif|webp|svg)$/i', $value)
-                    )
-
-                        <img src="{{ asset('storage/' . $value) }}"
-                             alt="{{ $key }}"
-                             class="product-detail-image">
-
-                    @else
-
-                        {{ $value }}
-
-                    @endif
-
-                </div>
-
-            </div>
-
-        @endforeach
-
-                                                    </div>
-
-                                                @else
-
-
-
-                                                    <div class="raw-details">
-                                                        {{ $product->PR_Details }}
-                                                    </div>
-
-                                                @endif
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-
-                                    {{-- Modal Footer --}}
-                                    <div class="modal-footer product-modal-footer">
-
-                                        <div class="modal-footer-left">
-
-                                            <i class="bi bi-shield-check"></i>
-
-                                            <span>
-                                                Product information
-                                            </span>
-
-                                        </div>
-
-
-                                        <button type="button"
-                                                class="modal-close-btn"
-                                                data-bs-dismiss="modal">
-
-                                            <i class="bi bi-x-lg"></i>
-                                            Close
-
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
+                            </table>
 
                         </div>
 
-                    @endforeach
+                    </div>
+                @else
+                    {{-- Empty State --}}
 
-                </tbody>
+                    <div class="empty-products">
 
-            </table>
+                        <div class="empty-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
 
-        </div>
+                        <h4>No Products Yet</h4>
 
-    </div>
+                        <p>
+                            You haven't posted any products yet.
+                        </p>
 
-@else
+                        <a href="#" class="empty-btn">
+                            <i class="bi bi-plus-lg"></i>
+                            Add Product
+                        </a>
 
-    {{-- Empty State --}}
-
-    <div class="empty-products">
-
-        <div class="empty-icon">
-            <i class="bi bi-box-seam"></i>
-        </div>
-
-        <h4>No Products Yet</h4>
-
-        <p>
-            You haven't posted any products yet.
-        </p>
-
-        <a href="#" class="empty-btn">
-            <i class="bi bi-plus-lg"></i>
-            Add Product
-        </a>
-
-    </div>
-
-@endif
+                    </div>
+                @endif
 
 
 

@@ -1,7 +1,5 @@
-@extends('layouts.admin-layout')
+@extends('vendor-layout.app')
 @section('content')
-    @include('includes.admin-header')
-    @include('includes.admin-sidebar')
     <style>
         /* Select2 Container */
         .select2-container--default .select2-selection--single {
@@ -73,7 +71,7 @@
 
 
                                 <form
-                                    action="{{ isset($careers) ? route('career.update', $careers->CR_Id) : route('career.store') }}"
+                                    action="{{ isset($careers) ? route('vendor.career.update', $careers->CR_Id) : route('vendor.career.store') }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @if (isset($careers))
@@ -192,9 +190,9 @@
                                                     <input class="form-control" type="file" id="CR_Img"
                                                         name="CR_Img">
                                                 </div>
-                                                @if (isset($career) && $career->CR_Img)
+                                                @if (isset($careers) && $careers->CR_Img)
                                                     <div class="mt-2">
-                                                        <img src="{{ asset('uploads/career/' . $career->CR_Img) }}"
+                                                        <img src="{{ asset('uploads/career/' . $careers->CR_Img) }}"
                                                             width="100" alt="career Image">
                                                     </div>
                                                 @endif
@@ -229,7 +227,7 @@
                 </div><!--end card-->
             </div> <!--end col-->
         </div><!--end row-->
-        @include('includes.admin-footer')
+        @include('vendor.footer')
         <!--end footer-->
     </div>
     <!-- end page content -->
