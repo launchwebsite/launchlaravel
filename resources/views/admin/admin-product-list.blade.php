@@ -23,7 +23,7 @@
                                                 <th>#</th>
                                                 <th>Vendor Name</th>
                                                 <th>Category</th>
-                                                <th>Product Name</th>
+                                                {{-- <th>Product Name</th> --}}
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -33,7 +33,7 @@
                                                     <td>{{ $products->firstItem() + $key }}</td>
                                                     <td>{{ $product->vendor->VR_Name ?? '—' }}</td>
                                                     <td>{{ $product->category->CT_Name ?? '—' }}</td>
-                                                    <td>{{ $product->PR_Details['Product Name'] ?? '—' }}</td>
+                                                    {{-- <td>{{ $product->PR_Details['Product Name'] ?? '—' }}</td> --}}
                                                     <td>
                                                         <button type="button" class="btn btn-sm btn-outline-primary"
                                                             data-bs-toggle="modal"
