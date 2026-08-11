@@ -345,6 +345,7 @@ namespace App\Models {
     /**
      * App\Models\Career
      *
+     * @property string|null $CR_Company
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $CR_Type
@@ -352,6 +353,8 @@ namespace App\Models {
      * @property string|null $CR_SalaryRange
      * @property string|null $CR_Location
      * @property string $CR_Name
+     * @property int|null $VR_Id
+     * @property int|null $Role_Id
      * @property int $SC_Id
      * @property int $CT_Id
      * @property int $CR_Id
@@ -360,6 +363,8 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereScId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereRoleId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereVrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrName($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrLocation($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrSalaryrange($value)
@@ -367,6 +372,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrType($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereUpdatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrCompany($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career query()
@@ -1028,12 +1034,16 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property array $PR_Details
+     * @property string|null $Role_Id
+     * @property int|null $VR_Id
      * @property int $SC_Id
      * @property int $CT_Id
      * @property int $PR_Id
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCtId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereScId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereVrId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereRoleId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product wherePrDetails($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereCreatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<Product>|Product whereUpdatedAt($value)
@@ -1702,6 +1712,7 @@ namespace App\Models {
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email
+     * @property string|null $username
      * @property string $name
      * @property int|null $Role_Id
      * @property int $id
@@ -1710,6 +1721,7 @@ namespace App\Models {
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereRoleId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereUsername($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmail($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User whereEmailVerifiedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<User>|User wherePassword($value)
