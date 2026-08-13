@@ -30,10 +30,16 @@ Route::get('/category_details', [PageController::class, 'categorydetails'])
 Route::get('/job_opening', [PageController::class, 'jobopening'])
     ->name('jobopening');
 
-Route::get('/apply_job/{id}', [PageController::class, 'applyjob'])
+// Apply for a job - select job and store it in session
+Route::post('/apply_job/select', [PageController::class, 'selectJob'])
+    ->name('applyjob.select');
+
+// Application page
+Route::get('/apply_job', [PageController::class, 'applyjob'])
     ->name('applyjob');
 
-Route::post('/applyjob', [PageController::class, 'storeApplication'])
+// Submit application
+Route::post('/apply_job', [PageController::class, 'storeApplication'])
     ->name('storeApplication');
 
 Route::get('/contact', [PageController::class, 'contact'])
@@ -228,8 +234,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])
         ->name('admin-category-delete');
 
-
-
     /*
     |--------------------------------------------------------------------------
     | Attributes
@@ -296,7 +300,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/career/store', [CareerController::class, 'store'])
         ->name('career.store');
 
-    Route::get('/admin/career/edit/{id}', [CareerController::class, 'edit'])
+    Route::post('/admin/career/edit', [CareerController::class, 'edit'])
         ->name('career.edit');
 
     Route::put('/admin/career/update/{id}', [CareerController::class, 'update'])
@@ -305,9 +309,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/career/delete/{id}', [CareerController::class, 'destroy'])
         ->name('career.delete');
 
-            Route::get('/admin/candidates-application', [CareerController::class, 'candidatesApplications'])
+    Route::get('/admin/candidates-application', [CareerController::class, 'candidatesApplications'])
         ->name('candidates.application');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -324,7 +327,7 @@ Route::middleware('auth')->group(function () {
         ->name('admin.product.list');
 
     // Product edit
-    Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])
+    Route::post('/admin/product/edit', [ProductController::class, 'edit'])
         ->name('admin.product.edit');
 
     // Product update

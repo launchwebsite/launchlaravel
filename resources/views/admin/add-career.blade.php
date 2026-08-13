@@ -85,7 +85,7 @@
 
                                             <div class="mb-3 row">
                                                 <label class="text-danger">*</label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <select class="form-control" name="CT_Id" required>
 
                                                         @foreach ($categories as $category)
@@ -105,7 +105,7 @@
 
                                             <div class="mb-3 row">
                                                 <label class="text-danger">*</label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <input type="text" name="SC_Name" class="form-control"
                                                         list="subCategoryList"
                                                         value="{{ old('SC_Name', $careers->subCategory->SC_Name ?? '') }}"
@@ -127,7 +127,7 @@
 
                                             <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <textarea id="CR_Name" name="CR_Name" placeholder="Enter Job Position" rows="4" class="form-control">{{ old('CR_Name', $careers->CR_Name ?? '') }}</textarea>
 
                                                 </div>
@@ -138,7 +138,7 @@
 
                                             <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <textarea id="CR_Location" name="CR_Location" placeholder="Enter Job Location" rows="4" class="form-control">{{ old('CR_Location', $careers->CR_Location ?? '') }}</textarea>
 
                                                 </div>
@@ -150,7 +150,7 @@
 
                                             <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <textarea id="CR_SalaryRange" name="CR_SalaryRange" placeholder="Enter SalaryRange" rows="4" class="form-control">{{ old('CR_SalaryRange', $careers->CR_SalaryRange ?? '') }}</textarea>
 
                                                 </div>
@@ -164,7 +164,7 @@
 
                                             <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <textarea id="CR_Type" name="CR_Type" placeholder="Enter Job Type" rows="4" class="form-control">{{ old('CR_Type', $careers->CR_Type ?? '') }}</textarea>
 
                                                 </div>
@@ -176,7 +176,7 @@
 
                                                          <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <textarea id="CR_Company" name="CR_Company" placeholder="Enter Company" rows="4" class="form-control">{{ old('CR_Company', $careers->CR_Company ?? '') }}</textarea>
 
                                                 </div>
@@ -188,7 +188,7 @@
 
                                             <div class="mb-3 row">
                                                 <label class="text-danger">* </label>
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <input class="form-control" type="file" id="CR_Img"
                                                         name="CR_Img">
                                                 </div>
@@ -215,7 +215,7 @@
 
                                             <div class="mb-3 row">
 
-                                                <div class="col-sm-10">
+                                                <div class="col-sm-12">
                                                     <button
                                                         class="btn btn-primary float-end">{{ isset($careers) ? 'Update' : 'Submit' }}</button>
                                                 </div>

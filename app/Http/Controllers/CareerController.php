@@ -89,19 +89,21 @@ class CareerController extends Controller
             ->with('success', 'Career added successfully.');
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
         $category = Category::where('CT_Name', 'Jobs')->first();
-        $careers  = Career::findOrFail($id);
 
-        $categories     = Category::where('CT_Name', 'Jobs')->get();
+        $careers = Career::findOrFail($request->id);
+
+        $categories = Category::where('CT_Name', 'Jobs')->get();
+
         $sub_categories = SubCategory::where('CT_Id', $category->CT_Id)->get();
 
         return view('admin.add-career', compact(
             'careers',
             'categories',
             'sub_categories',
-            'category',
+            'category'
         ));
     }
 

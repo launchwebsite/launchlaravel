@@ -56,10 +56,16 @@
 
 
                                                     <td>
-                                                        <a href="{{ route('career.edit', $career->CR_Id) }}"
-                                                            class="btn btn-sm btn-primary">
-                                                            <i class="fas fa-edit"></i>
-                                                        </a>
+                                                        <form action="{{ route('career.edit') }}" method="POST"
+                                                            style="display:inline;">
+                                                            @csrf
+                                                            <input type="hidden" name="id"
+                                                                value="{{ $career->CR_Id }}">
+
+                                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                        </form>
                                                         <a href="{{ route('career.delete', $career->CR_Id) }}"
                                                             class="btn btn-sm btn-danger"onclick="return confirm('Are you sure?')">
                                                             <i class="fas fa-trash"></i>

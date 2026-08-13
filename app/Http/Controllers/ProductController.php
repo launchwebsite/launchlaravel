@@ -6,14 +6,32 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class ProductController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | ADD PRODUCT PAGE
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
-        $attributes     = Attributes::all();
-        $categories     = Category::all();
-        $sub_categories = SubCategory::all();
+        $categories = Category::orderBy('CT_Name')->get();
+
+        $sub_categories = SubCategory::orderBy('SC_Name')->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Do NOT use $product here.
+        |
+        | This is the Add Product page, so there is no existing product yet.
+        | Attributes will be filtered by subcategory using getAttributes().
+        |--------------------------------------------------------------------------
+        */
+
+        $attributes = Attributes::orderBy('AT_Id')->get();
 
         return view(
             'admin.product',
@@ -24,6 +42,12 @@ class ProductController extends Controller
             )
         );
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | STORE PRODUCT
+    |--------------------------------------------------------------------------
+    */
 
     public function store(Request $request)
     {
@@ -40,26 +64,64 @@ class ProductController extends Controller
             ]
         );
 
+        /*
+        |--------------------------------------------------------------------------
+        | Check category/subcategory relationship
+        |--------------------------------------------------------------------------
+        */
+
+        $subcategory = SubCategory::where('SC_Id', $request->SC_Id)
+            ->where('CT_Id', $request->CT_Id)
+            ->first();
+
+        if (! $subcategory) {
+            return back()
+                ->withErrors([
+                    'SC_Id' => 'The selected subcategory does not belong to the selected category.',
+                ])
+                ->withInput();
+        }
+
         $details = [];
+
+        /*
+        |--------------------------------------------------------------------------
+        | Process Attributes
+        |--------------------------------------------------------------------------
+        */
 
         foreach ($request->AT_Inputs as $attributeId => $value) {
 
-            $attribute = Attributes::find($attributeId);
+            /*
+            |--------------------------------------------------------------------------
+            | Only accept attributes belonging to selected category/subcategory
+            |--------------------------------------------------------------------------
+            */
+
+            $attribute = Attributes::where('AT_Id', $attributeId)
+                ->where('CT_Id', $request->CT_Id)
+                ->where('SC_Id', $request->SC_Id)
+                ->first();
 
             if (! $attribute) {
                 continue;
             }
 
             /*
-        |--------------------------------------------------------------------------
-        | FILE / IMAGE UPLOAD
-        |--------------------------------------------------------------------------
-        */
-            if ($value instanceof \Illuminate\Http\UploadedFile) {
+            |--------------------------------------------------------------------------
+            | FILE / IMAGE UPLOAD
+            |--------------------------------------------------------------------------
+            */
+
+            if ($value instanceof UploadedFile) {
 
                 if ($value->isValid()) {
 
-                    $filename = time() . '_' . uniqid() . '_' . $value->getClientOriginalName();
+                    $filename = time()
+                    . '_'
+                    . uniqid()
+                    . '_'
+                    . $value->getClientOriginalName();
 
                     $value->move(
                         public_path('storage/uploads/products'),
@@ -71,21 +133,26 @@ class ProductController extends Controller
             }
 
             /*
-        |--------------------------------------------------------------------------
-        | CHECKBOX / ARRAY VALUES
-        |--------------------------------------------------------------------------
-        */
+            |--------------------------------------------------------------------------
+            | ARRAY / CHECKBOX VALUES
+            |--------------------------------------------------------------------------
+            */
+
             elseif (is_array($value)) {
 
                 $arrayValues = [];
 
                 foreach ($value as $item) {
 
-                    if ($item instanceof \Illuminate\Http\UploadedFile) {
+                    if ($item instanceof UploadedFile) {
 
                         if ($item->isValid()) {
 
-                            $filename = time() . '_' . uniqid() . '_' . $item->getClientOriginalName();
+                            $filename = time()
+                            . '_'
+                            . uniqid()
+                            . '_'
+                            . $item->getClientOriginalName();
 
                             $item->move(
                                 public_path('storage/uploads/products'),
@@ -96,28 +163,28 @@ class ProductController extends Controller
                         }
 
                     } else {
+
                         $arrayValues[] = $item;
                     }
                 }
 
-                // If it's a normal checkbox array, store as comma-separated string
                 $value = implode(',', $arrayValues);
             }
 
             /*
-        |--------------------------------------------------------------------------
-        | STORE ATTRIBUTE VALUE
-        |--------------------------------------------------------------------------
-        */
+            |--------------------------------------------------------------------------
+            | STORE ATTRIBUTE VALUE
+            |--------------------------------------------------------------------------
+            */
 
             $details[$attribute->AT_Inputs] = $value;
         }
 
         /*
-    |--------------------------------------------------------------------------
-    | CREATE PRODUCT
-    |--------------------------------------------------------------------------
-    */
+        |--------------------------------------------------------------------------
+        | CREATE PRODUCT
+        |--------------------------------------------------------------------------
+        */
 
         Product::create([
             'CT_Id'      => $request->CT_Id,
@@ -131,6 +198,12 @@ class ProductController extends Controller
             ->back()
             ->with('success', 'Product created successfully.');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN PRODUCT LIST
+    |--------------------------------------------------------------------------
+    */
 
     public function adminList()
     {
@@ -147,29 +220,112 @@ class ProductController extends Controller
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | GET ATTRIBUTES BY SUBCATEGORY
+    |--------------------------------------------------------------------------
+    */
+
     public function getAttributes($id)
     {
-        $attributes = Attributes::where('SC_Id', $id)->get();
+        $attributes = Attributes::where('SC_Id', $id)
+            ->orderBy('AT_Id')
+            ->get();
 
         return response()->json($attributes);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | GET SUBCATEGORIES BY CATEGORY
+    |--------------------------------------------------------------------------
+    */
+
     public function getSubCategories($id)
     {
-        $subCategories = SubCategory::where('CT_Id', $id)->get();
+        $subCategories = SubCategory::where('CT_Id', $id)
+            ->orderBy('SC_Name')
+            ->get();
 
         return response()->json($subCategories);
     }
 
-    public function edit($id)
+    /*
+    |--------------------------------------------------------------------------
+    | EDIT PRODUCT
+    |--------------------------------------------------------------------------
+    */
+
+    public function edit(Request $request)
     {
-        $product = Product::findOrFail($id);
+        // Validate the hidden product ID
+        $request->validate([
+            'PR_Id' => 'required|exists:products,PR_Id',
+        ]);
 
-        $categories = Category::orderBy('CT_Name')->get();
+        // Get the product using the hidden PR_Id
+        $product = Product::findOrFail($request->PR_Id);
 
-        $sub_categories = SubCategory::orderBy('SC_Name')->get();
+        /*
+    |--------------------------------------------------------------------------
+    | Load all categories
+    |--------------------------------------------------------------------------
+    */
 
-        $attributes = Attributes::all();
+        $categories = Category::orderBy('CT_Name')
+            ->get();
+
+        /*
+    |--------------------------------------------------------------------------
+    | ONLY load subcategories belonging to this product's category
+    |--------------------------------------------------------------------------
+    */
+
+        $sub_categories = SubCategory::where(
+            'CT_Id',
+            $product->CT_Id
+        )
+            ->orderBy('SC_Name')
+            ->get();
+
+        /*
+    |--------------------------------------------------------------------------
+    | ONLY load attributes belonging to this product's subcategory
+    |--------------------------------------------------------------------------
+    |
+    | Example:
+    |
+    | Product = Canon Camera
+    | Subcategory = Cameras
+    |
+    | Loads:
+    | Brand
+    | Model
+    | Camera Type
+    | Resolution
+    | Lens Mount
+    |
+    | Does NOT load:
+    | RAM
+    | Mileage
+    | Bedrooms
+    | Fuel Type
+    | Sofa Type
+    |
+    */
+
+        $attributes = Attributes::where(
+            'SC_Id',
+            $product->SC_Id
+        )
+            ->orderBy('AT_Id')
+            ->get();
+
+        /*
+    |--------------------------------------------------------------------------
+    | Return edit page
+    |--------------------------------------------------------------------------
+    */
 
         return view(
             'admin.admin-product-edit',
@@ -182,9 +338,21 @@ class ProductController extends Controller
         );
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | UPDATE PRODUCT
+    |--------------------------------------------------------------------------
+    */
+
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+
+        /*
+        |--------------------------------------------------------------------------
+        | VALIDATION
+        |--------------------------------------------------------------------------
+        */
 
         $request->validate(
             [
@@ -199,13 +367,18 @@ class ProductController extends Controller
             ]
         );
 
-        // Make sure selected subcategory belongs
-        // to selected category
+        /*
+        |--------------------------------------------------------------------------
+        | Check category/subcategory relationship
+        |--------------------------------------------------------------------------
+        */
+
         $subcategory = SubCategory::where('SC_Id', $request->SC_Id)
             ->where('CT_Id', $request->CT_Id)
             ->first();
 
         if (! $subcategory) {
+
             return back()
                 ->withErrors([
                     'SC_Id' => 'The selected subcategory does not belong to the selected category.',
@@ -213,30 +386,133 @@ class ProductController extends Controller
                 ->withInput();
         }
 
+        /*
+        |--------------------------------------------------------------------------
+        | Existing Details
+        |--------------------------------------------------------------------------
+        */
+
+        $existingDetails = $product->PR_Details ?? [];
+
+        if (is_string($existingDetails)) {
+            $existingDetails = json_decode(
+                $existingDetails,
+                true
+            ) ?? [];
+        }
+
         $details = [];
 
-        if ($request->has('AT_Inputs')) {
+        /*
+        |--------------------------------------------------------------------------
+        | Process Attributes
+        |--------------------------------------------------------------------------
+        */
 
-            foreach ($request->AT_Inputs as $attributeId => $value) {
+        foreach ($request->AT_Inputs as $attributeId => $value) {
 
-                // Only get attributes belonging to
-                // the selected subcategory
-                $attribute = Attributes::where('AT_Id', $attributeId)
-                    ->where('CT_Id', $request->CT_Id)
-                    ->where('SC_Id', $request->SC_Id)
-                    ->first();
+            /*
+            |--------------------------------------------------------------------------
+            | ONLY accept attributes belonging to selected
+            | category + subcategory
+            |--------------------------------------------------------------------------
+            */
 
-                if ($attribute) {
+            $attribute = Attributes::where('AT_Id', $attributeId)
+                ->where('CT_Id', $request->CT_Id)
+                ->where('SC_Id', $request->SC_Id)
+                ->first();
 
-                    // Checkbox values come as arrays
-                    if (is_array($value)) {
-                        $value = implode(',', $value);
-                    }
+            if (! $attribute) {
+                continue;
+            }
 
-                    $details[$attribute->AT_Inputs] = $value;
+            /*
+            |--------------------------------------------------------------------------
+            | FILE / IMAGE
+            |--------------------------------------------------------------------------
+            */
+
+            if ($value instanceof UploadedFile) {
+
+                if ($value->isValid()) {
+
+                    $filename = time()
+                    . '_'
+                    . uniqid()
+                    . '_'
+                    . $value->getClientOriginalName();
+
+                    $value->move(
+                        public_path('storage/uploads/products'),
+                        $filename
+                    );
+
+                    $value = $filename;
+
+                } else {
+
+                    /*
+                    | Keep existing file if upload is invalid
+                    */
+
+                    $value = $existingDetails[$attribute->AT_Inputs] ?? '';
                 }
             }
+
+            /*
+            |--------------------------------------------------------------------------
+            | ARRAY / CHECKBOX
+            |--------------------------------------------------------------------------
+            */
+
+            elseif (is_array($value)) {
+
+                $arrayValues = [];
+
+                foreach ($value as $item) {
+
+                    if ($item instanceof UploadedFile) {
+
+                        if ($item->isValid()) {
+
+                            $filename = time()
+                            . '_'
+                            . uniqid()
+                            . '_'
+                            . $item->getClientOriginalName();
+
+                            $item->move(
+                                public_path('storage/uploads/products'),
+                                $filename
+                            );
+
+                            $arrayValues[] = $filename;
+                        }
+
+                    } else {
+
+                        $arrayValues[] = $item;
+                    }
+                }
+
+                $value = implode(',', $arrayValues);
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | STORE ATTRIBUTE VALUE
+            |--------------------------------------------------------------------------
+            */
+
+            $details[$attribute->AT_Inputs] = $value;
         }
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE PRODUCT
+        |--------------------------------------------------------------------------
+        */
 
         $product->update([
             'CT_Id'      => $request->CT_Id,
@@ -248,6 +524,12 @@ class ProductController extends Controller
             ->route('admin.product.list')
             ->with('success', 'Product updated successfully.');
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE PRODUCT
+    |--------------------------------------------------------------------------
+    */
 
     public function destroy($id)
     {

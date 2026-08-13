@@ -129,7 +129,7 @@
 
 
                                     {{-- ================= ALL ATTRIBUTES ================= --}}
-                                    @foreach ($attributes as $attribute)
+                                    @foreach ($attributes->where('SC_Id', $product->SC_Id) as $attribute)
                                         @php
 
                                             $existingValue = $existingDetails[$attribute->AT_Inputs] ?? '';
