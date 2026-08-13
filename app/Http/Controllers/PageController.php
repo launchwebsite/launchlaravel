@@ -7,6 +7,7 @@ use App\Models\CareerApplication;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {

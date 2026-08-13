@@ -11,3 +11,4 @@ Route::controller(SubCategoryController::class)->group(function () {
     Route::put('/subcategory/update', 'update')->name('admin-subcategory-update');
     Route::delete('/subcategory/delete/{id}', 'destroy')->name('admin-subcategory-delete');
 });
+

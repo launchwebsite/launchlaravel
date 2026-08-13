@@ -4,8 +4,8 @@
     @include('includes.sidebar')
 
     <!--=====================================
-                      SINGLE BANNER PART START
-            =======================================-->
+                          SINGLE BANNER PART START
+                =======================================-->
     <section class="single-banner">
         <div class="container">
             <div class="row">
@@ -19,13 +19,13 @@
         </div>
     </section>
     <!--=====================================
-                      SINGLE BANNER PART END
-            =======================================-->
+                          SINGLE BANNER PART END
+                =======================================-->
 
 
     <!--=====================================
-                         PRICE PART START
-            =======================================-->
+                             PRICE PART START
+                =======================================-->
     <section class="price-part">
         <div class="container">
             <div class="row">
@@ -33,8 +33,8 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="job-card">
 
-                        <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning"></span>
+                            <div class="d-flex justify-content-between align-items-start">
+                                <span class="easy-apply text-warning"></span>
 
                                 <div class="job-icons">
                                     <a href="#"><i class="far fa-bookmark"></i></a>
@@ -60,9 +60,12 @@
                                 </span>
                             </div>
 
-                        <div class="jobby">
-                            <a href="{{ route('applyjob') }}" class="btn btn-outline-warning btn-sm">Apply Now</a>
-                        </div>
+                            <div class="jobby">
+                                <a href="{{ route('applyjob', ['id' => $career->CR_Id]) }}"
+                                    class="btn btn-outline-warning btn-sm">
+                                    Apply Now
+                                </a>
+                            </div>
 
                         </div>
                     </div>
@@ -86,8 +89,8 @@
         </div>
     </section>
     <!--=====================================
-                         PRICE PART END
-            =======================================-->
+                             PRICE PART END
+                =======================================-->
 
     @include('includes.footer')
 @endsection
