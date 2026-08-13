@@ -353,6 +353,8 @@ namespace App\Models {
 	 * @property string|null $CR_SalaryRange
 	 * @property string|null $CR_Location
 	 * @property string $CR_Name
+	 * @property int|null $VR_Id
+	 * @property int|null $Role_Id
 	 * @property int $SC_Id
 	 * @property int $CT_Id
 	 * @property int $CR_Id
@@ -361,6 +363,8 @@ namespace App\Models {
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrId($value)
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCtId($value)
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereScId($value)
+	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereRoleId($value)
+	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereVrId($value)
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrName($value)
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrLocation($value)
 	 * @method static \Illuminate\Database\Eloquent\Builder<Career>|Career whereCrSalaryrange($value)
