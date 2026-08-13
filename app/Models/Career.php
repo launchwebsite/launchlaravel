@@ -31,4 +31,9 @@ class Career extends Model
     {
         return $this->belongsTo(SubCategory::class, 'SC_Id', 'SC_Id');
     }
+
+       public function applications()
+    {
+        return $this->hasMany(CareerApplication::class, 'CR_Id', 'CR_Id');
+    }
 }

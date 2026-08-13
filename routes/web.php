@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -31,6 +30,12 @@ Route::get('/category_details', [PageController::class, 'categorydetails'])
 Route::get('/job_opening', [PageController::class, 'jobopening'])
     ->name('jobopening');
 
+Route::get('/apply_job/{id}', [PageController::class, 'applyjob'])
+    ->name('applyjob');
+
+Route::post('/applyjob', [PageController::class, 'storeApplication'])
+    ->name('storeApplication');
+
 Route::get('/contact', [PageController::class, 'contact'])
     ->name('contact');
 
@@ -43,11 +48,6 @@ Route::post('/add-your-ad', [VendorController::class, 'VendorPostAdd'])
 // vendor auto select
 Route::get('/check-vendor', [VendorController::class, 'checkVendor'])
     ->name('vendor.check');
-
-
-
-Route::get('/apply_job', [PageController::class, 'applyjob'])
-    ->name('applyjob');
 
 Route::get('/ad_details', [PageController::class, 'addetails'])
     ->name('addetails');
@@ -67,7 +67,6 @@ Route::get('/user_form', [PageController::class, 'user'])
 Route::get('/index', [PageController::class, 'index'])
     ->name('index');
 
-
 /*
 |--------------------------------------------------------------------------
 | Vendor Authentication
@@ -84,7 +83,6 @@ Route::get('/vendor-login', function () {
 Route::post('/login', [AuthController::class, 'login'])
     ->name('login.submit');
 
-
 /*
 |--------------------------------------------------------------------------
 | Admin Login
@@ -100,7 +98,6 @@ Route::middleware('guest')->group(function () {
         ->name('login.user');
 
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -128,10 +125,10 @@ Route::middleware('auth:vendor')->group(function () {
 
     Route::get('/vendor/ad-your-post', [VendorController::class, 'postlist'])->name('vendor.postlist');
 
-      Route::get('/vendor-products', [VendorController::class, 'addpost'])->name('vendor.post.form');
+    Route::get('/vendor-products', [VendorController::class, 'addpost'])->name('vendor.post.form');
     Route::post('/venddor-products/store', [VendorController::class, 'poststore'])->name('vendor.post-store');
 
-       /*
+    /*
     |--------------------------------------------------------------------------
     | Career
     |--------------------------------------------------------------------------
@@ -157,7 +154,6 @@ Route::middleware('auth:vendor')->group(function () {
 
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | Admin Authenticated Routes
@@ -177,7 +173,6 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/admin/logout', [LogController::class, 'logout'])
         ->name('logout');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -205,7 +200,6 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/admin/vendor/{id}/update', [AdminController::class, 'vendorUpdate'])
         ->name('admin.vendor.update');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -235,6 +229,7 @@ Route::middleware('auth')->group(function () {
         ->name('admin-category-delete');
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Attributes
@@ -262,7 +257,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])
         ->name('attributes.delete');
 
-
     /*
     |--------------------------------------------------------------------------
     | Product Creation
@@ -275,7 +269,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/products/store', [ProductController::class, 'store'])
         ->name('products.store');
 
-
     /*
     |--------------------------------------------------------------------------
     | Product AJAX Routes
@@ -287,7 +280,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/category/{id}/subcategories', [ProductController::class, 'getSubCategories'])
         ->name('category.subcategories');
-
 
     /*
     |--------------------------------------------------------------------------
@@ -312,6 +304,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/career/delete/{id}', [CareerController::class, 'destroy'])
         ->name('career.delete');
+
+            Route::get('/admin/candidates-application', [CareerController::class, 'candidatesApplications'])
+        ->name('candidates.application');
 
 
     /*
@@ -341,7 +336,6 @@ Route::middleware('auth')->group(function () {
         ->name('admin.product.delete');
 
 });
-
 
 /*
 |--------------------------------------------------------------------------

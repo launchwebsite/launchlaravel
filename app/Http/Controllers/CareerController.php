@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Career;
+use App\Models\CareerApplication;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -358,6 +359,14 @@ class CareerController extends Controller
         return redirect()
             ->route('vendor.career.index')
             ->with('success', 'Career deleted successfully.');
+    }
+
+    public function candidatesApplications()
+    {
+        $applications = CareerApplication::all();
+
+        return view('admin.candidates-applications', compact('applications'));
+
     }
 
 }

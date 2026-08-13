@@ -93,6 +93,15 @@
                         </a>
                     </li>
 
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('candidates.application') }}" aria-expanded="false"
+                            aria-controls="sidebarElements">
+                            <i class="iconoir-book menu-icon"></i>
+                            <span>Candidates Applications</span>
+                        </a>
+                    </li>
+
                 </ul>
 
             </div>
