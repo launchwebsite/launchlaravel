@@ -91,7 +91,8 @@
                                                 @foreach ($sub_categories as $subcategory)
                                                     <option value="{{ $subcategory->SC_Id }}"
                                                         data-category="{{ $subcategory->CT_Id }}"
-                                                        {{ old('SC_Id', $product->SC_Id) == $subcategory->SC_Id ? 'selected' : '' }}>
+                                                        {{ old('SC_Id', $product->SC_Id) == $subcategory->SC_Id ? 'selected' : '' }}
+                                                        {{ $subcategory->CT_Id != old('CT_Id', $product->CT_Id) ? 'hidden' : '' }}>
 
                                                         {{ $subcategory->SC_Name }}
 
@@ -397,4 +398,30 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const category = document.getElementById('category');
+            const subcategory = document.getElementById('subcategory');
+
+            function filterSubcategories() {
+                const selectedCategory = category.value;
+
+                Array.from(subcategory.options).forEach(function (option) {
+                    if (!option.value) {
+                        option.hidden = false;
+                        return;
+                    }
+                    option.hidden = option.dataset.category !== selectedCategory;
+                });
+            }
+
+            category.addEventListener('change', function () {
+                subcategory.value = '';
+                filterSubcategories();
+            });
+
+            filterSubcategories();
+        });
+    </script>
 @endsection
