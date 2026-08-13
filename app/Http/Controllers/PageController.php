@@ -40,7 +40,7 @@ class PageController extends Controller
             ->get();
 
         $careerCount = Career::count();
-        $careers = Career::get();
+        $careers     = Career::get();
 
         return view('home', compact(
             'category',
@@ -63,7 +63,41 @@ class PageController extends Controller
             ->latest()
             ->get();
 
-        return view('categorylist', compact('categoriess'));
+        // Career count for each category
+        $careerCategoryCounts = Career::select(
+            'CT_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('CT_Id')
+            ->pluck('total', 'CT_Id');
+
+        // Career count for each subcategory
+        $careerSubcategoryCounts = Career::select(
+            'SC_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('SC_Id')
+            ->pluck('total', 'SC_Id');
+
+        $categories = Category::withCount('products')
+            ->with([
+                'subcategories' => function ($query) {
+                    $query->withCount('products');
+                },
+            ])
+            ->latest()
+            ->get();
+
+        $careerCount = Career::count();
+        $careers     = Career::get();
+
+        return view('categorylist', compact('categoriess',
+            'categories',
+            'careerCategoryCounts',
+            'careerCount',
+            'careerSubcategoryCounts',
+            'careers'
+        ));
     }
 
     public function categorydetails()
