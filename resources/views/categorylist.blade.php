@@ -28,26 +28,66 @@
     <section class="inner-section category-part">
         <div class="container">
             <div class="row justify-content-center g-4">
-                @foreach ($categoriess as $item)
+                @foreach ($categories as $item)
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+
                         <div class="category-card golden bluee">
+
                             <div class="category-head">
-                                <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="category">
+
+                                <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="{{ $item->CT_Name }}">
+
                                 <a href="{{ route('categorydetails', $item->CT_Id) }}" class="category-content">
+
                                     <h4>{{ $item->CT_Name }}</h4>
-                                    <p>({{ $item->products_count }})</p>
+
+                                    {{-- CATEGORY COUNT --}}
+                                    @if (strtolower(trim($item->CT_Name)) === 'jobs')
+                                        <p>
+                                            ({{ $careerCategoryCounts[$item->CT_Id] ?? 0 }})
+                                        </p>
+                                    @else
+                                        <p>
+                                            ({{ $item->products_count }})
+                                        </p>
+                                    @endif
+
                                 </a>
+
                             </div>
+
+
                             <ul class="category-list goldy">
+
                                 @foreach ($item->subcategories as $subcategory)
-                                    <li><a href="{{ route('addetails', $subcategory->SC_Id) }}">
-                                            <h6>{{ $subcategory->SC_Name }}</h6>
-                                            <p>({{ $subcategory->products_count }})</p>
+                                    <li>
+
+                                        <a href="{{ route('addetails', $subcategory->SC_Id) }}">
+
+                                            <h6>
+                                                {{ $subcategory->SC_Name }}
+                                            </h6>
+
+                                            {{-- SUBCATEGORY COUNT --}}
+                                            @if (strtolower(trim($item->CT_Name)) === 'jobs')
+                                                <p>
+                                                    ({{ $careerSubcategoryCounts[$subcategory->SC_Id] ?? 0 }})
+                                                </p>
+                                            @else
+                                                <p>
+                                                    ({{ $subcategory->products_count }})
+                                                </p>
+                                            @endif
+
                                         </a>
+
                                     </li>
                                 @endforeach
+
                             </ul>
+
                         </div>
+
                     </div>
                 @endforeach
             </div>
