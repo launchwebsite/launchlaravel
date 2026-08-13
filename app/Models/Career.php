@@ -12,6 +12,8 @@ class Career extends Model
     protected $fillable = [
         'CT_Id',
         'SC_Id',
+        'Role_Id',
+        'VR_Id',
         'CR_Name',
         'CR_Location',
         'CR_SalaryRange',
