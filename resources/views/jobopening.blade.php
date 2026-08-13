@@ -34,7 +34,7 @@
                         <div class="job-card">
 
                         <div class="d-flex justify-content-between align-items-start">
-                            <span class="easy-apply text-warning">{{ $career->CR_Type}}</span>
+                            <span class="easy-apply text-warning"></span>
 
                                 <div class="job-icons">
                                     <a href="#"><i class="far fa-bookmark"></i></a>
