@@ -126,16 +126,19 @@ class CareerController extends Controller
 
         $newName = trim($request->SC_Name);
 
+// Check if another subcategory already has this name
         $existing = SubCategory::where('CT_Id', $request->CT_Id)
             ->where('SC_Name', $newName)
             ->first();
 
         if ($existing) {
 
+            // Use existing subcategory
             $SC_Id = $existing->SC_Id;
 
         } else {
 
+            // Rename the current subcategory instead of creating a new one
             $subCategory = SubCategory::findOrFail($career->SC_Id);
 
             $subCategory->update([
@@ -147,8 +150,7 @@ class CareerController extends Controller
 
         $data = [
             'CT_Id'          => $request->CT_Id,
-            'SC_Id'          => $SC_Id, // FIXED
-            'Role_Id'        => 1,      // Admin
+            'SC_Id'          => $subCategory->SC_Id,
             'CR_Name'        => $request->CR_Name,
             'CR_Location'    => $request->CR_Location,
             'CR_SalaryRange' => $request->CR_SalaryRange,
@@ -156,6 +158,7 @@ class CareerController extends Controller
             'CR_Company'     => $request->CR_Company,
         ];
 
+        // Upload Image
         if ($request->hasFile('CR_Img')) {
 
             if ($career->CR_Img && File::exists(public_path('uploads/career/' . $career->CR_Img))) {
@@ -359,14 +362,6 @@ class CareerController extends Controller
         return redirect()
             ->route('vendor.career.index')
             ->with('success', 'Career deleted successfully.');
-    }
-
-    public function candidatesApplications()
-    {
-        $applications = CareerApplication::all();
-
-        return view('admin.candidates-applications', compact('applications'));
-
     }
 
 }

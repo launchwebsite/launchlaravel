@@ -5,24 +5,52 @@ use App\Models\Attributes;
 use App\Models\Career;
 use App\Models\CareerApplication;
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\SubCategory;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
     public function home()
     {
-        $careers    = Career::all();
-        $category   = Category::withCount('products')->get();
-        $categories = Category::withCount('products')->with([
-            'subcategories' => function ($query) {
-                $query->withCount('products');
-            },
-        ])
-            ->latest()->take(4)->get();
+        $category = Category::withCount('products')->get();
 
-        return view("home", compact('category', 'categories', 'careers'));
+        // Career count for each category
+        $careerCategoryCounts = Career::select(
+            'CT_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('CT_Id')
+            ->pluck('total', 'CT_Id');
+
+        // Career count for each subcategory
+        $careerSubcategoryCounts = Career::select(
+            'SC_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('SC_Id')
+            ->pluck('total', 'SC_Id');
+
+        $categories = Category::withCount('products')
+            ->with([
+                'subcategories' => function ($query) {
+                    $query->withCount('products');
+                },
+            ])
+            ->latest()
+            ->take(4)
+            ->get();
+
+        $careerCount = Career::count();
+        $careers     = Career::get();
+
+        return view('home', compact(
+            'category',
+            'categories',
+            'careerCategoryCounts',
+            'careerCount',
+            'careerSubcategoryCounts',
+            'careers'
+        ));
     }
 
     public function categorylist()
@@ -36,7 +64,41 @@ class PageController extends Controller
             ->latest()
             ->get();
 
-        return view('categorylist', compact('categoriess'));
+        // Career count for each category
+        $careerCategoryCounts = Career::select(
+            'CT_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('CT_Id')
+            ->pluck('total', 'CT_Id');
+
+        // Career count for each subcategory
+        $careerSubcategoryCounts = Career::select(
+            'SC_Id',
+            DB::raw('COUNT(*) as total')
+        )
+            ->groupBy('SC_Id')
+            ->pluck('total', 'SC_Id');
+
+        $categories = Category::withCount('products')
+            ->with([
+                'subcategories' => function ($query) {
+                    $query->withCount('products');
+                },
+            ])
+            ->latest()
+            ->get();
+
+        $careerCount = Career::count();
+        $careers     = Career::get();
+
+        return view('categorylist', compact('categoriess',
+            'categories',
+            'careerCategoryCounts',
+            'careerCount',
+            'careerSubcategoryCounts',
+            'careers'
+        ));
     }
 
     public function categorydetails()
@@ -98,21 +160,18 @@ public function storeApplication(Request $request)
     }
 
 
- public function adpost()
-{
-    $attributes = Attributes::all();
-    $categories = Category::all();
-    $sub_categories = SubCategory::all();
+    public function adpost()
+    {
+        $attributes     = Attributes::all();
+        $categories     = Category::all();
+        $sub_categories = SubCategory::all();
 
-    return view('addpost', compact(
-        'attributes',
-        'categories',
-        'sub_categories'
-    ));
-}
-
-
-
+        return view('addpost', compact(
+            'attributes',
+            'categories',
+            'sub_categories'
+        ));
+    }
 
     public function addetails()
     {
