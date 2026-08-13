@@ -269,7 +269,7 @@
 
 
                                     <div class="row form-group">
-                                        <label class="col-sm-3 label-title">Condition<span
+                                        <label class="col-sm-3 label-title">Employee Type<span
                                                 class="required">*</span></label>
                                         <div class="col-sm-9 checkblack">
                                             <select name="VR_Type" class="form-control">
