@@ -14,7 +14,7 @@ class Product extends Model
         'SC_Id',
         'PR_Details',
         'Role_Id',
-        'VR_Id'
+        'VR_Id',
     ];
 
     protected $casts = [
@@ -34,5 +34,31 @@ class Product extends Model
     public function subcategory()
     {
         return $this->belongsTo(SubCategory::class, 'SC_Id', 'SC_Id');
+    }
+    
+    public function getDisplayGalleryAttribute()
+    {
+        $d = $this->PR_Details;
+        return collect([$d['Main Image'] ?? null, $d['Image 1'] ?? null, $d['Image 2'] ?? null, $d['Image 3'] ?? null])
+            ->filter()
+            ->map(fn($img) => asset('storage/uploads/products/' . $img))
+            ->values();
+    }
+
+    public function getDisplayTitleAttribute()
+    {
+        $d = $this->PR_Details;
+        return $d['Property Title'] ?? $d['Vehicle Title'] ?? $d['Title'] ?? 'Untitled';
+    }
+
+    public function getDisplayPriceAttribute()
+    {
+        $d = $this->PR_Details;
+        return isset($d['Price']) ? 'AED ' . number_format((float) $d['Price']) : 'Price on Request';
+    }
+
+    public function getDisplayBadgeAttribute()
+    {
+        return $this->subcategory?->SC_Name ?? $this->category?->CT_Name ?? 'Product';
     }
 }

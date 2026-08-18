@@ -55,7 +55,7 @@ Route::post('/add-your-ad', [VendorController::class, 'VendorPostAdd'])
 Route::get('/check-vendor', [VendorController::class, 'checkVendor'])
     ->name('vendor.check');
 
-Route::get('/ad_details', [PageController::class, 'addetails'])
+Route::get('/ad_details/{id}', [PageController::class, 'addetails'])
     ->name('addetails');
 
 Route::get('/ad_list1', [PageController::class, 'adlist1'])

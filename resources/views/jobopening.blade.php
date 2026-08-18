@@ -67,7 +67,6 @@
                                 <form action="{{ route('applyjob.select') }}" class="btn btn-outline-warning btn-sm"
                                     method="POST">
                                     @csrf
-
                                     <input type="hidden" name="career_id" value="{{ $career->CR_Id }}">
 
                                     <button type="submit" class="apply-btn">

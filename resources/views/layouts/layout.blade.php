@@ -20,7 +20,7 @@
         =======================================-->
 
     <!-- FOR WEBPAGE TITLE -->
-    <title>Launch INCS</title>
+    <title>Launch</title>
 
     @vite(['resources/js/app.js','resources/css/app.css'])
 

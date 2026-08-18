@@ -243,9 +243,9 @@
                                                 Electronics (234)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Mixer (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Freezer (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">LED TV (78)</a></li>
+                                                <li><a href="{{ '#' }}">Mixer (56)</a></li>
+                                                <li><a href="{{ '#' }}">Freezer (78)</a></li>
+                                                <li><a href="{{ '#' }}">LED TV (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -254,9 +254,9 @@
                                                 Automobiles (767)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Private Car (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Motorbike (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Truck (78)</a></li>
+                                                <li><a href="{{ '#' }}">Private Car (56)</a></li>
+                                                <li><a href="{{ '#' }}">Motorbike (78)</a></li>
+                                                <li><a href="{{ '#' }}">Truck (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -265,9 +265,9 @@
                                                 Properties (456)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Freehold Land (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Apartment (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Shop (78)</a></li>
+                                                <li><a href="{{ '#' }}">Freehold Land (56)</a></li>
+                                                <li><a href="{{ '#' }}">Apartment (78)</a></li>
+                                                <li><a href="{{ '#' }}">Shop (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -276,9 +276,9 @@
                                                 Fashion (356)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Jeans (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">T-Shirt (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Jacket (78)</a></li>
+                                                <li><a href="{{ '#' }}">Jeans (56)</a></li>
+                                                <li><a href="{{ '#' }}">T-Shirt (78)</a></li>
+                                                <li><a href="{{ '#' }}">Jacket (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -287,9 +287,9 @@
                                                 Gadgets (768)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Computer (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Mobile (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Drone (78)</a></li>
+                                                <li><a href="{{ '#' }}">Computer (56)</a></li>
+                                                <li><a href="{{ '#' }}">Mobile (78)</a></li>
+                                                <li><a href="{{ '#' }}">Drone (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -298,9 +298,9 @@
                                                 Furnitures (977)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Chair (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Sofa (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Table (78)</a></li>
+                                                <li><a href="{{ '#' }}">Chair (56)</a></li>
+                                                <li><a href="{{ '#' }}">Sofa (78)</a></li>
+                                                <li><a href="{{ '#' }}">Table (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -309,9 +309,9 @@
                                                 Hospitality (124)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Hotel Apartment (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Staff Uniform (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Catering Equipment (78)</a></li>
+                                                <li><a href="{{ '#' }}">Hotel Apartment (56)</a></li>
+                                                <li><a href="{{ '#' }}">Staff Uniform (78)</a></li>
+                                                <li><a href="{{ '#' }}">Catering Equipment (78)</a></li>
                                             </ul>
                                         </li>
                                         <li class="product-widget-dropitem">
@@ -320,9 +320,9 @@
                                                 Agriculture (565)
                                             </button>
                                             <ul class="product-widget-dropdown">
-                                                <li><a href="{{ route('addetails') }}">Irrigation Equipment (56)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Date Palm Saplings (78)</a></li>
-                                                <li><a href="{{ route('addetails') }}">Greenhouse Supplies (78)</a></li>
+                                                <li><a href="{{ '#' }}">Irrigation Equipment (56)</a></li>
+                                                <li><a href="{{ '#' }}">Date Palm Saplings (78)</a></li>
+                                                <li><a href="{{ '#' }}">Greenhouse Supplies (78)</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -373,7 +373,7 @@
                         <div class="col-lg-12">
                             <div class="ad-feature-slider slider-arrow">
                                 <div class="feature-card">
-                                    <a href="{{ route('addetails') }}" class="feature-img">
+                                    <a href="{{ '#' }}" class="feature-img">
                                         <img src="/storage/images/product/10.jpg" alt="feature">
                                     </a>
                                     <div class="cross-inline-badge feature-badge">
@@ -386,9 +386,9 @@
                                     <div class="feature-content">
                                         <ol class="breadcrumb feature-category">
                                             <li><span class="flat-badge rent">rent</span></li>
-                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                            <li class="breadcrumb-item"><a href="{{ '#' }}">automobile</a></li>
                                         </ol>
-                                        <h3 class="feature-title"><a href='{{ route('addetails') }}'>Self-Drive SUV Rental with
+                                        <h3 class="feature-title"><a href='{{ '#' }}'>Self-Drive SUV Rental with
                                                 Unlimited Mileage and Full Insurance</a></h3>
                                         <div class="feature-meta">
                                             <span class="feature-price">AED 280<small>/Monthly</small></span>
@@ -397,7 +397,7 @@
                                     </div>
                                 </div>
                                 <div class="feature-card">
-                                    <a href="{{ route('addetails') }}" class="feature-img">
+                                    <a href="{{ '#' }}" class="feature-img">
                                         <img src="/storage/images/product/01.jpg" alt="feature">
                                     </a>
                                     <div class="cross-inline-badge feature-badge">
@@ -410,9 +410,9 @@
                                     <div class="feature-content">
                                         <ol class="breadcrumb feature-category">
                                             <li><span class="flat-badge booking">booking</span></li>
-                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Property</a></li>
+                                            <li class="breadcrumb-item"><a href="{{ '#' }}">Property</a></li>
                                         </ol>
-                                        <h3 class="feature-title"><a href='{{ route('addetails') }}'>2-Bedroom Apartment in Al
+                                        <h3 class="feature-title"><a href='{{ '#' }}'>2-Bedroom Apartment in Al
                                                 Barsha, Chiller Free, Near Metro</a></h3>
                                         <div class="feature-meta">
                                             <span class="feature-price">AED 800<small>/perday</small></span>
@@ -421,7 +421,7 @@
                                     </div>
                                 </div>
                                 <div class="feature-card">
-                                    <a href="{{ route('addetails') }}" class="feature-img">
+                                    <a href="{{ '#' }}" class="feature-img">
                                         <img src="/storage/images/product/08.jpg" alt="feature">
                                     </a>
                                     <div class="cross-inline-badge feature-badge">
@@ -434,9 +434,9 @@
                                     <div class="feature-content">
                                         <ol class="breadcrumb feature-category">
                                             <li><span class="flat-badge sale">sale</span></li>
-                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                            <li class="breadcrumb-item"><a href="{{ '#' }}">gadget</a></li>
                                         </ol>
-                                        <h3 class="feature-title"><a href='{{ route('addetails') }}'>Brand New Flagship
+                                        <h3 class="feature-title"><a href='{{ '#' }}'>Brand New Flagship
                                                 Smartphone, Sealed Box, Dubai Warranty</a></h3>
                                         <div class="feature-meta">
                                             <span class="feature-price">AED 1,150<small>/Negotiable</small></span>
@@ -445,7 +445,7 @@
                                     </div>
                                 </div>
                                 <div class="feature-card">
-                                    <a href="{{ route('addetails') }}" class="feature-img">
+                                    <a href="{{ '#' }}" class="feature-img">
                                         <img src="/storage/images/product/06.jpg" alt="feature">
                                     </a>
                                     <div class="cross-inline-badge feature-badge">
@@ -458,9 +458,9 @@
                                     <div class="feature-content">
                                         <ol class="breadcrumb feature-category">
                                             <li><span class="flat-badge sale">sale</span></li>
-                                            <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                            <li class="breadcrumb-item"><a href="{{ '#' }}">automobile</a></li>
                                         </ol>
-                                        <h3 class="feature-title"><a href='{{ route('addetails') }}'>Electric Scooter, Barely
+                                        <h3 class="feature-title"><a href='{{ '#' }}'>Electric Scooter, Barely
                                                 Used, Ideal for JLT Commutes</a></h3>
                                         <div class="feature-meta">
                                             <span class="feature-price">AED 455<small>/fixed</small></span>
@@ -493,10 +493,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Luxury</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">5-Bedroom Signature Villa in Palm Jumeirah with
+                                        <a href="{{ '#' }}">5-Bedroom Signature Villa in Palm Jumeirah with
                                             Private Beach Access, Infinity Pool and Skyline Views</a>
                                     </h5>
                                     <div class="product-meta">
@@ -535,10 +535,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Gadget</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Gadget</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">Brand New Flagship Smartphone, Sealed Box, Full Dubai
+                                        <a href="{{ '#' }}">Brand New Flagship Smartphone, Sealed Box, Full Dubai
                                             Warranty and Original Accessories Included</a>
                                     </h5>
                                     <div class="product-meta">
@@ -576,10 +576,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Automobile</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Automobile</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">Self-Drive SUV Rental in Dubai Marina, Unlimited
+                                        <a href="{{ '#' }}">Self-Drive SUV Rental in Dubai Marina, Unlimited
                                             Mileage, Full Insurance and Free Delivery</a>
                                     </h5>
                                     <div class="product-meta">
@@ -618,10 +618,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Luxury</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">Duplex Penthouse in Downtown Dubai with Burj Khalifa
+                                        <a href="{{ '#' }}">Duplex Penthouse in Downtown Dubai with Burj Khalifa
                                             View, Fully Furnished and Serviced</a>
                                     </h5>
                                     <div class="product-meta">
@@ -659,10 +659,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Automobile</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Automobile</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">Mountain Bike Rental, Perfect for the Al Qudra
+                                        <a href="{{ '#' }}">Mountain Bike Rental, Perfect for the Al Qudra
                                             Cycling Track, Helmet and Lock Included</a>
                                     </h5>
                                     <div class="product-meta">
@@ -700,10 +700,10 @@
                                 <div class="product-content">
                                     <ol class="breadcrumb product-category">
                                         <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Gadget</a></li>
+                                        <li class="breadcrumb-item"><a href="{{ '#' }}">Gadget</a></li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails') }}">Professional DSLR Camera Kit with Two Lenses, Tripod
+                                        <a href="{{ '#' }}">Professional DSLR Camera Kit with Two Lenses, Tripod
                                             and Carry Bag, Barely Used</a>
                                     </h5>
                                     <div class="product-meta">

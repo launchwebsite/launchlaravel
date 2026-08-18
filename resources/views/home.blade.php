@@ -4,9 +4,6 @@
 
     @include('includes.sidebar')
 
-    <!--=====================================
-                                                                    BANNER PART START
-                                                        =======================================-->
     <section class="banner-part">
         <div class="container">
             <div class="banner-content">
@@ -20,14 +17,7 @@
             </div>
         </div>
     </section>
-    <!--=====================================
-                                                                    BANNER PART END
-                                                        =======================================-->
 
-
-    <!--=====================================
-                                                                    SUGGEST PART START
-                                                        =======================================-->
     <section class="suggest-part">
         <div class="container">
             <div class="suggest-slider slider-arrow">
@@ -50,14 +40,7 @@
             </div>
         </div>
     </section>
-    <!--=====================================
-                                                                    SUGGEST PART END
-                                                        =======================================-->
 
-
-    <!--=====================================
-                                                                    CATEGORY PART START
-                                                        =======================================-->
     <section class="section category-part top-categories">
         <div class="container">
             <div class="row">
@@ -106,7 +89,7 @@
                                 @foreach ($item->subcategories as $subcategory)
                                     <li>
 
-                                        <a href="{{ route('addetails', $subcategory->SC_Id) }}">
+                                        <a href="{{ route('categorydetails', $subcategory->SC_Id) }}">
 
                                             <h6>
                                                 {{ $subcategory->SC_Name }}
@@ -150,12 +133,12 @@
         </div>
     </section>
     <!--=====================================
-                                                                    CATEGORY PART END
-                                                        =======================================-->
+                                                                                CATEGORY PART END
+                                                                    =======================================-->
 
     <!--=====================================
-                                                                    RECOMEND PART START
-                                                        =======================================-->
+                                                                                RECOMEND PART START
+                                                                    =======================================-->
     <section class="section recomend-part">
         <div class="container">
             <div class="row">
@@ -180,27 +163,31 @@
                                     <div class="product-type">
                                         <span class="flat-badge sale">{{ $career->CR_Type }}</span>
                                     </div>
-
                                 </div>
                                 <div class="product-content bil-bil">
                                     <ol class="breadcrumb product-category odyssey">
-
-
                                     </ol>
+
                                     <h5 class="product-title blue-reccom">
-                                        <a href='{{ route('addetails') }}'>{{ $career->CR_Name }}</a>
+                                        <form action="{{ route('applyjob.select') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <input type="hidden" name="career_id" value="{{ $career->CR_Id }}">
+                                            <button type="submit" class="btn-link-plain">
+                                                {{ $career->CR_Name }}
+                                            </button>
+                                        </form>
                                     </h5>
+
                                     <div class="product-meta blue-meta">
                                         <span><i class="fas fa-map-marker-alt"></i>{{ $career->CR_Location }}</span>
                                         <span>
                                             <i class="fas fa-clock"></i>
-                                            Posted : {{ $career->updated_at->format('d-m-Y') }}
+                                            Posted : {{ $career->updated_at->format('F j, Y') }}
                                         </span>
                                     </div>
                                     <div class="product-info blue-price">
                                         <h5 class="product-price panam">{{ $career->CR_SalaryRange }}</h5>
                                         <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
                                             <button type="button" title="Wishlist" class="far fa-heart"></button>
                                         </div>
                                     </div>
@@ -223,14 +210,7 @@
             </div>
         </div>
     </section>
-    <!--=====================================
-                                                                    RECOMEND PART START
-                                                        =======================================-->
 
-
-    <!--=====================================
-                                                                    TREND PART START
-                                                        =======================================-->
     <section class="section trend-part">
         <div class="container">
             <div class="row">
@@ -242,260 +222,77 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/01.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge booking">booking</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                    <ul class="product-action">
-                                                                                        <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
 
-                                                                                        <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                                                    </ul>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">property</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">house</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>Fully Furnished Townhouse Near Dubai Hills Mall</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Dubai Hills Estate, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
-                            </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 950</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/02.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge sale">sale</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                    <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                @foreach ($products as $item)
+                    @php
+                        $d = $item->PR_Details;
 
-                                                                                        <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">fashion</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">shoes</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>Limited Edition Running Shoes - Never Worn</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Al Barsha, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
-                            </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 450</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/03.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge sale">sale</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                      <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                        if (in_array($item->SC_Id, [7, 17, 18, 19])) {
+                            // furniture
+                            $title =
+                                $d['Bed Type'] ??
+                                ($d['Sofa Type'] ??
+                                    ($d['Table Type'] ?? ($d['Wardrobe Type'] ?? 'Ad #' . $item->PR_Id)));
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [20, 21, 22, 23])) {
+                            // property
+                            $title = $d['Property Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Property Type'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [24, 25, 26, 27])) {
+                            // electronics
+                            $title = trim(($d['Brand'] ?? '') . ' ' . ($d['Model'] ?? '')) ?: 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [28, 29, 30, 31])) {
+                            // vehicles
+                            $title = $d['Vehicle Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Body Type'] ?? ($d['Condition'] ?? 'N/A');
+                        } else {
+                            $title = 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        }
 
-                                                                                        <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">stationary</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">book</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>UAE Labour Law Guidebook - Latest Edition</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Al Qusais, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
-                            </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 90</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/04.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge sale">sale</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                    <li class="heart"><i class="fas fa-heart text-danger"></i><span class="text-white">264</span></li>
+                        $image = $d['Main Image'] ?? null;
+                    @endphp
 
-                                                                                        <li class="rating"><i class="fas fa-star"></i><span  class="text-white">4.5/7</span></li>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">electronics</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">television</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>65-inch Smart TV - Barely Used, Full HD</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Mirdif, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
+                    <div class="col-md-11 col-lg-8 col-xl-6">
+                        <div class="product-card standard">
+                            <div class="product-media">
+                                <div class="product-img">
+                                    @if ($image)
+                                        <img src="/storage/uploads/products/{{ $image }}" alt="product">
+                                    @else
+                                        <img src="/storage/images/product/01.jpg" alt="product">
+                                    @endif
+                                </div>
+                                <div class="product-type">
+                                    <span class="flat-badge booking">{{ $badge }}</span>
+                                </div>
                             </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 2,780</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
+                            <div class="product-content">
+                                <ol class="breadcrumb product-category">
+                                    <li><i class="fas fa-tags"></i></li>
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('addetails', $item->PR_Id) }}">{{ $badge }}</a>
+                                    </li>
+                                </ol>
+                                <h5 class="product-title">
+                                    <a href="{{ route('addetails', $item->PR_Id) }}">{{ $title }}</a>
+                                </h5>
+                                <div class="product-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i>{{ $d['Location'] ?? 'N/A' }}</span>
+                                    <span><i class="fas fa-clock"></i>{{ $item->created_at->format('F j, Y') }}</span>
+                                </div>
+                                <div class="product-info">
+                                    <h5 class="product-price">{{ $d['Price'] ?? 'N/A' }}</h5>
+                                    <div class="product-btn">
+                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/05.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge sale">sale</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                            <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                            <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">headphone</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>Noise Cancelling Wireless Headphones, Sealed Box</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Business Bay, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
-                            </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 900</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-11 col-lg-8 col-xl-6">
-                    <div class="product-card standard">
-                        <div class="product-media">
-                            <div class="product-img">
-                                <img src="/storage/images/product/06.jpg" alt="product">
-                            </div>
-                            <!-- <div class="cross-vertical-badge product-badge">
-                                                                                    <i class="fas fa-bolt"></i>
-                                                                                    <span>trending</span>
-                                                                                </div> -->
-                            <div class="product-type">
-                                <span class="flat-badge rent">rent</span>
-                            </div>
-                            <!-- <ul class="product-action">
-                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                            <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                            <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                </ul> -->
-                        </div>
-                        <div class="product-content">
-                            <ol class="breadcrumb product-category">
-                                <li><i class="fas fa-tags"></i></li>
-                                <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
-                                <!-- <li class="breadcrumb-item active" aria-current="page">cycle</li> -->
-                            </ol>
-                            <h5 class="product-title">
-                                <a href='{{ route('addetails') }}'>Mountain Bike for Rent - Weekend Trail Ready</a>
-                            </h5>
-                            <div class="product-meta">
-                                <span><i class="fas fa-map-marker-alt"></i>Al Qudra, Dubai</span>
-                                <span><i class="fas fa-clock"></i>30 min ago</span>
-                            </div>
-                            <div class="product-info">
-                                <h5 class="product-price">AED 65</h5>
-                                <div class="product-btn">
-                                    <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                    <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -510,13 +307,13 @@
         </div>
     </section>
     <!--=====================================
-                                                                    TREND PART END
-                                                        =======================================-->
+                                                                                TREND PART END
+                                                                    =======================================-->
 
 
     <!--=====================================
-                                                                    NICHE PART START
-                                                        =======================================-->
+                                                                                NICHE PART START
+                                                                    =======================================-->
     <section class="section niche-part">
         <div class="container">
             <div class="row">
@@ -549,26 +346,28 @@
                                     <img src="/storage/images/product/07.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>All-Inclusive Weekend at a Ras Al Khaimah Beach
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                        Khaimah Beach
                                         Resort</a>
                                 </h5>
                                 <div class="product-meta">
@@ -592,26 +391,28 @@
                                     <img src="/storage/images/product/08.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>iPhone 15 Pro Max, 256GB - Sealed with Warranty</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>iPhone 15 Pro Max, 256GB - Sealed
+                                        with Warranty</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
@@ -634,26 +435,28 @@
                                     <img src="/storage/images/product/09.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">animal</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Friendly Persian Cat Looking for a New Home</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                        New Home</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
@@ -676,26 +479,28 @@
                                     <img src="/storage/images/product/10.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Toyota Camry 2023 for Monthly Rental</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                        Rental</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
@@ -718,26 +523,28 @@
                                     <img src="/storage/images/product/11.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sea View Penthouse in JBR - Short Stay</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                        Stay</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
@@ -760,26 +567,28 @@
                                     <img src="/storage/images/product/13.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">electronics</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>MacBook Pro M3, 16-inch - Under Warranty</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                        Warranty</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
@@ -802,26 +611,28 @@
                                     <img src="/storage/images/product/14.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Yamaha Delivery Bike Available for Daily Hire</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                        Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
@@ -844,26 +655,28 @@
                                     <img src="/storage/images/product/15.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sony Mirrorless Camera Kit with Two Lenses</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                        Lenses</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
@@ -891,26 +704,28 @@
                                     <img src="/storage/images/product/08.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Samsung Galaxy S24 Ultra - Like New</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Samsung Galaxy S24 Ultra - Like
+                                        New</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
@@ -933,26 +748,28 @@
                                     <img src="/storage/images/product/07.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>All-Inclusive Weekend at a Ras Al Khaimah Beach
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                        Khaimah Beach
                                         Resort</a>
                                 </h5>
                                 <div class="product-meta">
@@ -976,26 +793,28 @@
                                     <img src="/storage/images/product/10.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Toyota Camry 2023 for Monthly Rental</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                        Rental</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
@@ -1018,26 +837,28 @@
                                     <img src="/storage/images/product/09.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">animal</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Friendly Persian Cat Looking for a New Home</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                        New Home</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
@@ -1060,27 +881,29 @@
                                     <img src="/storage/images/product/13.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">electronics</a>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a>
                                     </li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>MacBook Pro M3, 16-inch - Under Warranty</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                        Warranty</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
@@ -1103,26 +926,28 @@
                                     <img src="/storage/images/product/11.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge booking">booking</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sea View Penthouse in JBR - Short Stay</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                        Stay</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
@@ -1145,26 +970,28 @@
                                     <img src="/storage/images/product/15.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge sale">sale</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sony Mirrorless Camera Kit with Two Lenses</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                        Lenses</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
@@ -1187,26 +1014,28 @@
                                     <img src="/storage/images/product/14.jpg" alt="product">
                                 </div>
                                 <!-- <div class="cross-vertical-badge product-badge">
-                                                                                        <i class="fas fa-fire"></i>
-                                                                                        <span>top niche</span>
-                                                                                    </div> -->
+                                                                                                    <i class="fas fa-fire"></i>
+                                                                                                    <span>top niche</span>
+                                                                                                </div> -->
                                 <div class="product-type">
                                     <span class="flat-badge rent">rent</span>
                                 </div>
                                 <!-- <ul class="product-action">
-                                                                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
+                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
                                 <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
                                 <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                    </ul> -->
+                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Yamaha Delivery Bike Available for Daily Hire</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                        Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
@@ -1249,11 +1078,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sony Mirrorless Camera Kit with Two Lenses</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                        Lenses</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
@@ -1291,11 +1122,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>All-Inclusive Weekend at a Ras Al Khaimah Beach
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                        Khaimah Beach
                                         Resort</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1334,11 +1167,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">animal</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Friendly Persian Cat Looking for a New Home</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                        New Home</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
@@ -1376,11 +1211,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Toyota Camry 2023 for Monthly Rental</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                        Rental</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
@@ -1418,11 +1255,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">gadget</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Samsung Galaxy S24 Ultra - Like New</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Samsung Galaxy S24 Ultra - Like
+                                        New</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
@@ -1460,12 +1299,14 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">electronics</a>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a>
                                     </li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>MacBook Pro M3, 16-inch - Under Warranty</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                        Warranty</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
@@ -1503,11 +1344,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">automobile</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Yamaha Delivery Bike Available for Daily Hire</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                        Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
@@ -1545,11 +1388,13 @@
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('addetails') }}">Luxury</a></li>
+                                    <li class="breadcrumb-item"><a
+                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails') }}'>Sea View Penthouse in JBR - Short Stay</a>
+                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                        Stay</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
@@ -1581,13 +1426,13 @@
         </div>
     </section>
     <!--=====================================
-                                                                    NICHE PART END
-                                                        =======================================-->
+                                                                                NICHE PART END
+                                                                    =======================================-->
 
 
     <!--=====================================
-                                                                    CITY PART START
-                                                        =======================================-->
+                                                                                CITY PART START
+                                                                    =======================================-->
     <section class="section city-part">
         <div class="container">
             <div class="row">
@@ -1668,16 +1513,16 @@
         </div>
     </section>
     <!--=====================================
-                                                                    CITY PART END
-                                                        =======================================-->
+                                                                                CITY PART END
+                                                                    =======================================-->
 
 
 
 
 
     <!--=====================================
-                                                                    INTRO PART START
-                                                        =======================================-->
+                                                                                INTRO PART START
+                                                                    =======================================-->
     <section class="intro-part">
         <div class="container">
             <div class="row">
@@ -1687,22 +1532,22 @@
                         <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace
                             for property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
-                                                                                <i class="fas fa-plus-circle"></i>
-                                                                                <span>post your ad</span>
-                                                                            </a> -->
+                                                                                            <i class="fas fa-plus-circle"></i>
+                                                                                            <span>post your ad</span>
+                                                                                        </a> -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!--=====================================
-                                                                    INTRO PART END
-                                                        =======================================-->
+                                                                                INTRO PART END
+                                                                    =======================================-->
 
 
     <!--=====================================
-                                                                     PRICE PART START
-                                                        =======================================-->
+                                                                                 PRICE PART START
+                                                                    =======================================-->
     <section class="inner-section price-part">
         <div class="container">
             {{-- <div class="row">
@@ -1830,8 +1675,8 @@
         </div>
     </section>
     <!--=====================================
-                                                                     PRICE PART END
-                                                        =======================================-->
+                                                                                 PRICE PART END
+                                                                    =======================================-->
 
     @include('includes.footer')
 @endsection

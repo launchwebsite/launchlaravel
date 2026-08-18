@@ -5,6 +5,7 @@ use App\Models\Attributes;
 use App\Models\Career;
 use App\Models\CareerApplication;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,8 @@ class PageController extends Controller
     public function home()
     {
         $category = Category::withCount('products')->get();
+
+        $products = Product::latest()->take(6)->get();
 
         // Career count for each category
         $careerCategoryCounts = Career::select(
@@ -50,7 +53,8 @@ class PageController extends Controller
             'careerCategoryCounts',
             'careerCount',
             'careerSubcategoryCounts',
-            'careers'
+            'careers',
+            'products'
         ));
     }
 
@@ -196,9 +200,17 @@ class PageController extends Controller
         ));
     }
 
-    public function addetails()
+    public function addetails($id)
     {
-        return view("ad-details");
+        $product = Product::with(['vendor', 'category', 'subcategory'])->findOrFail($id);
+
+        $related = Product::where('SC_Id', $product->SC_Id)
+            ->where('PR_Id', '!=', $product->PR_Id)
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('ad-details', compact('product', 'related'));
     }
 
     public function adlist1()
