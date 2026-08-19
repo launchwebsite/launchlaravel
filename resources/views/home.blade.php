@@ -297,7 +297,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
-                        <a class='btn btn-inline' href='{{ route('categorylist') }}'>
+                        <a class='btn btn-inline' href='{{ route('categorydetails') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all trend</span>
                         </a>
