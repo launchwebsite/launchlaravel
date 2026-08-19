@@ -17,6 +17,40 @@
             'Property Title',
             'Vehicle Title',
         ];
+
+        if (!function_exists('getClosestColorName')) {
+            function getClosestColorName($hex) {
+                $hex = ltrim($hex, '#');
+                if (strlen($hex) != 6) return $hex;
+                
+                $r = hexdec(substr($hex, 0, 2));
+                $g = hexdec(substr($hex, 2, 2));
+                $b = hexdec(substr($hex, 4, 2));
+
+                $colors = [
+                    'Black' => [0, 0, 0], 'White' => [255, 255, 255], 'Red' => [255, 0, 0], 
+                    'Lime' => [0, 255, 0], 'Blue' => [0, 0, 255], 'Yellow' => [255, 255, 0], 
+                    'Cyan' => [0, 255, 255], 'Magenta' => [255, 0, 255], 'Silver' => [192, 192, 192], 
+                    'Gray' => [128, 128, 128], 'Dark Gray' => [51, 51, 51], 'Maroon' => [128, 0, 0], 
+                    'Olive' => [128, 128, 0], 'Green' => [0, 128, 0], 'Purple' => [128, 0, 128], 
+                    'Teal' => [0, 128, 128], 'Navy' => [0, 0, 128], 'Orange' => [255, 165, 0], 
+                    'Gold' => [255, 215, 0], 'Pink' => [255, 192, 203], 'Brown' => [165, 42, 42], 
+                    'Beige' => [245, 245, 220], 'Coral' => [255, 127, 80], 'Indigo' => [75, 0, 130]
+                ];
+
+                $minDistance = INF;
+                $closestColor = '#' . $hex;
+
+                foreach ($colors as $name => $rgb) {
+                    $distance = sqrt(pow($r - $rgb[0], 2) + pow($g - $rgb[1], 2) + pow($b - $rgb[2], 2));
+                    if ($distance < $minDistance) {
+                        $minDistance = $distance;
+                        $closestColor = $name;
+                    }
+                }
+                return $closestColor;
+            }
+        }
     @endphp
 
     <!--=====================================
@@ -53,8 +87,18 @@
                     </div>
 
                     <!-- NUMBER CARD -->
-                    <button type="button" class="common-card number" data-bs-toggle="modal" data-bs-target="#number">
-                        <h3>(+971)<span>Click to show</span></h3>
+                    @php
+                        $phone = $product->vendor?->VR_Phone;
+                        if (!$phone) {
+                            $phone = 'Not Provided';
+                            $maskedPhone = 'N/A';
+                        } else {
+                            // Try to extract country code or first 4 digits
+                            $maskedPhone = strlen($phone) >= 6 ? substr($phone, 0, 4) . '***' : '***';
+                        }
+                    @endphp
+                    <button type="button" class="common-card number" data-bs-toggle="modal" data-bs-target="#number" {{ $phone === 'Not Provided' ? 'disabled' : '' }}>
+                        <h3>{{ $maskedPhone }}<span>Click to show</span></h3>
                         <i class="fas fa-phone"></i>
                     </button>
 
@@ -111,7 +155,7 @@
                                 <a>{{ $product->subcategory->SC_Name ?? ($product->category->CT_Name ?? 'Product') }}</a>
                             </li>
                         </ol>
-                        <h5 class="ad-details-address">{{ $d['Location'] ?? 'N/A' }}</h5>
+                        <h5 class="ad-details-address">{{ $product->display_location }}</h5>
                         <h3 class="ad-details-title">{{ $product->display_title }}</h3>
 
                         <div class="ad-details-slider-group">
@@ -152,7 +196,14 @@
                                 @continue(in_array($key, $excludedKeys) || $value === null || $value === '')
                                 <li>
                                     <h6>{{ Str::lower($key) }}:</h6>
-                                    <p>{{ $value }}</p>
+                                    @if(preg_match('/^#[a-fA-F0-9]{6}$/', $value))
+                                        <p style="display: flex; align-items: center;">
+                                            {{ getClosestColorName($value) }}
+                                            <span style="display:inline-block; width:14px; height:14px; background-color:{{$value}}; border-radius:50%; margin-left:8px; border: 1px solid #ccc;"></span>
+                                        </p>
+                                    @else
+                                        <p>{{ $value }}</p>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>
@@ -217,7 +268,7 @@
                                         <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $item->display_title }}</a>
                                     </h5>
                                     <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>{{ $rd['Location'] ?? 'N/A' }}</span>
+                                        <span><i class="fas fa-map-marker-alt"></i>{{ $item->display_location }}</span>
                                         <span><i class="fas fa-clock"></i>{{ $item->created_at->diffForHumans() }}</span>
                                     </div>
                                     <div class="product-info">
@@ -258,7 +309,7 @@
                     <button class="fas fa-times" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <h3 class="modal-number">{{ $product->vendor?->VR_Phone ?? 'N/A' }}</h3>
+                    <h3 class="modal-number">{{ $phone }}</h3>
                 </div>
             </div>
         </div>

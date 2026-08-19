@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $categories = Category::orderBy('CT_Name')->get();
+        $categories = Category::where('CT_Name', '!=', 'Jobs')->orderBy('CT_Name')->get();
 
         $sub_categories = SubCategory::orderBy('SC_Name')->get();
 
@@ -275,7 +275,7 @@ class ProductController extends Controller
     |--------------------------------------------------------------------------
     */
 
-        $categories = Category::orderBy('CT_Name')
+        $categories = Category::where('CT_Name', '!=', 'Jobs')->orderBy('CT_Name')
             ->get();
 
         /*

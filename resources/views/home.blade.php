@@ -339,1084 +339,233 @@
 
             <div class="tab-pane active" id="ratings">
                 <div class="row">
+                @foreach ($topRatings as $item)
+                    @php
+                        $d = $item->PR_Details;
+
+                        if (in_array($item->SC_Id, [7, 17, 18, 19])) {
+                            // furniture
+                            $title =
+                                $d['Bed Type'] ??
+                                ($d['Sofa Type'] ??
+                                    ($d['Table Type'] ?? ($d['Wardrobe Type'] ?? 'Ad #' . $item->PR_Id)));
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [20, 21, 22, 23])) {
+                            // property
+                            $title = $d['Property Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Property Type'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [24, 25, 26, 27])) {
+                            // electronics
+                            $title = trim(($d['Brand'] ?? '') . ' ' . ($d['Model'] ?? '')) ?: 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [28, 29, 30, 31])) {
+                            // vehicles
+                            $title = $d['Vehicle Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Body Type'] ?? ($d['Condition'] ?? 'N/A');
+                        } else {
+                            $title = 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        }
+
+                        $image = $d['Main Image'] ?? null;
+                    @endphp
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                         <div class="product-card">
                             <div class="product-media">
                                 <div class="product-img">
-                                    <img src="/storage/images/product/07.jpg" alt="product">
+                                    @if ($image)
+                                        <img src="/storage/uploads/products/{{ $image }}" alt="product">
+                                    @else
+                                        <img src="/storage/images/product/01.jpg" alt="product">
+                                    @endif
                                 </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
                                 <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
+                                    <span class="flat-badge booking">{{ $badge }}</span>
                                 </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
+                                    </li>
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
-                                        Khaimah Beach
-                                        Resort</a>
+                                    <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $title }}</a>
                                 </h5>
                                 <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Marjan Island, RAK</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
+                                    <span><i class="fas fa-map-marker-alt"></i>{{ $d['Location'] ?? 'N/A' }}</span>
+                                    <span><i class="fas fa-clock"></i>{{ $item->created_at->format('F j, Y') }}</span>
                                 </div>
                                 <div class="product-info">
-                                    <h5 class="product-price">AED 3,900<span>/per week</span></h5>
+                                    <h5 class="product-price">{{ $d['Price'] ?? 'N/A' }}</h5>
                                     <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
                                         <button type="button" title="Wishlist" class="far fa-heart"></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/08.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>iPhone 15 Pro Max, 256GB - Sealed
-                                        with Warranty</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,200</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/09.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
-                                        New Home</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,100</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/10.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
-                                        Rental</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,800</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/11.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
-                                        Stay</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 3,600</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/13.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
-                                        Warranty</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 6,900</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/14.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
-                                        Daily Hire</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 85</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/15.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
-                                        Lenses</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,500</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+
                 </div>
             </div> <!-- Rating ads -->
 
             <div class="tab-pane " id="advertiser">
                 <div class="row">
+                @foreach ($topAdvertiser as $item)
+                    @php
+                        $d = $item->PR_Details;
+
+                        if (in_array($item->SC_Id, [7, 17, 18, 19])) {
+                            // furniture
+                            $title =
+                                $d['Bed Type'] ??
+                                ($d['Sofa Type'] ??
+                                    ($d['Table Type'] ?? ($d['Wardrobe Type'] ?? 'Ad #' . $item->PR_Id)));
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [20, 21, 22, 23])) {
+                            // property
+                            $title = $d['Property Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Property Type'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [24, 25, 26, 27])) {
+                            // electronics
+                            $title = trim(($d['Brand'] ?? '') . ' ' . ($d['Model'] ?? '')) ?: 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [28, 29, 30, 31])) {
+                            // vehicles
+                            $title = $d['Vehicle Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Body Type'] ?? ($d['Condition'] ?? 'N/A');
+                        } else {
+                            $title = 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        }
+
+                        $image = $d['Main Image'] ?? null;
+                    @endphp
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                         <div class="product-card">
                             <div class="product-media">
                                 <div class="product-img">
-                                    <img src="/storage/images/product/08.jpg" alt="product">
+                                    @if ($image)
+                                        <img src="/storage/uploads/products/{{ $image }}" alt="product">
+                                    @else
+                                        <img src="/storage/images/product/01.jpg" alt="product">
+                                    @endif
                                 </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
                                 <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
+                                    <span class="flat-badge booking">{{ $badge }}</span>
                                 </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Samsung Galaxy S24 Ultra - Like
-                                        New</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,200</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/07.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
-                                        Khaimah Beach
-                                        Resort</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Marjan Island, RAK</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 3,900</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/10.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
-                                        Rental</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,800</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/09.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
-                                        New Home</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,100</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/13.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a>
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
                                     </li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
-                                        Warranty</a>
+                                    <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $title }}</a>
                                 </h5>
                                 <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
+                                    <span><i class="fas fa-map-marker-alt"></i>{{ $d['Location'] ?? 'N/A' }}</span>
+                                    <span><i class="fas fa-clock"></i>{{ $item->created_at->format('F j, Y') }}</span>
                                 </div>
                                 <div class="product-info">
-                                    <h5 class="product-price">AED 6,900</h5>
+                                    <h5 class="product-price">{{ $d['Price'] ?? 'N/A' }}</h5>
                                     <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
                                         <button type="button" title="Wishlist" class="far fa-heart"></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/11.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
-                                        Stay</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 3,600</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/15.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
-                                        Lenses</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,500</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/14.jpg" alt="product">
-                                </div>
-                                <!-- <div class="cross-vertical-badge product-badge">
-                                                                                                    <i class="fas fa-fire"></i>
-                                                                                                    <span>top niche</span>
-                                                                                                </div> -->
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <!-- <ul class="product-action">
-                                                                                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li> -->
-                                <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                <!-- <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                                                                                </ul> -->
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
-                                        Daily Hire</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 85</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+
                 </div>
             </div> <!-- Advertiser ads -->
 
             <div class="tab-pane" id="engaged">
                 <div class="row">
+                @foreach ($topEngaged as $item)
+                    @php
+                        $d = $item->PR_Details;
+
+                        if (in_array($item->SC_Id, [7, 17, 18, 19])) {
+                            // furniture
+                            $title =
+                                $d['Bed Type'] ??
+                                ($d['Sofa Type'] ??
+                                    ($d['Table Type'] ?? ($d['Wardrobe Type'] ?? 'Ad #' . $item->PR_Id)));
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [20, 21, 22, 23])) {
+                            // property
+                            $title = $d['Property Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Property Type'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [24, 25, 26, 27])) {
+                            // electronics
+                            $title = trim(($d['Brand'] ?? '') . ' ' . ($d['Model'] ?? '')) ?: 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        } elseif (in_array($item->SC_Id, [28, 29, 30, 31])) {
+                            // vehicles
+                            $title = $d['Vehicle Title'] ?? 'Ad #' . $item->PR_Id;
+                            $badge = $d['Body Type'] ?? ($d['Condition'] ?? 'N/A');
+                        } else {
+                            $title = 'Ad #' . $item->PR_Id;
+                            $badge = $d['Condition'] ?? 'N/A';
+                        }
+
+                        $image = $d['Main Image'] ?? null;
+                    @endphp
+
                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                         <div class="product-card">
                             <div class="product-media">
                                 <div class="product-img">
-                                    <img src="/storage/images/product/15.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
+                                    @if ($image)
+                                        <img src="/storage/uploads/products/{{ $image }}" alt="product">
+                                    @else
+                                        <img src="/storage/images/product/01.jpg" alt="product">
+                                    @endif
                                 </div>
                                 <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
+                                    <span class="flat-badge booking">{{ $badge }}</span>
                                 </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
                             </div>
                             <div class="product-content">
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
-                                        Lenses</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,500</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/07.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
-                                        Khaimah Beach
-                                        Resort</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Marjan Island, RAK</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 3,900</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/09.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
-                                        New Home</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,100</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/10.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
-                                        Rental</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 2,800</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/08.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Samsung Galaxy S24 Ultra - Like
-                                        New</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Rigga, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 4,200</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/13.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge sale">sale</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a>
+                                    <li class="breadcrumb-item">
+                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
                                     </li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
-                                        Warranty</a>
+                                    <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $title }}</a>
                                 </h5>
                                 <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Silicon Oasis, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
+                                    <span><i class="fas fa-map-marker-alt"></i>{{ $d['Location'] ?? 'N/A' }}</span>
+                                    <span><i class="fas fa-clock"></i>{{ $item->created_at->format('F j, Y') }}</span>
                                 </div>
                                 <div class="product-info">
-                                    <h5 class="product-price">AED 6,900</h5>
+                                    <h5 class="product-price">{{ $d['Price'] ?? 'N/A' }}</h5>
                                     <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
                                         <button type="button" title="Wishlist" class="far fa-heart"></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/14.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge rent">rent</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
-                                        Daily Hire</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Al Quoz, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 85</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-img">
-                                    <img src="/storage/images/product/11.jpg" alt="product">
-                                </div>
-                                <div class="cross-vertical-badge product-badge">
-                                    <i class="fas fa-fire"></i>
-                                    <span>top niche</span>
-                                </div>
-                                <div class="product-type">
-                                    <span class="flat-badge booking">booking</span>
-                                </div>
-                                <ul class="product-action">
-                                    <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                    <!-- <li class="click"><i class="fas fa-mouse"></i><span>134</span></li> -->
-                                    <li class="rating"><i class="fas fa-star"></i><span>4.5/7</span></li>
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <ol class="breadcrumb product-category">
-                                    <li><i class="fas fa-tags"></i></li>
-                                    <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
-                                    <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
-                                </ol>
-                                <h5 class="product-title">
-                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
-                                        Stay</a>
-                                </h5>
-                                <div class="product-meta">
-                                    <span><i class="fas fa-map-marker-alt"></i>Jumeirah Beach, Dubai</span>
-                                    <span><i class="fas fa-clock"></i>30 min ago</span>
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-price">AED 3,600</h5>
-                                    <div class="product-btn">
-                                        <!-- <a class='fas fa-compress' href='compare.html' title='Compare'></a> -->
-                                        <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+
                 </div>
             </div> <!-- Engaged ads -->
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
-                        <a class='btn btn-inline' href='{{ route('categorylist') }}'>
+                        <a class='btn btn-inline' href='{{ route('categorydetails') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all ads</span>
                         </a>

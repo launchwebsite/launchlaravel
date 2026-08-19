@@ -48,13 +48,41 @@ class Product extends Model
     public function getDisplayTitleAttribute()
     {
         $d = $this->PR_Details;
-        return $d['Property Title'] ?? $d['Vehicle Title'] ?? $d['Title'] ?? 'Untitled';
+        $title = $d['Property Title'] ?? $d['Vehicle Title'] ?? $d['Title'] ?? $d['Main Title'] ?? null;
+        
+        if (!$title) {
+            if (isset($d['Brand']) || isset($d['Model'])) {
+                $title = trim(($d['Brand'] ?? '') . ' ' . ($d['Model'] ?? ''));
+            } elseif (isset($d['Bed Type'])) {
+                $title = $d['Bed Type'];
+            } elseif (isset($d['Sofa Type'])) {
+                $title = $d['Sofa Type'];
+            } elseif (isset($d['Table Type'])) {
+                $title = $d['Table Type'];
+            } elseif (isset($d['Wardrobe Type'])) {
+                $title = $d['Wardrobe Type'];
+            }
+        }
+
+        return $title ?: 'Ad #' . $this->PR_Id;
+    }
+
+    public function getDisplayLocationAttribute()
+    {
+        $d = $this->PR_Details;
+        return $d['City'] ?? $d['Location'] ?? $d['Area'] ?? 'UAE';
     }
 
     public function getDisplayPriceAttribute()
     {
         $d = $this->PR_Details;
-        return isset($d['Price']) ? 'AED ' . number_format((float) $d['Price']) : 'Price on Request';
+        $priceStr = $d['Price'] ?? null;
+        if (empty($priceStr)) {
+            return 'Price on Request';
+        }
+        
+        $priceNum = (float) preg_replace('/[^0-9.]/', '', $priceStr);
+        return $priceNum > 0 ? 'AED ' . number_format($priceNum) : 'Price on Request';
     }
 
     public function getDisplayBadgeAttribute()

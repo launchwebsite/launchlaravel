@@ -18,6 +18,9 @@ class PageController extends Controller
         $category = Category::withCount('products')->get();
 
         $products = Product::latest()->take(6)->get();
+        $topRatings = Product::inRandomOrder()->take(4)->get();
+        $topAdvertiser = Product::inRandomOrder()->take(4)->get();
+        $topEngaged = Product::inRandomOrder()->take(4)->get();
 
         // Career count for each category
         $careerCategoryCounts = Career::select(
@@ -56,7 +59,10 @@ class PageController extends Controller
             'careerCount',
             'careerSubcategoryCounts',
             'careers',
-            'products'
+            'products',
+            'topRatings',
+            'topAdvertiser',
+            'topEngaged'
         ));
     }
 
@@ -152,7 +158,7 @@ class PageController extends Controller
             $query->latest();
         }
 
-        $products = $query->paginate($show);
+        $products = $query->paginate($show)->withQueryString();
         
         $categories = Category::where('CT_Name', '!=', 'Jobs')
             ->withCount('products')

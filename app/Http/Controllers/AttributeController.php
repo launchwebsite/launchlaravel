@@ -13,7 +13,7 @@ class AttributeController extends Controller
     public function index()
     {
         $attributes     = Attributes::all();
-        $categories     = Category::all();
+        $categories     = Category::where('CT_Name', '!=', 'Jobs')->get();
         $sub_categories = SubCategory::all();
         return view('admin.attributes-list', compact('attributes', 'categories', 'sub_categories'));
 
@@ -22,7 +22,7 @@ class AttributeController extends Controller
     public function create()
     {
 
-        $categories     = Category::all();
+        $categories     = Category::where('CT_Name', '!=', 'Jobs')->get();
         $sub_categories = SubCategory::all();
         return view('admin.add-attributes', compact('categories', 'sub_categories'));
     }
@@ -66,7 +66,7 @@ class AttributeController extends Controller
     {
         $realId = Hashids::decode($id)[0] ?? $id;
         $attributes     = Attributes::findOrFail($realId);
-        $categories     = Category::all();
+        $categories     = Category::where('CT_Name', '!=', 'Jobs')->get();
         $sub_categories = SubCategory::all();
 
         return view('admin.add-attributes', compact('attributes', 'categories', 'sub_categories'));

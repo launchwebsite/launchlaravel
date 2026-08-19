@@ -21,7 +21,7 @@ class SubCategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('CT_Name')->get();
+        $categories = Category::where('CT_Name', '!=', 'Jobs')->orderBy('CT_Name')->get();
 
         return view('admin.admin-subcategory-create', compact('categories'));
     }
@@ -51,7 +51,7 @@ class SubCategoryController extends Controller
     {
         $realId = Hashids::decode($id)[0] ?? $id;
         $subCategory = SubCategory::findOrFail($realId);
-        $categories = Category::orderBy('CT_Name')->get();
+        $categories = Category::where('CT_Name', '!=', 'Jobs')->orderBy('CT_Name')->get();
 
         return view('admin.admin-subcategory-edit', compact('subCategory', 'categories'));
     }

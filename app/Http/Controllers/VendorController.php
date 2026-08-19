@@ -486,7 +486,7 @@ $request->validate(
 //App
     public function addpost()
     {
-        $categories = Category::all();
+        $categories = Category::where('CT_Name', '!=', 'Jobs')->get();
 
         $sub_categories = SubCategory::all();
 
