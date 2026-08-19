@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Vinkla\Hashids\Facades\Hashids;
 
 class CareerController extends Controller
 {
@@ -89,11 +90,12 @@ class CareerController extends Controller
             ->with('success', 'Career added successfully.');
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
         $category = Category::where('CT_Name', 'Jobs')->first();
 
-        $careers = Career::findOrFail($request->id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $careers = Career::findOrFail($realId);
 
         $categories = Category::where('CT_Name', 'Jobs')->get();
 
@@ -109,7 +111,8 @@ class CareerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $career = Career::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $career = Career::findOrFail($realId);
 
         $validator = Validator::make($request->all(), [
             'CT_Id'          => 'required|exists:categories,CT_Id',
@@ -179,7 +182,8 @@ class CareerController extends Controller
 
     public function destroy($id)
     {
-        $careers = Career::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $careers = Career::findOrFail($realId);
 
         if ($careers->CR_Img && file_exists(public_path($careers->CR_Img))) {
             unlink(public_path($careers->CR_Img));
@@ -295,7 +299,8 @@ class CareerController extends Controller
     {
         $vendor = Auth::guard('vendor')->user();
 
-        $careers = Career::where('CR_Id', $id)
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $careers = Career::where('CR_Id', $realId)
             ->where('VR_Id', $vendor->VR_Id)
             ->firstOrFail();
 
@@ -309,7 +314,8 @@ class CareerController extends Controller
     {
         $vendor = Auth::guard('vendor')->user();
 
-        $career = Career::where('CR_Id', $id)
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $career = Career::where('CR_Id', $realId)
             ->where('VR_Id', $vendor->VR_Id)
             ->firstOrFail();
 
@@ -352,7 +358,8 @@ class CareerController extends Controller
     {
         $vendor = Auth::guard('vendor')->user();
 
-        $career = Career::where('CR_Id', $id)
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $career = Career::where('CR_Id', $realId)
             ->where('VR_Id', $vendor->VR_Id)
             ->firstOrFail();
 

@@ -26,7 +26,7 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('admin-category-update') }}" method="POST"
+                                <form action="{{ route('admin-category-update', \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id)) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -63,3 +63,4 @@
         </div>
     </div>
 @endsection
+

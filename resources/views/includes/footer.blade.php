@@ -11,15 +11,20 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="footer-info">
 
-                    <a href="{{ route('home') }}">
-                        <img src="/storage/images/logo.png" alt="Launch INCS Logo" class="img-fluid mb-4">
+                    <a href="{{ route('home') }}" style="margin-bottom: 15px; display: block;">
+                        <img src="/storage/images/logo.png" alt="Launch Logo" class="img-fluid">
                     </a>
 
                     <p>
-                        Launch INCS is your trusted online marketplace to buy, sell,
+                        Launch is your trusted online marketplace to buy, sell,
                         rent, and discover jobs, properties, vehicles, electronics,
                         and much more across the UAE.
                     </p>
+
+                    <a class="btn btn-inline mt-3" href="{{ route('user') }}" style="width: 180px; padding: 12px 0; margin-left: 0;">
+                        <i class="fas fa-user"></i>
+                        <span>Join Me</span>
+                    </a>
 
                 </div>
             </div>
@@ -111,7 +116,7 @@
             <div class="footer-end-content d-flex justify-content-between align-items-center flex-wrap">
 
                 <p class="mb-0">
-                    © 2026 Launch INCS. All Rights Reserved. Developed by
+                    © 2026 Launch. All Rights Reserved. Developed by
                     <a href="https://ethqan.com/" target="_blank">
                         Ethqan Technologies
                     </a>
@@ -155,3 +160,4 @@
 <!--=====================================
                     FOOTER PART END
         =======================================-->
+

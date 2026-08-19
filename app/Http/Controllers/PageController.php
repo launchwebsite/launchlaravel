@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Vinkla\Hashids\Facades\Hashids;
 
 class PageController extends Controller
 {
@@ -34,7 +35,8 @@ class PageController extends Controller
             ->groupBy('SC_Id')
             ->pluck('total', 'SC_Id');
 
-        $categories = Category::withCount('products')
+        $categories = Category::where('CT_Name', '!=', 'Jobs')
+            ->withCount('products')
             ->with([
                 'subcategories' => function ($query) {
                     $query->withCount('products');
@@ -106,14 +108,93 @@ class PageController extends Controller
         ));
     }
 
-    public function categorydetails()
+    public function categorydetails(Request $request)
     {
-        return view("categorydetails");
+        $query = Product::with(['category', 'subcategory']);
+        
+        if ($request->has('category') && !empty($request->category)) {
+            $catId = Hashids::decode($request->category)[0] ?? $request->category;
+            $query->where('CT_Id', $catId);
+        }
+        
+        if ($request->has('subcategory') && !empty($request->subcategory)) {
+            $subcatId = Hashids::decode($request->subcategory)[0] ?? $request->subcategory;
+            $query->where('SC_Id', $subcatId);
+        }
+
+        if ($request->has('location') && is_array($request->location)) {
+            $query->where(function($q) use ($request) {
+                foreach($request->location as $loc) {
+                    $q->orWhere('PR_Details->Location', 'LIKE', '%' . $loc . '%');
+                }
+            });
+        }
+
+        if ($request->has('popularity') && is_array($request->popularity)) {
+            $popIds = array_map(function($id) {
+                return Hashids::decode($id)[0] ?? $id;
+            }, $request->popularity);
+            $query->whereIn('SC_Id', $popIds);
+        }
+        $show = $request->input('show', 12);
+        if (!in_array($show, [12, 24, 36])) {
+            $show = 12;
+        }
+
+        $sort = $request->input('sort', 'default');
+        if ($sort == 'oldest') {
+            $query->oldest();
+        } elseif ($sort == 'price_low') {
+            $query->orderByRaw('CAST(JSON_EXTRACT(PR_Details, "$.Price") AS UNSIGNED) ASC');
+        } elseif ($sort == 'price_high') {
+            $query->orderByRaw('CAST(JSON_EXTRACT(PR_Details, "$.Price") AS UNSIGNED) DESC');
+        } else {
+            $query->latest();
+        }
+
+        $products = $query->paginate($show);
+        
+        $categories = Category::where('CT_Name', '!=', 'Jobs')
+            ->withCount('products')
+            ->with(['subcategories' => function ($query) {
+                $query->withCount('products');
+            }])
+            ->get();
+
+        $allProducts = Product::select('PR_Details')->get();
+        $locations = collect();
+        foreach($allProducts as $p) {
+            $loc = $p->PR_Details['Location'] ?? null;
+            if ($loc) {
+                $locParts = explode(',', $loc);
+                $locations->push(trim($locParts[0]));
+            }
+        }
+        $topLocations = $locations->countBy()->sortDesc()->take(10);
+
+        $popularSubcategories = \App\Models\SubCategory::withCount('products')
+                                    ->orderBy('products_count', 'desc')
+                                    ->take(10)
+                                    ->get();
+
+        return view("categorydetails", compact('products', 'categories', 'topLocations', 'popularSubcategories'));
     }
 
-    public function jobopening()
+    public function jobopening(Request $request)
     {
-        $careers = Career::all();
+        $query = Career::query();
+
+        if ($request->has('category') && !empty($request->category)) {
+            $catId = Hashids::decode($request->category)[0] ?? $request->category;
+            $query->where('CT_Id', $catId);
+        }
+
+        if ($request->has('subcategory') && !empty($request->subcategory)) {
+            $subcatId = Hashids::decode($request->subcategory)[0] ?? $request->subcategory;
+            $query->where('SC_Id', $subcatId);
+        }
+
+        $careers = $query->get();
 
         return view("jobopening", compact('careers'));
     }
@@ -138,6 +219,10 @@ class PageController extends Controller
 
     public function selectJob(Request $request)
     {
+        if ($request->has('career_id')) {
+            $request->merge(['career_id' => Hashids::decode($request->career_id)[0] ?? $request->career_id]);
+        }
+
         $request->validate([
             'career_id' => 'required|exists:careers,CR_Id',
         ]);
@@ -152,6 +237,10 @@ class PageController extends Controller
 
     public function storeApplication(Request $request)
     {
+        if ($request->has('CR_Id')) {
+            $request->merge(['CR_Id' => Hashids::decode($request->CR_Id)[0] ?? $request->CR_Id]);
+        }
+
         $request->validate([
             'CR_Id'      => 'required|exists:careers,CR_Id',
             'CA_Name'    => 'required|string|max:255',
@@ -200,9 +289,14 @@ class PageController extends Controller
         ));
     }
 
-    public function addetails($id)
+    public function addetails($id = null)
     {
-        $product = Product::with(['vendor', 'category', 'subcategory'])->findOrFail($id);
+        if (!$id) {
+            return view('layouts.layout');
+        }
+
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $product = Product::with(['vendor', 'category', 'subcategory'])->findOrFail($realId);
 
         $related = Product::where('SC_Id', $product->SC_Id)
             ->where('PR_Id', '!=', $product->PR_Id)

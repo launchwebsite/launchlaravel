@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Vinkla\Hashids\Facades\Hashids;
 
 class ProductController extends Controller
 {
@@ -51,6 +52,11 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
+            'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
+        ]);
+
         $request->validate(
             [
                 'CT_Id'     => 'required|exists:categories,CT_Id',
@@ -228,7 +234,8 @@ class ProductController extends Controller
 
     public function getAttributes($id)
     {
-        $attributes = Attributes::where('SC_Id', $id)
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $attributes = Attributes::where('SC_Id', $realId)
             ->orderBy('AT_Id')
             ->get();
 
@@ -243,7 +250,8 @@ class ProductController extends Controller
 
     public function getSubCategories($id)
     {
-        $subCategories = SubCategory::where('CT_Id', $id)
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $subCategories = SubCategory::where('CT_Id', $realId)
             ->orderBy('SC_Name')
             ->get();
 
@@ -256,15 +264,10 @@ class ProductController extends Controller
     |--------------------------------------------------------------------------
     */
 
-    public function edit(Request $request)
+    public function edit($id)
     {
-        // Validate the hidden product ID
-        $request->validate([
-            'PR_Id' => 'required|exists:products,PR_Id',
-        ]);
-
-        // Get the product using the hidden PR_Id
-        $product = Product::findOrFail($request->PR_Id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $product = Product::findOrFail($realId);
 
         /*
     |--------------------------------------------------------------------------
@@ -346,7 +349,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $product = Product::findOrFail($realId);
+
+        $request->merge([
+            'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
+            'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
+        ]);
 
         /*
         |--------------------------------------------------------------------------
@@ -533,7 +542,8 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $product = Product::findOrFail($realId);
 
         $product->delete();
 

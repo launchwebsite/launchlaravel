@@ -73,7 +73,7 @@
 
 
                                 <form
-                                    action="{{ isset($careers) ? route('career.update', $careers->CR_Id) : route('career.store') }}"
+                                    action="{{ isset($careers) ? route('career.update', \Vinkla\Hashids\Facades\Hashids::encode($careers->CR_Id)) : route('career.store') }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @if (isset($careers))
@@ -89,8 +89,8 @@
                                                     <select class="form-control" name="CT_Id" required>
 
                                                         @foreach ($categories as $category)
-                                                            <option value="{{ $category->CT_Id }}"
-                                                                {{ old('CT_Id', $careers->CT_Id ?? '') == $category->CT_Id ? 'selected' : '' }}>
+                                                            <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                                {{ old('CT_Id', isset($careers) ? \Vinkla\Hashids\Facades\Hashids::encode($careers->CT_Id) : '') == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
                                                                 {{ $category->CT_Name }}
                                                             </option>
                                                         @endforeach
@@ -257,3 +257,4 @@
         });
     </script>
 @endsection
+

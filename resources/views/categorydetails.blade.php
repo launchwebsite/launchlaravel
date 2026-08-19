@@ -39,194 +39,72 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="product-widget">
                                 <h6 class="product-widget-title">Filter by Emirates &amp; Areas</h6>
-                                <form class="product-widget-form">
+                                <form class="product-widget-form" action="{{ route('categorydetails') }}" method="GET">
+                                    @foreach(request()->except(['location', 'page']) as $key => $value)
+                                        @if(is_array($value))
+                                            @foreach($value as $v)
+                                                <input type="hidden" name="{{ $key }}[]" value="{{ $v }}">
+                                            @endforeach
+                                        @else
+                                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                        @endif
+                                    @endforeach
                                     <div class="product-widget-search">
                                         <input type="text" placeholder="Search">
                                     </div>
                                     <ul class="product-widget-list product-widget-scroll">
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek9">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek9">
-                                                <span class="product-widget-text">Downtown Dubai</span>
-                                                <span class="product-widget-number">(95)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek10">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek10">
-                                                <span class="product-widget-text">Dubai Marina</span>
-                                                <span class="product-widget-number">(82)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek11">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek11">
-                                                <span class="product-widget-text">Business Bay</span>
-                                                <span class="product-widget-number">(71)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek12">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek12">
-                                                <span class="product-widget-text">Jumeirah</span>
-                                                <span class="product-widget-number">(46)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek13">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek13">
-                                                <span class="product-widget-text">Deira</span>
-                                                <span class="product-widget-number">(24)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek14">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek14">
-                                                <span class="product-widget-text">Al Barsha</span>
-                                                <span class="product-widget-number">(34)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek15">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek15">
-                                                <span class="product-widget-text">JBR (Jumeirah Beach Residence)</span>
-                                                <span class="product-widget-number">(82)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek16">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek16">
-                                                <span class="product-widget-text">Abu Dhabi</span>
-                                                <span class="product-widget-number">(45)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek17">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek17">
-                                                <span class="product-widget-text">Sharjah</span>
-                                                <span class="product-widget-number">(19)</span>
-                                            </label>
-                                        </li>
+                                        @foreach($topLocations as $loc => $count)
+                                            <li class="product-widget-item">
+                                                <div class="product-widget-checkbox">
+                                                    <input type="checkbox" id="loc-{{ $loop->index }}" name="location[]" value="{{ $loc }}" onchange="this.form.submit()" {{ in_array($loc, request('location', [])) ? 'checked' : '' }}>
+                                                </div>
+                                                <label class="product-widget-label" for="loc-{{ $loop->index }}">
+                                                    <span class="product-widget-text">{{ $loc }}</span>
+                                                    <span class="product-widget-number">({{ $count }})</span>
+                                                </label>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <button type="submit" class="product-widget-btn">
+                                    <a href="{{ route('categorydetails', request()->only(['category', 'subcategory'])) }}" class="product-widget-btn" style="text-decoration:none;">
                                         <i class="fas fa-broom"></i>
                                         <span>Clear Filter</span>
-                                    </button>
+                                    </a>
                                 </form>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-12">
                             <div class="product-widget">
                                 <h6 class="product-widget-title">Filter by Popularity</h6>
-                                <form class="product-widget-form">
+                                <form class="product-widget-form" action="{{ route('categorydetails') }}" method="GET">
+                                    @foreach(request()->except(['popularity', 'page']) as $key => $value)
+                                        @if(is_array($value))
+                                            @foreach($value as $v)
+                                                <input type="hidden" name="{{ $key }}[]" value="{{ $v }}">
+                                            @endforeach
+                                        @else
+                                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                        @endif
+                                    @endforeach
                                     <div class="product-widget-search">
                                         <input type="text" placeholder="Search">
                                     </div>
                                     <ul class="product-widget-list product-widget-scroll">
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek9b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek9b">
-                                                <span class="product-widget-text">Laptop</span>
-                                                <span class="product-widget-number">(68)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek10b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek10b">
-                                                <span class="product-widget-text">Camera</span>
-                                                <span class="product-widget-number">(78)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek11b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek11b">
-                                                <span class="product-widget-text">Television</span>
-                                                <span class="product-widget-number">(34)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek12b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek12b">
-                                                <span class="product-widget-text">Bicycle</span>
-                                                <span class="product-widget-number">(43)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek13b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek13b">
-                                                <span class="product-widget-text">Motorbike</span>
-                                                <span class="product-widget-number">(57)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek14b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek14b">
-                                                <span class="product-widget-text">Private Car</span>
-                                                <span class="product-widget-number">(67)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek15b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek15b">
-                                                <span class="product-widget-text">Air Conditioner</span>
-                                                <span class="product-widget-number">(98)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek16b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek16b">
-                                                <span class="product-widget-text">Apartment</span>
-                                                <span class="product-widget-number">(45)</span>
-                                            </label>
-                                        </li>
-                                        <li class="product-widget-item">
-                                            <div class="product-widget-checkbox">
-                                                <input type="checkbox" id="chcek17b">
-                                            </div>
-                                            <label class="product-widget-label" for="chcek17b">
-                                                <span class="product-widget-text">Watch</span>
-                                                <span class="product-widget-number">(76)</span>
-                                            </label>
-                                        </li>
+                                        @foreach($popularSubcategories as $subcat)
+                                            <li class="product-widget-item">
+                                                <div class="product-widget-checkbox">
+                                                    <input type="checkbox" id="pop-{{ $loop->index }}" name="popularity[]" value="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcat->SC_Id) }}" onchange="this.form.submit()" {{ in_array(\Vinkla\Hashids\Facades\Hashids::encode($subcat->SC_Id), request('popularity', [])) ? 'checked' : '' }}>
+                                                </div>
+                                                <label class="product-widget-label" for="pop-{{ $loop->index }}">
+                                                    <span class="product-widget-text">{{ $subcat->SC_Name }}</span>
+                                                    <span class="product-widget-number">({{ $subcat->products_count }})</span>
+                                                </label>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <button type="submit" class="product-widget-btn">
+                                    <a href="{{ route('categorydetails', request()->only(['category', 'subcategory'])) }}" class="product-widget-btn" style="text-decoration:none;">
                                         <i class="fas fa-broom"></i>
                                         <span>Clear Filter</span>
-                                    </button>
+                                    </a>
                                 </form>
                             </div>
                         </div>
@@ -238,99 +116,28 @@
                                         <input type="text" placeholder="Search">
                                     </div>
                                     <ul class="product-widget-list product-widget-scroll">
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Electronics (234)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Mixer (56)</a></li>
-                                                <li><a href="#">Freezer (78)</a></li>
-                                                <li><a href="#">LED TV (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Automobiles (767)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Private Car (56)</a></li>
-                                                <li><a href="#">Motorbike (78)</a></li>
-                                                <li><a href="#">Truck (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Properties (456)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Freehold Land (56)</a></li>
-                                                <li><a href="#">Apartment (78)</a></li>
-                                                <li><a href="#">Shop (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Fashion (356)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Jeans (56)</a></li>
-                                                <li><a href="#">T-Shirt (78)</a></li>
-                                                <li><a href="#">Jacket (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Gadgets (768)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Computer (56)</a></li>
-                                                <li><a href="#">Mobile (78)</a></li>
-                                                <li><a href="#">Drone (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Furnitures (977)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Chair (56)</a></li>
-                                                <li><a href="#">Sofa (78)</a></li>
-                                                <li><a href="#">Table (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Hospitality (124)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Hotel Apartment (56)</a></li>
-                                                <li><a href="#">Staff Uniform (78)</a></li>
-                                                <li><a href="#">Catering Equipment (78)</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="product-widget-dropitem">
-                                            <button type="button" class="product-widget-link">
-                                                <i class="fas fa-tags"></i>
-                                                Agriculture (565)
-                                            </button>
-                                            <ul class="product-widget-dropdown">
-                                                <li><a href="#">Irrigation Equipment (56)</a></li>
-                                                <li><a href="#">Date Palm Saplings (78)</a></li>
-                                                <li><a href="#">Greenhouse Supplies (78)</a></li>
-                                            </ul>
-                                        </li>
+                                        @foreach ($categories as $category)
+                                            <li class="product-widget-dropitem">
+                                                <button type="button" class="product-widget-link">
+                                                    <i class="fas fa-tags"></i>
+                                                    {{ $category->CT_Name }} ({{ $category->products_count }})
+                                                </button>
+                                                <ul class="product-widget-dropdown">
+                                                    @foreach ($category->subcategories as $subcategory)
+                                                        <li>
+                                                            <a href="{{ route('categorydetails', ['subcategory' => \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id)]) }}">
+                                                                {{ $subcategory->SC_Name }} ({{ $subcategory->products_count }})
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <button type="submit" class="product-widget-btn">
+                                    <a href="{{ route('categorydetails', request()->only(['category', 'subcategory'])) }}" class="product-widget-btn" style="text-decoration:none;">
                                         <i class="fas fa-broom"></i>
                                         <span>Clear Filter</span>
-                                    </button>
+                                    </a>
                                 </form>
                             </div>
                         </div>
@@ -339,603 +146,96 @@
                 <div class="col-12 col-xl-9">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="header-filter">
-                                <button class="flex items-center filter-btn">
+                            <form action="{{ route('categorydetails') }}" method="GET" class="header-filter">
+                                @foreach(request()->except(['show', 'sort', 'page']) as $key => $value)
+                                    @if(is_array($value))
+                                        @foreach($value as $v)
+                                            <input type="hidden" name="{{ $key }}[]" value="{{ $v }}">
+                                        @endforeach
+                                    @else
+                                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                                    @endif
+                                @endforeach
+                                <button type="button" class="flex items-center filter-btn">
                                     <i class="fas fa-filter"></i>
                                     <span class="text-capitalize">Filter</span>
                                 </button>
                                 <div class="filter-show">
                                     <label class="filter-label">Show :</label>
-                                    <select class="form-select filter-select">
-                                        <option value="1">12</option>
-                                        <option value="2">24</option>
-                                        <option value="3">36</option>
+                                    <select class="form-select filter-select" name="show" onchange="this.form.submit()">
+                                        <option value="12" {{ request('show') == 12 ? 'selected' : '' }}>12</option>
+                                        <option value="24" {{ request('show') == 24 ? 'selected' : '' }}>24</option>
+                                        <option value="36" {{ request('show') == 36 ? 'selected' : '' }}>36</option>
                                     </select>
                                 </div>
                                 <div class="filter-short">
                                     <label class="filter-label">Sort by :</label>
-                                    <select class="form-select filter-select">
-                                        <option selected>Default</option>
-                                        <option value="3">Trending</option>
-                                        <option value="1">Featured</option>
-                                        <option value="2">Recommended</option>
+                                    <select class="form-select filter-select" name="sort" onchange="this.form.submit()">
+                                        <option value="default" {{ request('sort') == 'default' ? 'selected' : '' }}>Default</option>
+                                        <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+                                        <option value="price_low" {{ request('sort') == 'price_low' ? 'selected' : '' }}>Price (Low to High)</option>
+                                        <option value="price_high" {{ request('sort') == 'price_high' ? 'selected' : '' }}>Price (High to Low)</option>
                                     </select>
                                 </div>
-                                <div class="filter-action">
-                                    <a href='{{ route('adlist3') }}' title='Three Column'><i class="fas fa-th"></i></a>
-                                    <a href='{{ route('adlist2') }}' title='Two Column'><i class="fas fa-th-large"></i></a>
-                                    <a href='{{ route('adlist1') }}' title='One Column'><i class="fas fa-th-list"></i></a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/07.jpg" alt="Luxury villa in Palm Jumeirah">
+                        @forelse ($products as $product)
+                            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
+                                <div class="product-card">
+                                    <div class="product-media">
+                                        <div class="product-img">
+                                            @if($product->display_gallery->isNotEmpty())
+                                                <img src="{{ $product->display_gallery->first() }}" alt="{{ $product->display_title }}">
+                                            @else
+                                                <img src="/storage/images/product/01.jpg" alt="No image">
+                                            @endif
+                                        </div>
+                                        <div class="product-type">
+                                            <span class="flat-badge sale">{{ strtolower($product->display_badge) }}</span>
+                                        </div>
+                                        <ul class="product-action">
+                                            <li class="view"><i class="fas fa-eye"></i><span>0</span></li>
+                                            <li class="rating"><i class="fas fa-star"></i><span>0/5</span></li>
+                                        </ul>
                                     </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge booking">booking</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Luxury</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">5-Bedroom Signature Villa with Private Beach Access</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Palm Jumeirah, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 5,840<span>/per week</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
+                                    <div class="product-content">
+                                        <ol class="breadcrumb product-category">
+                                            <li><i class="fas fa-tags"></i></li>
+                                            <li class="breadcrumb-item"><a href="#">{{ $product->display_badge }}</a></li>
+                                        </ol>
+                                        <h5 class="product-title">
+                                            <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($product->PR_Id ?? 1)) }}">{{ $product->display_title }}</a>
+                                        </h5>
+                                        <div class="product-meta">
+                                            <span><i class="fas fa-map-marker-alt"></i>{{ $product->PR_Details['Location'] ?? 'UAE' }}</span>
+                                            <span><i class="fas fa-clock"></i>{{ $product->created_at->diffForHumans() }}</span>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-price">{{ $product->display_price }}</h5>
+                                            <div class="product-btn">
+                                                <button type="button" title="Wishlist" class="far fa-heart"></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/08.jpg" alt="Latest smartphone for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Gadget</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Brand New Flagship Smartphone, Sealed Box, Dubai Warranty</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Deira, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 1,670<span>/fixed</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
+                        @empty
+                            <div class="col-12 text-center mt-5" style="margin-bottom: 50px;">
+                                <h4 style="color: white;">No products found in this category.</h4>
                             </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/09.jpg" alt="Persian cat for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Animal</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Purebred Persian Kitten, Vaccinated, Papers Included</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Al Barsha, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 860<span>/Negotiable</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/10.jpg" alt="Rent a car in Dubai Marina">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge rent">rent</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Automobile</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Self-Drive SUV Rental, Unlimited Mileage, Full Insurance</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Dubai Marina, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 280<span>/per month</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/11.jpg" alt="Duplex penthouse in Downtown Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge booking">booking</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Luxury</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Duplex Penthouse with Burj Khalifa View, Fully Furnished</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Downtown Dubai, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 5,400<span>/per day</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/13.jpg" alt="Gaming laptop for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Electronics</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">High-Performance Gaming Laptop, RTX Graphics</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Business Bay, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 5,700<span>/fixed</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/14.jpg" alt="Mountain bike rental in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge rent">rent</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Automobile</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Mountain Bike Rental, Perfect for Al Qudra Cycling Track</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Al Qudra, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 35<span>/per hour</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/15.jpg" alt="DSLR camera for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Gadget</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Professional DSLR Camera Kit with Two Lenses and Bag</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Jumeirah, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 4,400<span>/Negotiable</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/16.jpg" alt="Yacht charter in Dubai Marina">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge booking">booking</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Luxury</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Private Yacht Charter, Captain and Crew Included</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Dubai Marina, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 4,400<span>/per day</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/02.jpg" alt="Designer sneakers for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Fashion</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Limited Edition Designer Sneakers, Size 42, New</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Mall of the Emirates, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 2,120<span>/fixed</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/03.jpg" alt="Arabic language textbooks for sale">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge rent">rent</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Education</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Complete Set of Arabic and IGCSE Study Books</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Al Qusais, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 210<span>/per week</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/04.jpg" alt="Smart TV for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Electronics</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">65-Inch 4K Smart TV, Barely Used, Wall Mount Included</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Al Nahda, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 900<span>/Negotiable</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/05.jpg" alt="Wireless headphones for sale in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge sale">sale</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Gadgets</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Noise-Cancelling Wireless Headphones, Original Box</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>JBR, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 660<span>/fixed</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/06.jpg" alt="Electric scooter for rent in Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge rent">rent</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Automobiles</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">Electric Scooter Rental, Ideal for JLT Commutes</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>JLT, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 32<span>/per hour</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6 col-xl-4">
-                            <div class="product-card">
-                                <div class="product-media">
-                                    <div class="product-img">
-                                        <img src="/storage/images/product/01.jpg" alt="Apartment for rent in Al Barsha, Dubai">
-                                    </div>
-                                    <div class="product-type">
-                                        <span class="flat-badge booking">booking</span>
-                                    </div>
-                                    <ul class="product-action">
-                                        <li class="view"><i class="fas fa-eye"></i><span>264</span></li>
-                                        <li class="rating"><i class="fas fa-star"></i><span>4.5/5</span></li>
-                                    </ul>
-                                </div>
-                                <div class="product-content">
-                                    <ol class="breadcrumb product-category">
-                                        <li><i class="fas fa-tags"></i></li>
-                                        <li class="breadcrumb-item"><a href="#">Properties</a></li>
-                                    </ol>
-                                    <h5 class="product-title">
-                                        <a href="#">2-Bedroom Apartment, Chiller Free, Close to Metro</a>
-                                    </h5>
-                                    <div class="product-meta">
-                                        <span><i class="fas fa-map-marker-alt"></i>Al Barsha, Dubai</span>
-                                        <span><i class="fas fa-clock"></i>30 min ago</span>
-                                    </div>
-                                    <div class="product-info">
-                                        <h5 class="product-price">AED 2,860<span>/per month</span></h5>
-                                        <div class="product-btn">
-                                            <!-- <a class='fas fa-compress' href='compare.php' title='Compare'></a> -->
-                                            <button type="button" title="Wishlist" class="far fa-heart"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforelse
                     </div>
-                    <div class="row">
+                    @if($products->hasPages())
+                    <div class="row mt-4">
                         <div class="col-lg-12">
                             <div class="footer-pagection">
-                                <p class="page-info">Showing 12 of 60 Results</p>
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <i class="fas fa-long-arrow-alt-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">...</li>
-                                    <li class="page-item"><a class="page-link" href="#">67</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <i class="fas fa-long-arrow-alt-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                {{ $products->appends(request()->query())->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>
-                </div>
+                    @endif
             </div>
         </div>
     </section>
@@ -944,4 +244,48 @@
             =======================================-->
 
     @include('includes.footer')
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInputs = document.querySelectorAll('.product-widget-search input');
+        
+        searchInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                const filter = this.value.toLowerCase();
+                const widget = this.closest('.product-widget');
+                const list = widget.querySelector('.product-widget-list');
+                const listItems = list.querySelectorAll(':scope > li');
+                let hasMatch = false;
+                
+                const oldMsg = widget.querySelector('.no-match-msg');
+                if (oldMsg) oldMsg.remove();
+
+                listItems.forEach(li => {
+                    const text = li.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        li.style.display = '';
+                        hasMatch = true;
+                    } else {
+                        li.style.display = 'none';
+                    }
+                });
+
+                if (!hasMatch && filter.trim() !== '') {
+                    const msg = document.createElement('li');
+                    msg.className = 'no-match-msg';
+                    msg.textContent = 'No results found';
+                    msg.style.color = 'var(--primary)'; 
+                    msg.style.padding = '10px 0';
+                    msg.style.textAlign = 'center';
+                    msg.style.fontSize = '14px';
+                    msg.style.fontWeight = '500';
+                    msg.style.listStyle = 'none';
+                    
+                    list.appendChild(msg);
+                }
+            });
+        });
+    });
+    </script>
 @endsection
+

@@ -40,7 +40,7 @@
                                                         </option>
 
                                                         @foreach ($categories as $category)
-                                                            <option value="{{ $category->CT_Id }}">
+                                                            <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}">
                                                                 {{ $category->CT_Name }}
                                                             </option>
                                                         @endforeach
@@ -72,8 +72,8 @@
 
     @foreach ($sub_categories as $subcategory)
 
-        <option value="{{ $subcategory->SC_Id }}"
-            data-category="{{ $subcategory->CT_Id }}">
+        <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id) }}"
+            data-category="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->CT_Id) }}">
 
             {{ $subcategory->SC_Name }}
 
@@ -98,7 +98,7 @@
                                                 <div class="mb-3 row"> --}}
                                             @foreach ($attributes as $attribute)
                                                 <div class="mb-3 row attribute-row"
-                                                    data-subcategory="{{ $attribute->SC_Id }}" style="display: none;">
+                                                    data-subcategory="{{ \Vinkla\Hashids\Facades\Hashids::encode($attribute->SC_Id) }}" style="display: none;">
 
                                                     <label class="col-sm-2 col-form-label">
                                                         {{ $attribute->AT_Inputs }}
@@ -399,3 +399,4 @@ $(document).ready(function () {
 
 
 @endsection
+

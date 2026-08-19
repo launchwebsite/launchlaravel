@@ -30,7 +30,7 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('admin.product.update', $product->PR_Id) }}" method="POST"
+                                <form action="{{ route('admin.product.update', \Vinkla\Hashids\Facades\Hashids::encode($product->PR_Id)) }}" method="POST"
                                     enctype="multipart/form-data">
 
                                     @csrf
@@ -52,8 +52,8 @@
                                                 </option>
 
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->CT_Id }}"
-                                                        {{ old('CT_Id', $product->CT_Id) == $category->CT_Id ? 'selected' : '' }}>
+                                                    <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                        {{ old('CT_Id', \Vinkla\Hashids\Facades\Hashids::encode($product->CT_Id)) == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
 
                                                         {{ $category->CT_Name }}
 
@@ -89,10 +89,10 @@
                                                 </option>
 
                                                 @foreach ($sub_categories as $subcategory)
-                                                    <option value="{{ $subcategory->SC_Id }}"
-                                                        data-category="{{ $subcategory->CT_Id }}"
-                                                        {{ old('SC_Id', $product->SC_Id) == $subcategory->SC_Id ? 'selected' : '' }}
-                                                        {{ $subcategory->CT_Id != old('CT_Id', $product->CT_Id) ? 'hidden' : '' }}>
+                                                    <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id) }}"
+                                                        data-category="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->CT_Id) }}"
+                                                        {{ old('SC_Id', \Vinkla\Hashids\Facades\Hashids::encode($product->SC_Id)) == \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id) ? 'selected' : '' }}
+                                                        {{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->CT_Id) != old('CT_Id', \Vinkla\Hashids\Facades\Hashids::encode($product->CT_Id)) ? 'hidden' : '' }}>
 
                                                         {{ $subcategory->SC_Name }}
 
@@ -425,3 +425,4 @@
         });
     </script>
 @endsection
+

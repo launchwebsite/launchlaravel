@@ -26,19 +26,17 @@
                                     </div>
                                 @endif
 
-                                <form action="{{ route('admin-subcategory-update') }}" method="POST"
+                                <form action="{{ route('admin-subcategory-update', \Vinkla\Hashids\Facades\Hashids::encode($subCategory->SC_Id)) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
-
-                                    <input type="hidden" name="SC_Id" value="{{ $subCategory->SC_Id }}">
 
                                     <div class="mb-3">
                                         <label class="form-label">Category</label>
                                         <select name="CT_Id" class="form-select">
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->CT_Id }}"
-                                                    {{ old('CT_Id', $subCategory->CT_Id) == $category->CT_Id ? 'selected' : '' }}>
+                                                <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                    {{ old('CT_Id', \Vinkla\Hashids\Facades\Hashids::encode($subCategory->CT_Id)) == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
                                                     {{ $category->CT_Name }}
                                                 </option>
                                             @endforeach
@@ -77,3 +75,4 @@
         </div>
     </div>
 @endsection
+

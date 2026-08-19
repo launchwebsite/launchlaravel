@@ -26,7 +26,8 @@
                                     </div>
                                 @endif --}}
 
-                                <form action="{{ route('admin.vendor.update', $vendor->VR_Id) }}" method="POST">
+                                <form action="{{ route('admin.vendor.update', \Vinkla\Hashids\Facades\Hashids::encode($vendor->VR_Id)) }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
@@ -47,8 +48,8 @@
                                         <select name="CT_Id" id="CT_Id" class="form-select">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->CT_Id }}"
-                                                    {{ old('CT_Id', $vendor->CT_Id) == $category->CT_Id ? 'selected' : '' }}>
+                                                <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                    {{ old('CT_Id', \Vinkla\Hashids\Facades\Hashids::encode($vendor->CT_Id)) == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
                                                     {{ $category->CT_Name }}
                                                 </option>
                                             @endforeach
@@ -124,3 +125,4 @@
         });
     </script>
 @endsection
+

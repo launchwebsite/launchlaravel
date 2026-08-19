@@ -43,12 +43,12 @@
 
 
                                                     <td>
-                                                        <a href="{{ route('vendor.career.edit', $career->CR_Id) }}"
+                                                        <a href="{{ route('vendor.career.edit', \Vinkla\Hashids\Facades\Hashids::encode($career->CR_Id)) }}"
                                                             class="btn btn-sm btn-primary">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <a href="{{ route('vendor.career.delete', $career->CR_Id) }}"
-                                                            class="btn btn-sm btn-danger"onclick="return confirm('Are you sure?')">
+                                                        <a href="{{ route('vendor.career.delete', \Vinkla\Hashids\Facades\Hashids::encode($career->CR_Id)) }}"
+                                                            class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -72,3 +72,4 @@
     </div>
     <!-- end page-wrapper -->
 @endsection
+

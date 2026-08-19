@@ -7,10 +7,10 @@
     <section class="banner-part">
         <div class="container">
             <div class="banner-content">
-                <h1>Launch INCS - Buy, #Rent, #Book anything across the #UAE.</h1>
+                <h1>Launch - Buy, #Rent, #Book anything across the #UAE.</h1>
                 <p>Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs
                     and more across Dubai, Abu Dhabi, Sharjah and the rest of the UAE.</p>
-                <a class='btn btn-outline' href='{{ route('adlist3') }}'>
+                <a class='btn btn-outline' href='{{ route('categorylist') }}'>
                     <i class="fas fa-eye"></i>
                     <span>Show all ads</span>
                 </a>
@@ -22,7 +22,7 @@
         <div class="container">
             <div class="suggest-slider slider-arrow">
                 @foreach ($category as $item)
-                    <a class="suggest-card" href="{{ route('adlist3') }}">
+                    <a class="suggest-card" href="{{ route('categorylist') }}">
 
                         <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="{{ $item->CT_Name }}"
                             style="border-radius: 20px">
@@ -64,7 +64,7 @@
 
                                 <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="{{ $item->CT_Name }}">
 
-                                <a href="{{ route('categorydetails', $item->CT_Id) }}" class="category-content">
+                                <a href="{{ route('categorydetails', ['category' => \Vinkla\Hashids\Facades\Hashids::encode($item->CT_Id)]) }}" class="category-content">
 
                                     <h4>{{ $item->CT_Name }}</h4>
 
@@ -89,7 +89,7 @@
                                 @foreach ($item->subcategories as $subcategory)
                                     <li>
 
-                                        <a href="{{ route('categorydetails', $subcategory->SC_Id) }}">
+                                        <a href="{{ route('categorydetails', ['subcategory' => \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id)]) }}">
 
                                             <h6>
                                                 {{ $subcategory->SC_Name }}
@@ -171,7 +171,7 @@
                                     <h5 class="product-title blue-reccom">
                                         <form action="{{ route('applyjob.select') }}" method="POST" class="d-inline">
                                             @csrf
-                                            <input type="hidden" name="career_id" value="{{ $career->CR_Id }}">
+                                            <input type="hidden" name="career_id" value="{{ \Vinkla\Hashids\Facades\Hashids::encode($career->CR_Id) }}">
                                             <button type="submit" class="btn-link-plain">
                                                 {{ $career->CR_Name }}
                                             </button>
@@ -272,11 +272,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('addetails', $item->PR_Id) }}">{{ $badge }}</a>
+                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
                                     </li>
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href="{{ route('addetails', $item->PR_Id) }}">{{ $title }}</a>
+                                    <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $title }}</a>
                                 </h5>
                                 <div class="product-meta">
                                     <span><i class="fas fa-map-marker-alt"></i>{{ $d['Location'] ?? 'N/A' }}</span>
@@ -297,7 +297,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
-                        <a class='btn btn-inline' href='{{ route('adlist3') }}'>
+                        <a class='btn btn-inline' href='{{ route('categorylist') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all trend</span>
                         </a>
@@ -362,11 +362,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
                                         Khaimah Beach
                                         Resort</a>
                                 </h5>
@@ -407,11 +407,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>iPhone 15 Pro Max, 256GB - Sealed
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>iPhone 15 Pro Max, 256GB - Sealed
                                         with Warranty</a>
                                 </h5>
                                 <div class="product-meta">
@@ -451,11 +451,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
                                         New Home</a>
                                 </h5>
                                 <div class="product-meta">
@@ -495,11 +495,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
                                         Rental</a>
                                 </h5>
                                 <div class="product-meta">
@@ -539,11 +539,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
                                         Stay</a>
                                 </h5>
                                 <div class="product-meta">
@@ -583,11 +583,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
                                         Warranty</a>
                                 </h5>
                                 <div class="product-meta">
@@ -627,11 +627,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
                                         Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
@@ -671,11 +671,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
                                         Lenses</a>
                                 </h5>
                                 <div class="product-meta">
@@ -720,11 +720,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Samsung Galaxy S24 Ultra - Like
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Samsung Galaxy S24 Ultra - Like
                                         New</a>
                                 </h5>
                                 <div class="product-meta">
@@ -764,11 +764,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
                                         Khaimah Beach
                                         Resort</a>
                                 </h5>
@@ -809,11 +809,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
                                         Rental</a>
                                 </h5>
                                 <div class="product-meta">
@@ -853,11 +853,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
                                         New Home</a>
                                 </h5>
                                 <div class="product-meta">
@@ -897,12 +897,12 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a>
                                     </li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
                                         Warranty</a>
                                 </h5>
                                 <div class="product-meta">
@@ -942,11 +942,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
                                         Stay</a>
                                 </h5>
                                 <div class="product-meta">
@@ -986,11 +986,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
                                         Lenses</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1030,11 +1030,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
                                         Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1079,11 +1079,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">camera</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sony Mirrorless Camera Kit with Two
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sony Mirrorless Camera Kit with Two
                                         Lenses</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1123,11 +1123,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">resort</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>All-Inclusive Weekend at a Ras Al
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>All-Inclusive Weekend at a Ras Al
                                         Khaimah Beach
                                         Resort</a>
                                 </h5>
@@ -1168,11 +1168,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">animal</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">animal</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">cat</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Friendly Persian Cat Looking for a
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Friendly Persian Cat Looking for a
                                         New Home</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1212,11 +1212,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">private car</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Toyota Camry 2023 for Monthly
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Toyota Camry 2023 for Monthly
                                         Rental</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1256,11 +1256,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">gadget</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">gadget</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">mobile</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Samsung Galaxy S24 Ultra - Like
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Samsung Galaxy S24 Ultra - Like
                                         New</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1300,12 +1300,12 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">electronics</a>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">electronics</a>
                                     </li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">laptop</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>MacBook Pro M3, 16-inch - Under
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>MacBook Pro M3, 16-inch - Under
                                         Warranty</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1345,11 +1345,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">automobile</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">automobile</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">bike</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Yamaha Delivery Bike Available for
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Yamaha Delivery Bike Available for
                                         Daily Hire</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1389,11 +1389,11 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item"><a
-                                            href="{{ route('addetails', $item->PR_Id) }}">Luxury</a></li>
+                                            href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">Luxury</a></li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page">Duplex house</li> -->
                                 </ol>
                                 <h5 class="product-title">
-                                    <a href='{{ route('addetails', $item->PR_Id) }}'>Sea View Penthouse in JBR - Short
+                                    <a href='{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}'>Sea View Penthouse in JBR - Short
                                         Stay</a>
                                 </h5>
                                 <div class="product-meta">
@@ -1416,7 +1416,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
-                        <a class='btn btn-inline' href='{{ route('adlist3') }}'>
+                        <a class='btn btn-inline' href='{{ route('categorylist') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all ads</span>
                         </a>
@@ -1446,7 +1446,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-3">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/01.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Dubai</h4>
@@ -1455,7 +1455,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/02.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Abu Dhabi</h4>
@@ -1464,7 +1464,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-5">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/03.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Sharjah</h4>
@@ -1473,7 +1473,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-5">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/04.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Ajman</h4>
@@ -1482,7 +1482,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/05.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Ras Al Khaimah</h4>
@@ -1491,7 +1491,7 @@
                     </a>
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-3">
-                    <a class='city-card' href='{{ route('adlist3') }}'
+                    <a class='city-card' href='{{ route('categorylist') }}'
                         style='background: url(/storage/images/cities/06.jpg) no-repeat center; background-size: cover'>
                         <div class="city-content">
                             <h4>Fujairah</h4>
@@ -1529,7 +1529,7 @@
                 <div class="col-lg-12">
                     <div class="section-center-heading">
                         <h2>Do you have something to advertise?</h2>
-                        <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace
+                        <p>Reach thousands of buyers across the UAE with Launch - the region's trusted marketplace
                             for property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
                                                                                             <i class="fas fa-plus-circle"></i>
@@ -1680,3 +1680,4 @@
 
     @include('includes.footer')
 @endsection
+

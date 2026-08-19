@@ -247,7 +247,7 @@
                                 <div class="section seller-info mt-5 mb-5">
                                     <h4>Seller Information</h4>
                                     <hr>
- <input type="hidden" name="VR_Id" id="VR_Id">
+
                                     <div class="row form-group">
                                         <label class="col-sm-3 label-title">
                                             Your Name<span class="required">*</span>
@@ -602,3 +602,4 @@ $(document).ready(function () {
 </script>
 
 @endsection
+

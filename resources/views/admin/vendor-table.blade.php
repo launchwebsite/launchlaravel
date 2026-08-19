@@ -62,9 +62,8 @@
                                                     <td>{{ $vendor->VR_Type }}</td>
 
                                                     <td>
-                                                        <form
-                                                            action="{{ route('admin.vendor.toggle-status', $vendor->VR_Id) }}"
-                                                            method="POST">
+                                                        <form action="{{ route('admin.vendor.toggle-status', \Vinkla\Hashids\Facades\Hashids::encode($vendor->VR_Id)) }}"
+                                                            method="POST" class="d-inline">
                                                             @csrf
                                                             <button type="submit"
                                                                 class="badge border-0 {{ $vendor->VR_Status == 1 ? 'bg-success' : ($vendor->VR_Status == 2 ? 'bg-warning' : 'bg-danger') }}"
@@ -75,14 +74,13 @@
                                                     </td>
 
                                                     <td>
-                                                        <a href="{{ route('admin.vendor.edit', $vendor->VR_Id) }}"
-                                                            class="btn btn-sm btn-success btn-outline-success">
+                                                        <a href="{{ route('admin.vendor.edit', \Vinkla\Hashids\Facades\Hashids::encode($vendor->VR_Id)) }}"
+                                                            class="btn btn-sm btn-primary">
                                                             <i class="fas fa-edit"></i>
                                                         </a>
-                                                        <form action="{{ route('admin.vendor.delete', $vendor->VR_Id) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('Delete this vendor permanently?');"
-                                                            class="d-inline">
+                                                        <form action="{{ route('admin.vendor.delete', \Vinkla\Hashids\Facades\Hashids::encode($vendor->VR_Id)) }}"
+                                                            method="POST" class="d-inline"
+                                                            onsubmit="return confirm('Delete this vendor permanently?');">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -128,3 +126,4 @@
 
     </div>
 @endsection
+

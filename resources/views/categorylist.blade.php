@@ -37,7 +37,11 @@
 
                                 <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="{{ $item->CT_Name }}">
 
-                                <a href="{{ route('categorydetails', $item->CT_Id) }}" class="category-content">
+                                @if (strtolower(trim($item->CT_Name)) === 'jobs')
+                                    <a href="{{ route('jobopening', ['category' => \Vinkla\Hashids\Facades\Hashids::encode($item->CT_Id)]) }}" class="category-content">
+                                @else
+                                    <a href="{{ route('categorydetails', ['category' => \Vinkla\Hashids\Facades\Hashids::encode($item->CT_Id)]) }}" class="category-content">
+                                @endif
 
                                     <h4>{{ $item->CT_Name }}</h4>
 
@@ -62,7 +66,11 @@
                                 @foreach ($item->subcategories as $subcategory)
                                     <li>
 
-                                        <a href="{{ route('addetails', $subcategory->SC_Id) }}">
+                                        @if (strtolower(trim($item->CT_Name)) === 'jobs')
+                                            <a href="{{ route('jobopening', ['subcategory' => \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id)]) }}">
+                                        @else
+                                            <a href="{{ route('categorydetails', ['subcategory' => \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id)]) }}">
+                                        @endif
 
                                             <h6>
                                                 {{ $subcategory->SC_Name }}
@@ -117,7 +125,7 @@
                 <div class="col-lg-12">
                     <div class="section-center-heading">
                         <h2>Do you have something to advertise?</h2>
-                        <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace for
+                        <p>Reach thousands of buyers across the UAE with Launch - the region's trusted marketplace for
                             property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
                                             <i class="fas fa-plus-circle"></i>
@@ -268,3 +276,4 @@
 
     @include('includes.footer')
 @endsection
+

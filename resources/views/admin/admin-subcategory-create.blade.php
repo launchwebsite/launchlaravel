@@ -35,8 +35,8 @@
                                         <select name="CT_Id" class="form-select">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->CT_Id }}"
-                                                    {{ old('CT_Id') == $category->CT_Id ? 'selected' : '' }}>
+                                                <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                    {{ old('CT_Id') == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
                                                     {{ $category->CT_Name }}
                                                 </option>
                                             @endforeach
@@ -68,3 +68,4 @@
         </div>
     </div>
 @endsection
+

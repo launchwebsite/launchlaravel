@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Traits\ImageUpload;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
+use Vinkla\Hashids\Facades\Hashids;
 
 class CategoryController extends Controller
 {
@@ -38,32 +38,18 @@ class CategoryController extends Controller
         return redirect()->route('admin-category')->with('success', 'Category created successfully.');
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $request->validate(['id' => 'required|integer']);
-
-        session(['editing_category_id' => $request->id]);
-
-        return redirect()->route('admin-category-edit-show');
-    }
-
-    public function showEdit()
-    {
-        $id = session('editing_category_id');
-
-        if (!$id) {
-            return redirect()->route('admin-category');
-        }
-
-        $category = Category::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $category = Category::findOrFail($realId);
 
         return view('admin.admin-edit-category', compact('category'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        $id = session('editing_category_id');
-        $category = Category::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $category = Category::findOrFail($realId);
 
         $validated = $request->validate([
             'CT_Name' => 'required|string|max:255',
@@ -78,14 +64,14 @@ class CategoryController extends Controller
         }
 
         $category->update($validated);
-        session()->forget('editing_category_id');
 
         return redirect()->route('admin-category')->with('success', 'Category updated successfully.');
     }
 
     public function destroy($id)
     {
-        $category = Category::findOrFail(Crypt::decryptString($id));
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $category = Category::findOrFail($realId);
 
         if ($category->CT_Img && file_exists(public_path('/storage/uploads/categories/' . $category->CT_Img))) {
             unlink(public_path('/storage/uploads/categories/' . $category->CT_Img));

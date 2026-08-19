@@ -67,7 +67,7 @@
                                 <form action="{{ route('applyjob.select') }}" class="btn btn-outline-warning btn-sm"
                                     method="POST">
                                     @csrf
-                                    <input type="hidden" name="career_id" value="{{ $career->CR_Id }}">
+                                    <input type="hidden" name="career_id" value="{{ \Vinkla\Hashids\Facades\Hashids::encode($career->CR_Id) }}">
 
                                     <button type="submit" class="apply-btn">
                                         APPLY NOW
@@ -106,3 +106,4 @@
 
     @include('includes.footer')
 @endsection
+

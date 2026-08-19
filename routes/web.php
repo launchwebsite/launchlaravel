@@ -55,7 +55,7 @@ Route::post('/add-your-ad', [VendorController::class, 'VendorPostAdd'])
 Route::get('/check-vendor', [VendorController::class, 'checkVendor'])
     ->name('vendor.check');
 
-Route::get('/ad_details/{id}', [PageController::class, 'addetails'])
+Route::get('/ad_details/{id?}', [PageController::class, 'addetails'])
     ->name('addetails');
 
 Route::get('/ad_list1', [PageController::class, 'adlist1'])
@@ -222,13 +222,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/category', [CategoryController::class, 'store'])
         ->name('admin-category-store');
 
-    Route::post('/admin/category/edit', [CategoryController::class, 'edit'])
+    Route::get('/admin/category/{id}/edit', [CategoryController::class, 'edit'])
         ->name('admin-category-edit');
 
-    Route::get('/admin/category/edit', [CategoryController::class, 'showEdit'])
-        ->name('admin-category-edit-show');
-
-    Route::put('/admin/category/update', [CategoryController::class, 'update'])
+    Route::put('/admin/category/{id}/update', [CategoryController::class, 'update'])
         ->name('admin-category-update');
 
     Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy'])
@@ -249,13 +246,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/attributes/store', [AttributeController::class, 'store'])
         ->name('attributes.store');
 
-    Route::post('/admin/attributes/edit', [AttributeController::class, 'edit'])
+    Route::get('/admin/attributes/{id}/edit', [AttributeController::class, 'edit'])
         ->name('attributes.edit');
 
-    Route::get('/edit', [AttributeController::class, 'showEdit'])
-        ->name('attributes.edit-show');
-
-    Route::put('/admin/attributes/update', [AttributeController::class, 'update'])
+    Route::put('/admin/attributes/{id}/update', [AttributeController::class, 'update'])
         ->name('attributes.update');
 
     Route::get('/admin/attributes/delete/{id}', [AttributeController::class, 'destroy'])
@@ -300,7 +294,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/career/store', [CareerController::class, 'store'])
         ->name('career.store');
 
-    Route::post('/admin/career/edit', [CareerController::class, 'edit'])
+    Route::get('/admin/career/{id}/edit', [CareerController::class, 'edit'])
         ->name('career.edit');
 
     Route::put('/admin/career/update/{id}', [CareerController::class, 'update'])
@@ -327,7 +321,7 @@ Route::middleware('auth')->group(function () {
         ->name('admin.product.list');
 
     // Product edit
-    Route::post('/admin/product/edit', [ProductController::class, 'edit'])
+    Route::get('/admin/product/{id}/edit', [ProductController::class, 'edit'])
         ->name('admin.product.edit');
 
     // Product update

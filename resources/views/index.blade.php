@@ -10,17 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- TEMPLATE META -->
-    <meta name="name" content="Launch INCS">
-    <meta name="type" content="Launch INCS">
-    <meta name="title" content="Launch INCS">
+    <meta name="name" content="Launch">
+    <meta name="type" content="Launch">
+    <meta name="title" content="Launch">
     <meta name="keywords"
-        content="Launch INCS, Launch INCS, ads, Launch INCS ads, listing, business, directory, jobs, marketing, portal, advertising, local, posting, ad listing, ad posting,">
+        content="Launch, Launch, ads, Launch ads, listing, business, directory, jobs, marketing, portal, advertising, local, posting, ad listing, ad posting,">
     <!--=====================================
                     META-TAG PART END
         =======================================-->
 
     <!-- FOR WEBPAGE TITLE -->
-    <title>Launch INCS</title>
+    <title>Launch</title>
 
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
@@ -155,7 +155,7 @@
                 </div>
 
                 <div class="sidebar-footer">
-                    <p>All Rights Reserved By <a href="https://launchincs.com/">Launch INCS</a></p>
+                    <p>All Rights Reserved By <a href="https://launchincs.com/">Launch</a></p>
                     <p>Developed By <a href="https://ethqan.com/">Ethqan Technologies</a></p>
                 </div>
             </div>
@@ -208,7 +208,7 @@
     <section class="banner-part">
         <div class="container">
             <div class="banner-content">
-                <h1>Launch INCS - Buy, #Rent, #Book anything across the #UAE.</h1>
+                <h1>Launch - Buy, #Rent, #Book anything across the #UAE.</h1>
                 <p>Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs
                     and more across Dubai, Abu Dhabi, Sharjah and the rest of the UAE.</p>
                 <a class='btn btn-outline' href='ad-list-column3.php'>
@@ -2227,7 +2227,7 @@
                 <div class="col-lg-12">
                     <div class="section-center-heading">
                         <h2>Do you have something to advertise?</h2>
-                        <p>Reach thousands of buyers across the UAE with Launch INCS - the region's trusted marketplace
+                        <p>Reach thousands of buyers across the UAE with Launch - the region's trusted marketplace
                             for property, automobiles, jobs and more.</p>
                         <!-- <a class='btn btn-outline' href='ad-post.php'>
                                 <i class="fas fa-plus-circle"></i>
@@ -2410,3 +2410,4 @@
 </body>
 
 </html>
+

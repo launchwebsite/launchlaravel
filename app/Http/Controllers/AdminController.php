@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AdminController extends Controller
 {
@@ -45,7 +46,8 @@ class AdminController extends Controller
 
     public function toggleVendorStatus($id)
     {
-        $vendor = Vendor::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $vendor = Vendor::findOrFail($realId);
 
         $vendor->VR_Status = match ($vendor->VR_Status) {
             0       => 1,
@@ -69,7 +71,8 @@ class AdminController extends Controller
 
     public function deleteVendor($id)
     {
-        $vendor = Vendor::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $vendor = Vendor::findOrFail($realId);
 
         Mail::to($vendor->VR_Email_1)->send(new VendorTerminatedMail($vendor));
 
@@ -88,6 +91,8 @@ class AdminController extends Controller
 
     public function vendorStore(Request $request)
     {
+        $request->merge(['CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id]);
+
         $validated = $request->validate([
             'VR_Name'      => 'required|string|max:255',
             'VR_Phone'     => 'required|string|max:20',
@@ -160,7 +165,8 @@ class AdminController extends Controller
 
     public function vendorEdit($id)
     {
-        $vendor = Vendor::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $vendor = Vendor::findOrFail($realId);
         $categories = Category::orderBy('CT_Name')->get();
 
         return view('admin.vendor-edit', compact('vendor', 'categories'));
@@ -168,7 +174,10 @@ class AdminController extends Controller
 
     public function vendorUpdate(Request $request, $id)
     {
-        $vendor = Vendor::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $vendor = Vendor::findOrFail($realId);
+
+        $request->merge(['CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id]);
 
         $validated = $request->validate([
             'VR_Name'      => 'required|string|max:255',

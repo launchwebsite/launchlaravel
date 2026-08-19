@@ -22,7 +22,7 @@
 
 
                                 <form
-                                    action="{{ isset($attributes) ? route('attributes.update') : route('attributes.store') }}"
+                                    action="{{ isset($attributes) ? route('attributes.update', \Vinkla\Hashids\Facades\Hashids::encode($attributes->AT_Id)) : route('attributes.store') }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @if (isset($attributes))
@@ -40,8 +40,8 @@
                                                         <option value="">-- Select Category --</option>
 
                                                         @foreach ($categories as $category)
-                                                            <option value="{{ $category->CT_Id }}"
-                                                                {{ old('CT_Id', $attributes->CT_Id ?? '') == $category->CT_Id ? 'selected' : '' }}>
+                                                            <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                                {{ old('CT_Id', isset($attributes) ? \Vinkla\Hashids\Facades\Hashids::encode($attributes->CT_Id) : '') == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
                                                                 {{ $category->CT_Name }}
                                                             </option>
                                                         @endforeach
@@ -64,10 +64,10 @@
                                                         <option value="">-- Select Sub Category --</option>
 
                                                         @foreach ($sub_categories as $sub_category)
-                                                            <option value="{{ $sub_category->SC_Id }}"
-                                                                data-category="{{ $sub_category->CT_Id }}"
+                                                            <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($sub_category->SC_Id) }}"
+                                                                data-category="{{ \Vinkla\Hashids\Facades\Hashids::encode($sub_category->CT_Id) }}"
                                                                 style="display: none;"
-                                                                {{ old('SC_Id', $attributes->SC_Id ?? '') == $sub_category->SC_Id ? 'selected' : '' }}>
+                                                                {{ old('SC_Id', isset($attributes) ? \Vinkla\Hashids\Facades\Hashids::encode($attributes->SC_Id) : '') == \Vinkla\Hashids\Facades\Hashids::encode($sub_category->SC_Id) ? 'selected' : '' }}>
 
                                                                 {{ $sub_category->SC_Name }}
 
@@ -193,3 +193,4 @@
         });
     </script>
 @endsection
+

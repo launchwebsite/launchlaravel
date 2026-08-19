@@ -40,18 +40,11 @@
                                                             data-bs-target="#productModal{{ $product->PR_Id }}">
                                                             View
                                                         </button>
-                                                        <form action="{{ route('admin.product.edit') }}" method="POST"
-                                                            style="display:inline;">
-                                                            @csrf
-
-                                                            <input type="hidden" name="PR_Id"
-                                                                value="{{ $product->PR_Id }}">
-
-                                                            <button type="submit" class="btn btn-sm btn-warning">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        </form>
-                                                        <form action="{{ route('admin.product.delete', $product->PR_Id) }}"
+                                                        <a href="{{ route('admin.product.edit', \Vinkla\Hashids\Facades\Hashids::encode($product->PR_Id)) }}"
+                                                            class="btn btn-sm btn-warning">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <form action="{{ route('admin.product.delete', \Vinkla\Hashids\Facades\Hashids::encode($product->PR_Id)) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Delete this product?');"
                                                             class="d-inline">
@@ -199,3 +192,4 @@
         </div>
     </div>
 @endsection
+

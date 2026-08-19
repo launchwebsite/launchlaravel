@@ -2,13 +2,13 @@
 <html lang="en" dir="ltr" data-startbar="dark" data-bs-theme="light">
 
 
-<!-- Mirrored from mannatthemes.com/Launch Incs/default-dark/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Jul 2025 12:09:31 GMT -->
+<!-- Mirrored from mannatthemes.com/Launch/default-dark/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 18 Jul 2025 12:09:31 GMT -->
 
 <head>
 
 
     <meta charset="utf-8" />
-    <title>Launch INCS | Admin Panel</title>
+    <title>Launch | Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="" name="author" />
@@ -47,7 +47,7 @@
                                             <img src="{{ asset('/vendor/logo.png') }}" height="50" alt="logo"
                                                 class="auth-logo">
                                         </a>
-                                        <h4 class="mt-3 mb-1 fw-semibold text-white fs-18">Let's Get Started Launch Incs
+                                        <h4 class="mt-3 mb-1 fw-semibold text-white fs-18">Let's Get Started Launch
                                         </h4>
                                         <p class="text-muted fw-medium mb-0">vendor Login</p>
                                     </div>
@@ -103,3 +103,4 @@
 <!--end body-->
 
 </html>
+

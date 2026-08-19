@@ -35,10 +35,11 @@
             </div>
 
             <div class="sidebar-footer">
-                <p>All Rights Reserved By <a href="https://launchincs.com/">Launch INCS</a></p>
+                <p>All Rights Reserved By <a href="https://launchincs.com/">Launch</a></p>
                 <p>Developed By <a href="https://ethqan.com/">Ethqan Technologies</a></p>
             </div>
         </div>
     </div>
 </aside>
+
 

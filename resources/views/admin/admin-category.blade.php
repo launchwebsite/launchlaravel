@@ -1,6 +1,6 @@
 @extends('layouts.admin-layout')
 
-@use(Illuminate\Support\Facades\Crypt)
+@use(Vinkla\Hashids\Facades\Hashids)
 
 @section('content')
     @include('includes.admin-header')
@@ -49,18 +49,12 @@
                                                     </td>
                                                     <td>{{ $category->CT_Name }}</td>
                                                     <td>
-                                                        <form action="{{ route('admin-category-edit') }}" method="POST"
-                                                            class="d-inline">
-                                                            @csrf
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $category->CT_Id }}">
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-success btn-outline-success">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        </form>
+                                                        <a href="{{ route('admin-category-edit', Hashids::encode($category->CT_Id)) }}"
+                                                            class="btn btn-sm btn-success btn-outline-success">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                         <form
-                                                            action="{{ route('admin-category-delete', Crypt::encryptString($category->CT_Id)) }}"
+                                                            action="{{ route('admin-category-delete', Hashids::encode($category->CT_Id)) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Delete this category?');"
                                                             class="d-inline">
@@ -96,3 +90,4 @@
         </div>
     </div>
 @endsection
+

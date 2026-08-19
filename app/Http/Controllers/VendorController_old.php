@@ -9,9 +9,9 @@ use App\Models\User;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-use Vinkla\Hashids\Facades\Hashids;
 
 class VendorController extends Controller
 {
@@ -291,87 +291,67 @@ class VendorController extends Controller
 
 public function VendorPostAdd(Request $request)
 {
-    $request->merge([
-        'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
-        'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
-    ]);
     /*
     |--------------------------------------------------------------------------
     | Check Existing Vendor
     |--------------------------------------------------------------------------
     */
 
-$vendor = null;
+    $vendor = null;
 
-if ($request->filled('VR_Id')) {
+    if ($request->filled('VR_Id')) {
 
-    $vendor = Vendor::where('VR_Id', $request->VR_Id)
-        ->where('VR_Name', $request->VR_Name)
-        ->first();
-}
+        $vendor = Vendor::where('VR_Id', $request->VR_Id)
+            ->where('VR_Name', $request->VR_Name)
+            ->first();
+    }
 
 
-/*
-|--------------------------------------------------------------------------
-| Base Validation
-|--------------------------------------------------------------------------
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
 
-$rules = [
-    'CT_Id'       => 'required|exists:categories,CT_Id',
-    'SC_Id'       => 'required|exists:sub_categories,SC_Id',
-    'AT_Inputs'   => 'required|array',
+    $rules = [
+        'CT_Id'       => 'required|exists:categories,CT_Id',
+        'SC_Id'       => 'required|exists:sub_categories,SC_Id',
+        'AT_Inputs'   => 'required|array',
 
-    'VR_Type'     => 'required|in:private-company,self-employed',
-    'VR_Name'     => 'required|string|max:255',
-    'VR_Email_1'  => 'required|email|max:255',
-    'VR_Email_2'  => 'nullable|email|max:255',
-    'VR_Phone'    => 'required|string|max:255',
-];
-
+        'VR_Type'     => 'required|in:private-company,self-employed',
+        'VR_Name'     => 'required|string|max:255',
+        'VR_Email_1'  => 'required|email|max:255',
+        'VR_Email_2'  => 'nullable|email|max:255',
+        'VR_Phone'    => 'required|string|max:15',
+        'VR_Password' => 'required|string|max:15',
+    ];
 
     /*
     |--------------------------------------------------------------------------
     | Email Unique Only For NEW Vendor
     |--------------------------------------------------------------------------
     */
-if (!$vendor) {
 
-    // New vendor → email must be unique
-    $rules['VR_Email_1'] = [
-        'required',
-        'email',
-        'max:255',
-        'unique:users,email',
-    ];
-
-    // New vendor → password is required and max 15 characters
-    $rules['VR_Password'] = [
-        'required',
-        'string',
-        'max:15',
-    ];
-}
+    if (!$vendor) {
+        $rules['VR_Email_1'] = 'required|email|max:255|unique:users,email';
+    }
 
 
+    $request->validate(
+        $rules,
+        [
+            'CT_Id.required'       => 'Please select a Category.',
+            'SC_Id.required'       => 'Please select a Subcategory.',
+            'AT_Inputs.required'   => 'Please fill in the product details.',
 
-$request->validate(
-    $rules,
-    [
-        'CT_Id.required'       => 'Please select a Category.',
-        'SC_Id.required'       => 'Please select a Subcategory.',
-        'AT_Inputs.required'   => 'Please fill in the product details.',
-
-        'VR_Type.required'     => 'Please select seller type.',
-        'VR_Name.required'     => 'Please enter your name.',
-        'VR_Email_1.required'  => 'Please enter your email.',
-        'VR_Email_1.email'     => 'Please enter a valid email address.',
-        'VR_Email_1.unique'    => 'This email is already registered.',
-        'VR_Phone.required'    => 'Please enter your mobile number.',
-        'VR_Password.required' => 'Please enter your password.',
-        'VR_Password.max'      => 'Password must not be greater than 15 characters.',
-    ]
-);
+            'VR_Type.required'     => 'Please select seller type.',
+            'VR_Name.required'     => 'Please enter your name.',
+            'VR_Email_1.required'  => 'Please enter your email.',
+            'VR_Email_1.email'     => 'Please enter a valid email address.',
+            'VR_Phone.required'    => 'Please enter your mobile number.',
+            'VR_Password.required' => 'Please enter your password.',
+        ]
+    );
 
 
     /*
@@ -501,11 +481,6 @@ $request->validate(
 
     public function poststore(Request $request)
     {
-        $request->merge([
-            'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
-            'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
-        ]);
-
         $request->validate(
             [
                 'CT_Id'     => 'required|exists:categories,CT_Id',

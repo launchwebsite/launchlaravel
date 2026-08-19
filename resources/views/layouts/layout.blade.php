@@ -10,17 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- TEMPLATE META -->
-    <meta name="name" content="Launch INCS">
-    <meta name="type" content="Launch INCS">
-    <meta name="title" content="Launch INCS">
+    <meta name="name" content="Launch">
+    <meta name="type" content="Launch">
+    <meta name="title" content="Launch">
     <meta name="keywords"
-        content="Launch INCS, Launch INCS, ads, Launch INCS ads, listing, business, directory, jobs, marketing, portal, advertising, local, posting, ad listing, ad posting,">
+        content="Launch, Launch, ads, Launch ads, listing, business, directory, jobs, marketing, portal, advertising, local, posting, ad listing, ad posting,">
     <!--=====================================
                     META-TAG PART END
         =======================================-->
 
     <!-- FOR WEBPAGE TITLE -->
     <title>Launch</title>
+
+
 
     @vite(['resources/js/app.js','resources/css/app.css'])
 
@@ -57,7 +59,53 @@
 <body>
 
 
+    <!-- ============================================
+         LOCATION PERMISSION MODAL
+         ============================================ -->
+    <div id="locationPermModal" class="loc-perm-overlay" style="display:none;">
+        <div class="loc-perm-modal">
+            <!-- Animated pin icon -->
+            <div class="loc-perm-icon">
+                <span class="loc-perm-pulse"></span>
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+
+            <h4 class="loc-perm-title">Enable Location Access</h4>
+            <p class="loc-perm-desc">
+                Allow <strong>Launch</strong> to use your location to show you
+                products and jobs <em>near you</em> in Dubai.
+            </p>
+
+            <div class="loc-perm-actions">
+                <button id="locPermAllow" class="loc-perm-btn loc-perm-allow">
+                    <i class="fas fa-crosshairs"></i> Allow Location
+                </button>
+                <button id="locPermSkip" class="loc-perm-btn loc-perm-skip">
+                    Skip for now
+                </button>
+            </div>
+
+            <p class="loc-perm-note">
+                <i class="fas fa-shield-alt"></i>
+                Your location is only used to filter results — we never store it.
+            </p>
+        </div>
+    </div>
+
+    <!-- Detecting toast -->
+    <div id="locDetectingToast" class="loc-detecting-toast" style="display:none;">
+        <div class="loc-toast-spinner"></div>
+        <span>Detecting your location…</span>
+    </div>
+
+    <!-- Success toast -->
+    <div id="locSuccessToast" class="loc-success-toast" style="display:none;">
+        <i class="fas fa-check-circle"></i>
+        <span id="locSuccessMsg">Showing results near you</span>
+    </div>
+
     @yield('content')
+
 
 
     <div class="whatsapp">
@@ -98,7 +146,9 @@
         @if (session('error'))
             toastr.error("{{ session('error') }}");
         @endif
+
     </script>
 </body>
 
 </html>
+

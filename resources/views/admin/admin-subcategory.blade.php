@@ -1,6 +1,6 @@
 @extends('layouts.admin-layout')
 
-@use(Illuminate\Support\Facades\Crypt)
+@use(Vinkla\Hashids\Facades\Hashids)
 
 @section('content')
     @include('includes.admin-header')
@@ -47,18 +47,12 @@
                                                     <td>{{ $subCategory->SC_Name }}</td>
                                                     <td>{{ $subCategory->category->CT_Name ?? '—' }}</td>
                                                     <td>
-                                                        <form action="{{ route('admin-subcategory-edit') }}" method="POST"
-                                                            class="d-inline">
-                                                            @csrf
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $subCategory->SC_Id }}">
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-success btn-outline-success">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        </form>
+                                                        <a href="{{ route('admin-subcategory-edit', Hashids::encode($subCategory->SC_Id)) }}"
+                                                            class="btn btn-sm btn-success btn-outline-success">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
                                                         <form
-                                                            action="{{ route('admin-subcategory-delete', Crypt::encryptString($subCategory->SC_Id)) }}"
+                                                            action="{{ route('admin-subcategory-delete', Hashids::encode($subCategory->SC_Id)) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Delete this sub category?');"
                                                             class="d-inline">
@@ -94,3 +88,4 @@
         </div>
     </div>
 @endsection
+

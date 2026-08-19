@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Vinkla\Hashids\Facades\Hashids;
 
 class AttributeController extends Controller
 {
@@ -28,6 +29,11 @@ class AttributeController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
+            'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
+        ]);
+
         $validator = Validator::make($request->all(), [
             'CT_Id'        => 'required|exists:categories,CT_Id',
             'SC_Id'        => 'required|exists:sub_categories,SC_Id',
@@ -56,32 +62,23 @@ class AttributeController extends Controller
             ->with('success', 'Attributes  added successfully.');
     }
 
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $request->validate(['id' => 'required|integer']);
-
-        session(['editing_attribute_id' => $request->id]);
-
-        return redirect()->route('attributes.edit-show');
-    }
-
-    public function showEdit()
-    {
-        $id = session('editing_attribute_id');
-
-        if (! $id) {
-            return redirect()->route('attributes.index');
-        }
-
-        $attributes     = Attributes::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $attributes     = Attributes::findOrFail($realId);
         $categories     = Category::all();
         $sub_categories = SubCategory::all();
 
         return view('admin.add-attributes', compact('attributes', 'categories', 'sub_categories'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $request->merge([
+            'CT_Id' => Hashids::decode($request->CT_Id)[0] ?? $request->CT_Id,
+            'SC_Id' => Hashids::decode($request->SC_Id)[0] ?? $request->SC_Id,
+        ]);
+
         $validator = Validator::make($request->all(), [
             'CT_Id'        => 'required|exists:categories,CT_Id',
             'SC_Id'        => 'required|exists:sub_categories,SC_Id',
@@ -94,8 +91,8 @@ class AttributeController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $id         = session('editing_attribute_id');
-        $attributes = Attributes::findOrFail($id);
+        $realId     = Hashids::decode($id)[0] ?? $id;
+        $attributes = Attributes::findOrFail($realId);
 
         $data = $request->only([
             'CT_Id',
@@ -107,7 +104,6 @@ class AttributeController extends Controller
         ]);
 
         $attributes->update($data);
-        session()->forget('editing_attribute_id');
 
         return redirect()
             ->route('attributes.index')
@@ -116,7 +112,8 @@ class AttributeController extends Controller
 
     public function destroy($id)
     {
-        $attributes = Attributes::findOrFail($id);
+        $realId = Hashids::decode($id)[0] ?? $id;
+        $attributes = Attributes::findOrFail($realId);
 
         $attributes->delete();
 

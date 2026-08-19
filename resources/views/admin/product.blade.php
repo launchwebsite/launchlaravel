@@ -57,8 +57,8 @@
                                                 </option>
 
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->CT_Id }}"
-                                                        {{ old('CT_Id') == $category->CT_Id ? 'selected' : '' }}>
+                                                    <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) }}"
+                                                        {{ old('CT_Id') == \Vinkla\Hashids\Facades\Hashids::encode($category->CT_Id) ? 'selected' : '' }}>
 
                                                         {{ $category->CT_Name }}
 
@@ -94,10 +94,10 @@
                                                 </option>
 
                                                 @foreach ($sub_categories as $subcategory)
-                                                    <option value="{{ $subcategory->SC_Id }}"
-                                                        data-category="{{ $subcategory->CT_Id }}"
-                                                        {{ old('SC_Id') == $subcategory->SC_Id ? 'selected' : '' }}
-                                                        {{ $subcategory->CT_Id != old('CT_Id') ? 'hidden' : '' }}>
+                                                    <option value="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id) }}"
+                                                        data-category="{{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->CT_Id) }}"
+                                                        {{ old('SC_Id') == \Vinkla\Hashids\Facades\Hashids::encode($subcategory->SC_Id) ? 'selected' : '' }}
+                                                        {{ \Vinkla\Hashids\Facades\Hashids::encode($subcategory->CT_Id) != old('CT_Id') ? 'hidden' : '' }}>
 
                                                         {{ $subcategory->SC_Name }}
 
@@ -119,8 +119,8 @@
 
                                     {{-- ================= ATTRIBUTES ================= --}}
                                     @foreach ($attributes as $attribute)
-                                        <div class="mb-3 row attribute-row" data-subcategory="{{ $attribute->SC_Id }}"
-                                            style="{{ old('SC_Id') == $attribute->SC_Id ? '' : 'display: none;' }}">
+                                        <div class="mb-3 row attribute-row" data-subcategory="{{ \Vinkla\Hashids\Facades\Hashids::encode($attribute->SC_Id) }}"
+                                            style="{{ old('SC_Id') == \Vinkla\Hashids\Facades\Hashids::encode($attribute->SC_Id) ? '' : 'display: none;' }}">
 
                                             <label class="col-sm-2 col-form-label">
 
@@ -396,3 +396,4 @@
         });
     </script>
 @endsection
+

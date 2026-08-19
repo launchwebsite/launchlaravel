@@ -183,7 +183,7 @@
                 <div class="col-lg-12">
                     <div class="section-center-heading">
                         <h2>Related This <span>Ads</span></h2>
-                        <p>Explore more premium properties and listings across Dubai and the UAE from Launch Incs.</p>
+                        <p>Explore more premium properties and listings across Dubai and the UAE from Launch.</p>
                     </div>
                 </div>
             </div>
@@ -210,11 +210,11 @@
                                         <li><i class="fas fa-tags"></i></li>
                                         <li class="breadcrumb-item">
                                             <a
-                                                href="{{ route('addetails', $item->PR_Id) }}">{{ $item->display_badge }}</a>
+                                                href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $item->display_badge }}</a>
                                         </li>
                                     </ol>
                                     <h5 class="product-title">
-                                        <a href="{{ route('addetails', $item->PR_Id) }}">{{ $item->display_title }}</a>
+                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $item->display_title }}</a>
                                     </h5>
                                     <div class="product-meta">
                                         <span><i class="fas fa-map-marker-alt"></i>{{ $rd['Location'] ?? 'N/A' }}</span>
@@ -237,7 +237,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-50">
-                        <a class='btn btn-inline' href='{{ route('adlist3') }}'>
+                        <a class='btn btn-inline' href='{{ route('categorylist') }}'>
                             <i class="fas fa-eye"></i>
                             <span>view all related</span>
                         </a>
@@ -267,3 +267,4 @@
 
     @include('includes.footer')
 @endsection
+

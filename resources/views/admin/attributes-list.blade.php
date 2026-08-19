@@ -45,16 +45,11 @@
 
 
                                                     <td>
-                                                        <form action="{{ route('attributes.edit') }}" method="POST"
-                                                            class="d-inline">
-                                                            @csrf
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $attribute->AT_Id }}">
-                                                            <button type="submit" class="btn btn-sm btn-primary">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                        </form>
-                                                        <a href="{{ route('attributes.delete', $attribute->AT_Id) }}"
+                                                        <a href="{{ route('attributes.edit', \Vinkla\Hashids\Facades\Hashids::encode($attribute->AT_Id)) }}"
+                                                            class="btn btn-sm btn-primary">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <a href="{{ route('attributes.delete', \Vinkla\Hashids\Facades\Hashids::encode($attribute->AT_Id)) }}"
                                                             class="btn btn-sm btn-danger"onclick="return confirm('Are you sure?')">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
@@ -79,3 +74,4 @@
     </div>
     <!-- end page-wrapper -->
 @endsection
+

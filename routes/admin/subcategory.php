@@ -7,8 +7,8 @@ Route::controller(SubCategoryController::class)->group(function () {
     Route::get('/subcategory', 'index')->name('admin-subcategory');
     Route::get('/subcategory/create', 'create')->name('admin-subcategory-create');
     Route::post('/subcategory/store', 'store')->name('admin-subcategory-store');
-    Route::post('/subcategory/edit', 'edit')->name('admin-subcategory-edit');
-    Route::put('/subcategory/update', 'update')->name('admin-subcategory-update');
-    Route::delete('/subcategory/delete/{id}', 'destroy')->name('admin-subcategory-delete');
+    Route::get('/subcategory/{id}/edit', 'edit')->name('admin-subcategory-edit');
+    Route::put('/subcategory/{id}/update', 'update')->name('admin-subcategory-update');
+    Route::delete('/subcategory/{id}/delete', 'destroy')->name('admin-subcategory-delete');
 });
 
