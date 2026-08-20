@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Attributes;
@@ -52,6 +53,17 @@ class PageController extends Controller
         $careerCount = Career::count();
         $careers     = Career::get();
 
+        $allProductsForCities = Product::select('PR_Details')->get();
+        $cities = collect();
+        foreach ($allProductsForCities as $p) {
+            $loc = $p->PR_Details['Location'] ?? null;
+            if ($loc) {
+                $locParts = explode(',', $loc);
+                $cities->push(trim($locParts[0]));
+            }
+        }
+        $topCities = $cities->countBy()->sortDesc()->take(6);
+
         return view('home', compact(
             'category',
             'categories',
@@ -62,7 +74,8 @@ class PageController extends Controller
             'products',
             'topRatings',
             'topAdvertiser',
-            'topEngaged'
+            'topEngaged',
+            'topCities'
         ));
     }
 
@@ -105,7 +118,8 @@ class PageController extends Controller
         $careerCount = Career::count();
         $careers     = Career::get();
 
-        return view('categorylist', compact('categoriess',
+        return view('categorylist', compact(
+            'categoriess',
             'categories',
             'careerCategoryCounts',
             'careerCount',
@@ -117,30 +131,50 @@ class PageController extends Controller
     public function categorydetails(Request $request)
     {
         $query = Product::with(['category', 'subcategory']);
-        
-        if ($request->has('category') && !empty($request->category)) {
-            $catId = Hashids::decode($request->category)[0] ?? $request->category;
-            $query->where('CT_Id', $catId);
-        }
-        
-        if ($request->has('subcategory') && !empty($request->subcategory)) {
-            $subcatId = Hashids::decode($request->subcategory)[0] ?? $request->subcategory;
-            $query->where('SC_Id', $subcatId);
+
+        $catIds = [];
+        $scIds = [];
+
+        if ($request->has('popularity') && is_array($request->popularity) && count($request->popularity) > 0) {
+            foreach ($request->popularity as $id) {
+                $scIds[] = Hashids::decode($id)[0] ?? $id;
+            }
+        } else {
+            if ($request->has('category') && !empty($request->category)) {
+                $catIds[] = Hashids::decode($request->category)[0] ?? $request->category;
+            }
+
+            if ($request->has('subcategory') && !empty($request->subcategory)) {
+                $scIds[] = Hashids::decode($request->subcategory)[0] ?? $request->subcategory;
+            }
         }
 
+        if (!empty($catIds)) {
+            $query->whereIn('CT_Id', $catIds);
+        }
+
+        if (!empty($scIds)) {
+            $query->whereIn('SC_Id', $scIds);
+        }
+
+        // Generate locations based on current category filters (before location filter is applied)
+        $locationQuery = clone $query;
+        $filteredProductsForLocation = $locationQuery->select('PR_Details')->get();
+        $locations = collect();
+        foreach ($filteredProductsForLocation as $p) {
+            $loc = $p->PR_Details['Location'] ?? null;
+            if ($loc) {
+                $locations->push(trim($loc));
+            }
+        }
+        $topLocations = $locations->countBy()->sortDesc()->take(10);
+
         if ($request->has('location') && is_array($request->location)) {
-            $query->where(function($q) use ($request) {
-                foreach($request->location as $loc) {
+            $query->where(function ($q) use ($request) {
+                foreach ($request->location as $loc) {
                     $q->orWhere('PR_Details->Location', 'LIKE', '%' . $loc . '%');
                 }
             });
-        }
-
-        if ($request->has('popularity') && is_array($request->popularity)) {
-            $popIds = array_map(function($id) {
-                return Hashids::decode($id)[0] ?? $id;
-            }, $request->popularity);
-            $query->whereIn('SC_Id', $popIds);
         }
         $show = $request->input('show', 12);
         if (!in_array($show, [12, 24, 36])) {
@@ -159,7 +193,7 @@ class PageController extends Controller
         }
 
         $products = $query->paginate($show)->withQueryString();
-        
+
         $categories = Category::where('CT_Name', '!=', 'Jobs')
             ->withCount('products')
             ->with(['subcategories' => function ($query) {
@@ -167,21 +201,10 @@ class PageController extends Controller
             }])
             ->get();
 
-        $allProducts = Product::select('PR_Details')->get();
-        $locations = collect();
-        foreach($allProducts as $p) {
-            $loc = $p->PR_Details['Location'] ?? null;
-            if ($loc) {
-                $locParts = explode(',', $loc);
-                $locations->push(trim($locParts[0]));
-            }
-        }
-        $topLocations = $locations->countBy()->sortDesc()->take(10);
-
         $popularSubcategories = \App\Models\SubCategory::withCount('products')
-                                    ->orderBy('products_count', 'desc')
-                                    ->take(10)
-                                    ->get();
+            ->orderBy('products_count', 'desc')
+            ->take(10)
+            ->get();
 
         return view("categorydetails", compact('products', 'categories', 'topLocations', 'popularSubcategories'));
     }
@@ -332,5 +355,4 @@ class PageController extends Controller
     {
         return view("user-form");
     }
-
 }

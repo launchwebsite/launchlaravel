@@ -41,6 +41,7 @@ class Product extends Model
         $d = $this->PR_Details;
         return collect([$d['Main Image'] ?? null, $d['Image 1'] ?? null, $d['Image 2'] ?? null, $d['Image 3'] ?? null])
             ->filter()
+            ->filter(fn($img) => file_exists(public_path('storage/uploads/products/' . $img)))
             ->map(fn($img) => asset('storage/uploads/products/' . $img))
             ->values();
     }

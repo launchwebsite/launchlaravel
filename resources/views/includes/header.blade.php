@@ -134,7 +134,7 @@
     /* ─────────────────────────────────────────────
        DUBAI AREAS LIST
     ───────────────────────────────────────────── */
-    let allAreas = [
+    let defaultAreas = [
         { name: 'All Dubai' },
         { name: 'Deira' },
         { name: 'Bur Dubai' },
@@ -161,6 +161,7 @@
         { name: 'Palm Jumeirah' },
         { name: 'Al Rigga' },
     ];
+    let allAreas = [...defaultAreas];
 
     function updateDropdownLabels(cityName) {
         const label = document.querySelector('.location-label');
@@ -173,6 +174,11 @@
         const savedAreas = localStorage.getItem('dynamicAreas');
         if (savedAreas) {
             allAreas = JSON.parse(savedAreas);
+            defaultAreas.forEach(function(da) {
+                if (!allAreas.find(function(a) { return a.name === da.name; })) {
+                    allAreas.push(da);
+                }
+            });
         }
         const savedCity = localStorage.getItem('detectedCityName');
         if (savedCity) {
@@ -219,11 +225,14 @@
                 if (slickSlide) wrapper = slickSlide;
             }
 
-            if (area === 'All Dubai' || area.startsWith('All ')) {
+            let targetArea = area;
+            if (area === 'All Dubai') {
                 wrapper.classList.remove('loc-filtered-hidden');
                 card.classList.remove('loc-filtered-hidden');
-                if (col) col.classList.remove('loc-filtered-hidden'); // Cleanup any old state
+                if (col) col.classList.remove('loc-filtered-hidden');
                 return;
+            } else if (area.startsWith('All ')) {
+                targetArea = area.replace('All ', '').trim();
             }
 
             const metaSpans = card.querySelectorAll('.product-meta span');
@@ -234,7 +243,7 @@
                 }
             });
             
-            const matches = cardLocation.includes(area.toLowerCase());
+            const matches = cardLocation.includes(targetArea.toLowerCase());
             wrapper.classList.toggle('loc-filtered-hidden', !matches);
         });
 
@@ -315,6 +324,11 @@
                                     });
                                 }
                                 if (newAreas.length > 1) {
+                                    defaultAreas.forEach(function(da) {
+                                        if (!newAreas.find(function(a) { return a.name === da.name; })) {
+                                            newAreas.push(da);
+                                        }
+                                    });
                                     allAreas = newAreas;
                                     try {
                                         localStorage.setItem('dynamicAreas', JSON.stringify(allAreas));
@@ -491,7 +505,7 @@
                 const regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
                 displayName = a.name.replace(regex, '<mark>$1</mark>');
             }
-            li.innerHTML = '<i class="' + icon + '"></i> ' + displayName;
+            li.innerHTML = '<i class="' + icon + '"></i> <span>' + displayName + '</span>';
             locationCityList.appendChild(li);
         });
     }

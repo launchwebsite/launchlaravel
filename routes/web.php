@@ -73,6 +73,10 @@ Route::get('/user_form', [PageController::class, 'user'])
 Route::get('/index', [PageController::class, 'index'])
     ->name('index');
 
+Route::get('/package_selection', function () {
+    return view('package-selection');
+})->name('package.selection');
+
 /*
 |--------------------------------------------------------------------------
 | Vendor Authentication

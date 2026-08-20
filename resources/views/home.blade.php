@@ -22,7 +22,7 @@
         <div class="container">
             <div class="suggest-slider slider-arrow">
                 @foreach ($category as $item)
-                    <a class="suggest-card" href="{{ route('categorylist') }}">
+                    <a class="suggest-card" href="{{ strtolower(trim($item->CT_Name)) === 'jobs' ? route('jobopening') : route('categorydetails', ['category' => \Vinkla\Hashids\Facades\Hashids::encode($item->CT_Id)]) }}">
 
                         <img src="/storage/uploads/categories/{{ $item->CT_Img }}" alt="{{ $item->CT_Name }}"
                             style="border-radius: 20px">
@@ -272,7 +272,7 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
+                                        {{ $badge }}
                                     </li>
                                 </ol>
                                 <h5 class="product-title">
@@ -388,7 +388,7 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
+                                        {{ $badge }}
                                     </li>
                                 </ol>
                                 <h5 class="product-title">
@@ -463,7 +463,7 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
+                                        {{ $badge }}
                                     </li>
                                 </ol>
                                 <h5 class="product-title">
@@ -538,7 +538,7 @@
                                 <ol class="breadcrumb product-category">
                                     <li><i class="fas fa-tags"></i></li>
                                     <li class="breadcrumb-item">
-                                        <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($item->PR_Id)) }}">{{ $badge }}</a>
+                                        {{ $badge }}
                                     </li>
                                 </ol>
                                 <h5 class="product-title">
@@ -594,61 +594,33 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 col-md-6 col-lg-3">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/01.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Dubai</h4>
-                            <p>(1,240) ads</p>
+                @php
+                    $cardsConfig = [
+                        ['col' => 'col-sm-6 col-md-6 col-lg-3', 'img' => '01.jpg'],
+                        ['col' => 'col-sm-6 col-md-6 col-lg-4', 'img' => '02.jpg'],
+                        ['col' => 'col-sm-6 col-md-6 col-lg-5', 'img' => '03.jpg'],
+                        ['col' => 'col-sm-6 col-md-6 col-lg-5', 'img' => '04.jpg'],
+                        ['col' => 'col-sm-6 col-md-6 col-lg-4', 'img' => '05.jpg'],
+                        ['col' => 'col-sm-6 col-md-6 col-lg-3', 'img' => '06.jpg'],
+                    ];
+                    $cityIndex = 0;
+                @endphp
+                @foreach ($topCities as $city => $count)
+                    @if ($cityIndex < 6)
+                        @php $config = $cardsConfig[$cityIndex++]; @endphp
+                        <div class="{{ $config['col'] }}">
+                            <a class='city-card' href='{{ route('categorydetails', ['location[]' => $city]) }}'
+                                style='background: url(/storage/images/cities/{{ $config['img'] }}) no-repeat center; background-size: cover'>
+                                <div class="city-content">
+                                    <h4>{{ $city }}</h4>
+                                    <p>({{ $count }}) ads</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/02.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Abu Dhabi</h4>
-                            <p>(860) ads</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-5">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/03.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Sharjah</h4>
-                            <p>(420) ads</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-5">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/04.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Ajman</h4>
-                            <p>(180) ads</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-4">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/05.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Ras Al Khaimah</h4>
-                            <p>(150) ads</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-6 col-md-6 col-lg-3">
-                    <a class='city-card' href='{{ route('categorylist') }}'
-                        style='background: url(/storage/images/cities/06.jpg) no-repeat center; background-size: cover'>
-                        <div class="city-content">
-                            <h4>Fujairah</h4>
-                            <p>(95) ads</p>
-                        </div>
-                    </a>
-                </div>
+                    @endif
+                @endforeach
             </div>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="center-20">
@@ -694,138 +666,7 @@
                                                                     =======================================-->
 
 
-    <!--=====================================
-                                                                                 PRICE PART START
-                                                                    =======================================-->
-    <section class="inner-section price-part">
-        <div class="container">
-            {{-- <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-center-heading">
-                        <h2>Best Reliable Pricing Plans</h2>
-                        <p>Choose the plan that fits your business needs and start reaching customers across the UAE
-                            today.</p>
-                    </div>
-                </div>
-            </div> --}}
-            <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <div class="price-card price-active">
-                        <div class="price-head">
-                            <i class="flaticon-bicycle"></i>
-                            <h3>AED 0</h3>
-                            <h4>Basic Plan</h4>
-                        </div>
-                        <ul class="price-list">
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="disable">
-                                <i class="fas fa-times"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="disable">
-                                <i class="fas fa-times"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                        </ul>
-                        <div class="price-btn">
-                            <a class='btn btn-inline btn-gold' href='{{ route('user') }}'>
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Register Now</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="price-card price-active">
-                        <div class="price-head">
-                            <i class="flaticon-car-wash"></i>
-                            <h3>AED 85</h3>
-                            <h4>Standard Plan</h4>
-                        </div>
-                        <ul class="price-list">
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="disable">
-                                <i class="fas fa-times"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                        </ul>
-                        <div class="price-btn">
-                            <a class='btn btn-inline btn-gold' href='{{ route('user') }}'>
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Register Now</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="price-card price-active">
-                        <div class="price-head price-active">
-                            <i class="flaticon-airplane"></i>
-                            <h3>AED 180</h3>
-                            <h4>Premium Plan</h4>
-                        </div>
-                        <ul class="price-list">
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                            <li class="able">
-                                <i class="fas fa-plus"></i>
-                                <p>Access to limited features</p>
-                            </li>
-                        </ul>
-                        <div class="price-btn">
-                            <a class='btn btn-inline btn-gold' href='{{ route('user') }}'>
-                                <i class="fas fa-sign-in-alt"></i>
-                                <span>Register Now</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--=====================================
-                                                                                 PRICE PART END
-                                                                    =======================================-->
+    @include('includes.pricing')
 
     @include('includes.footer')
 @endsection

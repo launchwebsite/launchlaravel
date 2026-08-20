@@ -53,6 +53,15 @@
                                         <input type="text" placeholder="Search">
                                     </div>
                                     <ul class="product-widget-list product-widget-scroll">
+                                        <li class="product-widget-item">
+                                            <div class="product-widget-checkbox">
+                                                <input type="checkbox" id="loc-all" onchange="window.location.href='{{ route('categorydetails') }}'" {{ empty(request('location')) ? 'checked' : '' }}>
+                                            </div>
+                                            <label class="product-widget-label" for="loc-all">
+                                                <span class="product-widget-text">All Locations</span>
+                                                <span class="product-widget-number">({{ \App\Models\Product::count() }})</span>
+                                            </label>
+                                        </li>
                                         @foreach($topLocations as $loc => $count)
                                             <li class="product-widget-item">
                                                 <div class="product-widget-checkbox">
@@ -195,15 +204,12 @@
                                         <div class="product-type">
                                             <span class="flat-badge sale">{{ strtolower($product->display_badge) }}</span>
                                         </div>
-                                        <ul class="product-action">
-                                            <li class="view"><i class="fas fa-eye"></i><span>0</span></li>
-                                            <li class="rating"><i class="fas fa-star"></i><span>0/5</span></li>
-                                        </ul>
+
                                     </div>
                                     <div class="product-content">
                                         <ol class="breadcrumb product-category">
                                             <li><i class="fas fa-tags"></i></li>
-                                            <li class="breadcrumb-item"><a href="#">{{ $product->display_badge }}</a></li>
+                                            <li class="breadcrumb-item">{{ $product->display_badge }}</li>
                                         </ol>
                                         <h5 class="product-title">
                                             <a href="{{ route('addetails', \Vinkla\Hashids\Facades\Hashids::encode($product->PR_Id ?? 1)) }}">{{ $product->display_title }}</a>
@@ -227,15 +233,18 @@
                             </div>
                         @endforelse
                     </div>
-                    @if($products->hasPages())
                     <div class="row mt-4">
                         <div class="col-lg-12">
-                            <div class="footer-pagection">
-                                {{ $products->appends(request()->query())->links('pagination::bootstrap-4') }}
+                            <div class="footer-pagection d-flex flex-column flex-md-row justify-content-md-between align-items-center">
+                                <div class="page-info mb-3 mb-md-0" style="color: #bbb; font-size: 15px;">
+                                    Showing {{ $products->count() }} out of {{ $products->total() }}
+                                </div>
+                                @if($products->hasPages())
+                                    {{ $products->appends(request()->query())->links('pagination::bootstrap-4') }}
+                                @endif
                             </div>
                         </div>
                     </div>
-                    @endif
             </div>
         </div>
     </section>
