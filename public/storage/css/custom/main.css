@@ -2828,6 +2828,8 @@ div[class*=" col-"]:has(> .product-card) {
 =========================================*/
 .header-part {
     background: var(--white);
+    position: relative;
+    z-index: 100;
 }
 .header-part .container {
     padding: 18px 25px;
@@ -2858,6 +2860,7 @@ div[class*=" col-"]:has(> .product-card) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .header-list {
@@ -2960,34 +2963,36 @@ div[class*=" col-"]:has(> .product-card) {
     padding: 8px 0px;
     margin-left: 20px;
     font-size: 12px;
+    border-radius: 50px !important;
 }
 
 .header-left {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    flex: 1;
 }
 
 .header-right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    flex: 1;
 }
 .header-right .header-item {
     margin-right: 20px;
 }
 
 .header-form {
-    flex: 2;
-    margin: 0px 40px;
-    position: relative;
+    width: 100%;
+    max-width: 550px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .header-search {
-    border-radius: 8px;
-    background: var(--chalk);
+    border-radius: 50px;
+    background: #1a1a1a;
+    border: 1px solid #333;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3019,12 +3024,12 @@ div[class*=" col-"]:has(> .product-card) {
 }
 
 .header-search.active {
-    border-radius: 8px 8px 0px 0px;
+    /* Keep the default border radius of 50px */
 }
 
 .header-option {
     position: absolute;
-    top: 45px;
+    top: 55px;
     left: 0px;
     z-index: 2;
     width: 100%;
@@ -3037,10 +3042,11 @@ div[class*=" col-"]:has(> .product-card) {
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 15px;
     grid-row-gap: 15px;
-    padding: 15px 15px;
-    border-radius: 0px 0px 8px 8px;
-    background: #000000;
-    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    border-radius: 20px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 0.5);
 }
 .option-grid input {
     width: 100%;
@@ -3107,8 +3113,16 @@ div[class*=" col-"]:has(> .product-card) {
    HEADER JOIN ME (next to logo)
    ============================================= */
 .header-join-me {
-    margin-left: 18px;
-    margin-right: 0;
+    margin-left: 10px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    transition: all 0.3s;
+}
+.header-join-me:hover {
+    background: var(--primary);
+    border-color: var(--primary);
 }
 .header-join-me img {
     width: 28px;
@@ -3136,9 +3150,9 @@ div[class*=" col-"]:has(> .product-card) {
     align-items: center;
     gap: 6px;
     padding: 6px 14px;
-    border-radius: 8px;
-    background: #000;
-    border: 2px solid var(--primary);
+    border-radius: 50px;
+    background: #1a1a1a;
+    border: 1px solid #333;
     color: #fff;
     font-size: 12px;
     font-weight: 500;

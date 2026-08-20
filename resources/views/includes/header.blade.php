@@ -1,7 +1,7 @@
 <!--=====================================
                     HEADER PART START
         =======================================-->
-<header class="header-part" style="background-color:black;">
+<header class="header-part" style="background-color:black; position: relative; z-index: 9999; overflow: visible;">
     <div class="container">
         <div class="header-content">
             <div class="header-left">
