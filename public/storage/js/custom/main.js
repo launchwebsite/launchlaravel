@@ -36,9 +36,16 @@ $('.search-btn').on('click', function () {
 //========================================
 $('.sidebar-btn').on('click', function () {
     $('.sidebar-part').addClass('active');
-    $('.sidebar-cross').on('click', function () {
+});
+
+$('.sidebar-cross').on('click', function () {
+    $('.sidebar-part').removeClass('active');
+});
+
+$(document).on('click', function (e) {
+    if ($(e.target).is('.sidebar-part')) {
         $('.sidebar-part').removeClass('active');
-    });
+    }
 });
 
 
@@ -191,9 +198,10 @@ $(".navbar-widget li").on("click", function () {
 //========================================
 $(".navbar-user").on("click", function () {
     $(".sidebar-part").addClass("active");
-    $(".cross-btn").on('click', function () {
-        $(".sidebar-part").removeClass("active");
-    });
+});
+
+$(".cross-btn").on('click', function () {
+    $(".sidebar-part").removeClass("active");
 });
 
 

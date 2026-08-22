@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'geidea' => [
+        'merchant_public_key' => env('GEIDEA_MERCHANT_PUBLIC_KEY'),
+        'api_password' => env('GEIDEA_MERCHANT_API_PASSWORD'),
+        'base_url' => env('GEIDEA_BASE_URL'),
+        'hpp_url' => env('GEIDEA_HPP_URL'),
+    ],
+
 ];

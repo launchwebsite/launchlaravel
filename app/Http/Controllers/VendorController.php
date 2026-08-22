@@ -456,18 +456,19 @@ $request->validate(
     |--------------------------------------------------------------------------
     */
 
-    Product::create([
+    $product = Product::create([
         'CT_Id'      => $request->CT_Id,
         'SC_Id'      => $request->SC_Id,
         'Role_Id'    => 2,
         'VR_Id'      => $vendorId,
         'PR_Details' => $details,
+        'status'     => 'pending',
     ]);
 
 
     return redirect()
-        ->back()
-        ->with('success', 'Your Post created successfully.');
+        ->route('package.selection', ['PR_Id' => $product->PR_Id])
+        ->with('success', 'Post saved as draft. Please select a payment plan to publish.');
 }
 
 
@@ -641,17 +642,18 @@ $request->validate(
     |--------------------------------------------------------------------------
     */
 
-        Product::create([
+        $product = Product::create([
             'CT_Id'      => $request->CT_Id,
             'SC_Id'      => $request->SC_Id,
             'Role_Id'    => 2,
             'VR_Id'      => $vendor->VR_Id,
             'PR_Details' => $details,
+            'status'     => 'pending',
         ]);
 
         return redirect()
-            ->route('vendor.post.form')
-            ->with('success', 'Product created successfully.');
+            ->route('package.selection', ['PR_Id' => $product->PR_Id])
+            ->with('success', 'Product saved as draft. Please select a payment plan to publish.');
     }
 
     //vendor auto selected web

@@ -1,11 +1,24 @@
 @extends('layouts.layout')
 
 @section('content')
-@include('includes.header')
-<!-- Package Selection Section -->
-<section class="package-selection-section py-5 bg-light">
+
+<!-- Simple Checkout Header -->
+<header class="py-0 border-bottom bg-white text-center">
     <div class="container">
-        <div class="row">
+        <!-- Logo -->
+        <a href="{{ url('/') }}" class="text-decoration-none">
+            <img src="/storage/images/logo.png" alt="Launch Logo" style="height: 100px; width: auto;">
+        </a>
+    </div>
+</header>
+
+<!-- Package Selection Section -->
+<section class="package-selection-section py-5 bg-white">
+    <div class="container">
+        <form action="{{ route('payment.method') }}" method="POST">
+            @csrf
+            <input type="hidden" name="PR_Id" value="{{ $PR_Id ?? '' }}">
+            <div class="row">
             <!-- Left Column -->
             <div class="col-lg-7 mb-4">
                 <div class="bg-white p-4 rounded shadow-sm border">
@@ -20,19 +33,19 @@
                                 <small class="text-muted fw-normal">Normal visibility</small>
                             </label>
                         </div>
-                        <div class="fw-bold text-danger">FREE</div>
+                        <div class="fw-bold text-dark">FREE</div>
                     </div>
 
                     <!-- Premium Package -->
                     <div class="package-card border rounded p-4 mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="fw-bold mb-0">Premium Ad <span class="badge bg-success rounded-pill ms-2">NEW</span></h5>
+                            <h5 class="fw-bold mb-0">Premium Ad <span class="badge bg-dark text-white rounded-pill ms-2">NEW</span></h5>
                             <span class="badge bg-warning text-dark rounded-pill">PREMIUM</span>
                         </div>
                         <p class="text-muted small mb-3">Premium ads are placed on top of all ads</p>
                         
                         <!-- Premium active border style when checked -->
-                        <div class="border border-danger rounded p-3 d-flex justify-content-between align-items-center" id="premiumContainer">
+                        <div class="border rounded p-3 d-flex justify-content-between align-items-center" id="premiumContainer">
                             <div class="form-check">
                                 <input class="form-check-input package-option" type="checkbox" name="premium_package" id="premium7" value="77" data-name="Premium Ad for 7 days">
                                 <label class="form-check-label fw-bold ms-2" for="premium7">
@@ -47,7 +60,7 @@
                     <div class="package-card border rounded p-4 mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h5 class="fw-bold mb-0">Feature Ad</h5>
-                            <span class="badge bg-primary rounded-pill">FEATURED</span>
+                            <span class="badge bg-dark text-white rounded-pill">FEATURED</span>
                         </div>
                         <p class="text-muted small mb-3">Featured ads appear above the standard ads</p>
                         
@@ -56,13 +69,13 @@
                             <!-- 3 Days -->
                             <div class="border rounded p-3 mb-2 d-flex justify-content-between align-items-center bg-white featureContainer">
                                 <div class="form-check">
-                                    <input class="form-check-input package-option feature-radio" type="radio" name="feature_package" id="feature3" value="20" data-name="Feature Ad for 3 days">
+                                    <input class="form-check-input package-option feature-radio" type="radio" name="feature_package" id="feature3" value="10" data-name="Feature Ad for 3 days">
                                     <label class="form-check-label fw-bold ms-2" for="feature3">
                                         Feature your ad for 3 days 
                                     </label>
                                 </div>
                                 <div>
-                                    <span class="badge bg-danger me-2">LAUNCH OFFER: AED 10</span>
+                                    <span class="badge bg-dark text-warning me-2">LAUNCH OFFER: AED 10</span>
                                     <span class="fw-bold text-decoration-line-through text-muted small">AED 20</span>
                                 </div>
                             </div>
@@ -109,13 +122,13 @@
                         </div>
                         
                         <div class="mt-4 text-center">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" id="clearFeatureBtn">Clear Feature Selection</button>
+                            <button type="button" class="btn btn-sm btn-outline-dark" id="clearFeatureBtn">Clear Feature Selection</button>
                         </div>
                     </div>
                     
-                    <div class="text-center mt-4">
-                        <small class="fw-bold text-muted">Prices are exclusive of VAT</small>
-                        <p class="small text-muted mt-2">Paid ads that violate our posting rules will be deleted and will not be refunded. <a href="#">Read more</a></p>
+                    <div class="mt-4 text-center">
+                        <p class="fw-bold mb-1">Prices are exclusive of VAT</p>
+                        <p class="text-muted small">Paid ads that violate our posting rules will be deleted and will not be refunded. <a href="#" class="text-warning text-decoration-none" data-bs-toggle="modal" data-bs-target="#postingRulesModal">Read more</a></p>
                     </div>
 
                 </div>
@@ -135,9 +148,9 @@
                         <!-- Dynamic items will appear here -->
                     </div>
                     
-                    <div class="input-group mb-4 mt-3">
-                        <input type="text" class="form-control" placeholder="Discount code">
-                        <button class="btn btn-outline-secondary" type="button">Apply</button>
+                    <div class="discount-box mb-4 mt-3 shadow-sm">
+                        <input type="text" class="form-control" placeholder="Enter discount code">
+                        <button class="btn fw-bold" id="apply-btn" type="button">APPLY</button>
                     </div>
                     
                     <div class="border-top pt-3">
@@ -151,43 +164,144 @@
                         </div>
                         <div class="d-flex justify-content-between mb-4">
                             <h4 class="fw-bold mb-0">Total</h4>
-                            <h4 class="fw-bold mb-0 text-danger" id="summary-total">AED 0.00</h4>
+                            <h4 class="fw-bold mb-0 text-dark" id="summary-total">AED 0.00</h4>
                         </div>
                         
-                        <button class="btn btn-danger w-100 py-3 fw-bold fs-5" id="pay-button">Pay AED 0.00</button>
+                        <button type="submit" class="btn w-100 py-2 fw-bold" id="pay-button">Continue to Payment</button>
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </form>
     </div>
 </section>
 
-@include('includes.footer')
+<!-- Posting Rules Modal -->
+<div class="modal fade" id="postingRulesModal" tabindex="-1" aria-labelledby="postingRulesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content border-0 shadow" style="background-color: #1a1a1a; color: #fff;">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="postingRulesModalLabel">Posting Rules & Policy</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="fw-bold mt-2 text-warning">1. Prohibited Content</h6>
+        <p class="small mb-4" style="color: #ccc;">Ads containing illegal, offensive, spam, or inappropriate content are strictly prohibited and will be immediately removed.</p>
+        
+        <h6 class="fw-bold text-warning">2. Accuracy of Information</h6>
+        <p class="small mb-4" style="color: #ccc;">All details provided in the ad must be accurate, truthful, and representative of the actual product or service. Misleading ads will be taken down.</p>
+        
+        <h6 class="fw-bold text-warning">3. Duplicate Listings</h6>
+        <p class="small mb-4" style="color: #ccc;">Posting the exact same ad multiple times is not allowed and clutters the platform. Please use our feature options to bump your ad instead.</p>
+        
+        <h6 class="fw-bold text-warning">4. Strict Refund Policy</h6>
+        <p class="small mb-2" style="color: #ccc;">Payments made for premium or featured ads are final. If your ad is removed by moderators due to a violation of any of our posting terms, <strong class="text-white">no refund will be issued</strong> under any circumstances.</p>
+      </div>
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn w-100 fw-bold" id="understand-btn" data-bs-dismiss="modal">I UNDERSTAND</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Simple Checkout Footer -->
+<footer class="py-4 bg-light text-center border-top mt-auto">
+    <div class="container">
+        <p class="text-muted small mb-0">&copy; {{ date('Y') }} Launch. All rights reserved.</p>
+    </div>
+</footer>
 
 <style>
-    /* Custom Styling for the Package Selection */
-    .package-selection-section {
-        background-color: #f8f9fa;
-        color: #333;
+    /* Launch Dark Theme Overrides */
+    body, .package-selection-section {
+        background-color: #000000 !important;
+        color: #ffffff !important;
     }
-    .package-card {
-        background-color: #fcfcfc;
+    header.bg-white, footer.bg-light {
+        background-color: #000000 !important;
     }
-    .form-check-input {
-        width: 1.25em;
-        height: 1.25em;
-        cursor: pointer;
+    header.border-bottom, footer.border-top {
+        border-color: #333333 !important;
     }
-    .form-check-label {
-        cursor: pointer;
+    .text-dark {
+        color: #ffffff !important;
     }
-    .feature-radio {
-        accent-color: #0d6efd;
+    .text-muted {
+        color: #aaaaaa !important;
     }
+    .border {
+        border-color: #333333 !important;
+    }
+    
+    /* Cards and Containers */
+    .bg-white.p-4.rounded.shadow-sm, .package-card {
+        background-color: #111111 !important;
+        border: 1px solid #333333 !important;
+    }
+    
+    .featureContainer, #premiumContainer {
+        background-color: transparent !important;
+    }
+    
     /* Highlight the selected option container */
     .selected-border {
-        border-color: #dc3545 !important;
-        background-color: #fff9fa !important;
+        border-color: #ffc107 !important;
+        background-color: #1a1a1a !important;
+    }
+    
+    .feature-radio {
+        cursor: pointer;
+        accent-color: #ffc107; /* Gold accent for radio */
+    }
+    
+    /* Buttons */
+    .btn-outline-dark {
+        color: #ffc107;
+        border-color: #ffc107;
+    }
+    .btn-outline-dark:hover {
+        background-color: #ffc107;
+        color: #000;
+    }
+    
+    /* Pay & Understand Button Custom Styling */
+    #pay-button, #understand-btn, #apply-btn {
+        background-color: #ffc107 !important;
+        border-color: #ffc107 !important;
+        color: #000000 !important;
+        transition: all 0.3s ease;
+    }
+    #pay-button:hover, #understand-btn:hover, #apply-btn:hover {
+        background-color: #e0a800 !important;
+        border-color: #e0a800 !important;
+        color: #000000 !important;
+    }
+    /* Discount Box Custom Styling */
+    .discount-box {
+        display: flex;
+        background: #000;
+        border: 2px solid #333333;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .discount-box:focus-within {
+        border-color: #000;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+    }
+    .discount-box input {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: #000 !important;
+        padding: 12px 16px;
+        border-radius: 0 !important;
+    }
+    .discount-box button {
+        border-radius: 0 !important;
+        padding: 12px 24px;
+        margin: 0;
+        border: none;
     }
 </style>
 
@@ -210,9 +324,9 @@
             const premium7 = document.getElementById('premium7');
             const premiumContainer = document.getElementById('premiumContainer');
             if (premium7.checked) {
-                premiumContainer.classList.add('border-danger');
+                premiumContainer.classList.add('border-dark');
             } else {
-                premiumContainer.classList.remove('border-danger');
+                premiumContainer.classList.remove('border-dark');
             }
             
             packageOptions.forEach(function(option) {
@@ -228,9 +342,6 @@
 
                 if (option.checked) {
                     let price = parseFloat(option.value);
-                    if (option.id === 'feature3') {
-                        price = 10; // Launch Offer 10 AED
-                    }
                     
                     subtotal += price;
                     
@@ -249,7 +360,6 @@
             elSubtotal.textContent = `AED ${subtotal.toFixed(2)}`;
             elVat.textContent = `AED ${vat.toFixed(2)}`;
             elTotal.textContent = `AED ${total.toFixed(2)}`;
-            elPayButton.textContent = `Pay AED ${total.toFixed(2)}`;
         }
         
         // Listen to changes

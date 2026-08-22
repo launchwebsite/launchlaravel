@@ -7,6 +7,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Auth;
@@ -73,9 +74,19 @@ Route::get('/user_form', [PageController::class, 'user'])
 Route::get('/index', [PageController::class, 'index'])
     ->name('index');
 
-Route::get('/package_selection', function () {
-    return view('package-selection');
+Route::get('/package_selection', function (Illuminate\Http\Request $request) {
+    return view('package-selection', ['PR_Id' => $request->PR_Id]);
 })->name('package.selection');
+
+Route::post('/payment/method', [PaymentController::class, 'selectMethod'])
+    ->name('payment.method');
+
+Route::post('/payment/initiate', [PaymentController::class, 'initiate'])
+    ->name('payment.initiate')
+    ->middleware('auth:vendor');
+
+Route::match(['get', 'post'], '/payment/callback', [PaymentController::class, 'callback'])
+    ->name('payment.callback');
 
 /*
 |--------------------------------------------------------------------------
