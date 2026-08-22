@@ -33,6 +33,14 @@ class GeideaPaymentService
 
         // Check if credentials are set
         if (!$this->publicKey || !$this->apiPassword) {
+            if (app()->environment('local')) {
+                // Return a dummy session for testing the UI flow
+                return [
+                    'success' => true,
+                    'session_id' => 'TEST_SESSION_' . time(),
+                ];
+            }
+
             Log::error('GeideaPaymentService: Missing Geidea credentials.');
             return [
                 'success' => false,

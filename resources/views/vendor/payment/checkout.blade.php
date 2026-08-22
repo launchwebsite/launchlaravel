@@ -1,4 +1,4 @@
-@extends('vendor.vendor_layout')
+@extends('layouts.layout')
 
 @section('content')
 <div class="container py-5 text-center">

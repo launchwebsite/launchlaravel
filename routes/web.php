@@ -71,7 +71,7 @@ Route::get('/ad_list3', [PageController::class, 'adlist3'])
 Route::get('/user_form', [PageController::class, 'user'])
     ->name('user');
 
-Route::get('/index', [PageController::class, 'index'])
+Route::get('/index', [PageController::class, 'home'])
     ->name('index');
 
 Route::get('/package_selection', function (Illuminate\Http\Request $request) {
@@ -80,6 +80,10 @@ Route::get('/package_selection', function (Illuminate\Http\Request $request) {
 
 Route::post('/payment/method', [PaymentController::class, 'selectMethod'])
     ->name('payment.method');
+    
+Route::get('/payment/method', function () {
+    return redirect()->route('home');
+});
 
 Route::post('/payment/initiate', [PaymentController::class, 'initiate'])
     ->name('payment.initiate')

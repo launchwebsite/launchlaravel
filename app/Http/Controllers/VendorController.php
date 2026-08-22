@@ -466,6 +466,9 @@ $request->validate(
     ]);
 
 
+    // Log the vendor in so they can proceed to payment
+    Auth::guard('vendor')->loginUsingId($vendorId);
+
     return redirect()
         ->route('package.selection', ['PR_Id' => $product->PR_Id])
         ->with('success', 'Post saved as draft. Please select a payment plan to publish.');

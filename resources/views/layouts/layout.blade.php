@@ -108,6 +108,7 @@
 
 
 
+    @if(!request()->routeIs('payment.*') && !request()->routeIs('package.selection'))
     <div class="whatsapp">
         <a href="https://wa.me/971564527879 " text="Hello, I'm interested." target="_blank">
             <img src="/whatsapp.gif" alt="Hello, I'm interested.">
@@ -120,6 +121,7 @@
             <img src="/call.gif" alt="Call">
         </a>
     </div>
+    @endif
 
     <!--=====================================
                     JS LINK PART START
