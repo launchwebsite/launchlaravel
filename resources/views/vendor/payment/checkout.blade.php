@@ -27,7 +27,7 @@
         };
         const onCancel = function() {
             console.log('Payment cancelled');
-            window.location.href = "{{ $callbackUrl }}?status=cancel";
+            window.location.href = "{{ route('package.selection', ['PR_Id' => $prId]) }}";
         };
 
         const paymentSession = new GeideaCheckout(onSuccess, onError, onCancel);

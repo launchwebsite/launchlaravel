@@ -151,6 +151,7 @@ class PaymentController extends Controller
         return view('vendor.payment.checkout', [
             'sessionId' => $sessionResult['session_id'],
             'callbackUrl' => $callbackUrl,
+            'prId' => $product->PR_Id,
         ]);
     }
 
@@ -224,12 +225,17 @@ class PaymentController extends Controller
                 ]);
 
                 DB::commit();
-                return redirect()->route('vendor.dashboard')->with('error', 'Payment failed or was cancelled. Please try again.');
+                return redirect()->route('package.selection', ['PR_Id' => $payment->PR_Id])->with('error', 'Payment failed or was cancelled. Please try again.');
             }
 
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Geidea Callback Error', ['error' => $e->getMessage()]);
+            // Attempt to redirect to package selection if we have the payment, else dashboard
+            $prId = isset($payment) ? $payment->PR_Id : null;
+            if ($prId) {
+                return redirect()->route('package.selection', ['PR_Id' => $prId])->with('error', 'An error occurred while processing the payment.');
+            }
             return redirect()->route('vendor.dashboard')->with('error', 'An error occurred while processing the payment.');
         }
     }
