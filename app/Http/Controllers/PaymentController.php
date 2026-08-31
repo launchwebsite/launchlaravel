@@ -41,6 +41,10 @@ class PaymentController extends Controller
             return redirect()->route('vendor.dashboard')->with('error', 'Product not found or access denied.');
         }
 
+        if ($product->status === 'active') {
+            return redirect()->route('vendor.dashboard')->with('error', 'This product is already active.');
+        }
+
         // Calculate expected price securely on the backend
         $subtotal = 0;
         
@@ -88,12 +92,9 @@ class PaymentController extends Controller
             ->first();
 
         if (!$product) {
-            return redirect()->route('vendor.dashboard')->with('error', 'Product not found.');
+            return back()->with('error', 'Product not found.');
         }
 
-        if ($product->status === 'active') {
-            return redirect()->route('vendor.dashboard')->with('error', 'This product is already active.');
-        }
 
         // Calculate expected price securely on the backend
         $subtotal = 0;
@@ -115,10 +116,9 @@ class PaymentController extends Controller
         $vat = $subtotal * 0.05;
         $total = $subtotal + $vat;
 
-        // If total is 0 (Free Standard Package), just activate
+        // If total is 0, reject it because a paid package is required
         if ($total == 0) {
-            $product->update(['status' => 'active']);
-            return redirect()->route('vendor.postlist')->with('success', 'Product published successfully (Free Package).');
+            return back()->with('error', 'Please select a package to publish your ad.');
         }
 
         $merchantReferenceId = 'ORDER_' . time() . '_' . $vendor->VR_Id . '_' . $product->PR_Id;

@@ -15,6 +15,7 @@ class Product extends Model
         'PR_Details',
         'Role_Id',
         'VR_Id',
+        'status',
     ];
 
     protected $casts = [

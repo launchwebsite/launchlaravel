@@ -15,7 +15,7 @@
 <!-- Package Selection Section -->
 <section class="package-selection-section py-5 bg-white">
     <div class="container">
-        <form action="{{ route('payment.method') }}" method="POST">
+        <form action="{{ route('payment.initiate') }}" method="POST">
             @csrf
             <input type="hidden" name="PR_Id" value="{{ $PR_Id ?? '' }}">
             <div class="row">
@@ -24,18 +24,6 @@
                 <div class="bg-white p-4 rounded shadow-sm border">
                     <h3 class="mb-4 text-center fw-bold">Select a package that works for you</h3>
                     
-                    <!-- Standard Package -->
-                    <div class="package-card border rounded p-3 mb-3 d-flex justify-content-between align-items-center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="0" id="standardPackage" checked disabled>
-                            <label class="form-check-label fw-bold ms-2" for="standardPackage">
-                                Keep it Standard<br>
-                                <small class="text-muted fw-normal">Normal visibility</small>
-                            </label>
-                        </div>
-                        <div class="fw-bold text-dark">FREE</div>
-                    </div>
-
                     <!-- Premium Package -->
                     <div class="package-card border rounded p-4 mb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -139,11 +127,7 @@
                 <div class="bg-white p-4 rounded shadow-sm border sticky-top" style="top: 100px;">
                     <h4 class="mb-4 text-center fw-bold">Order Summary</h4>
                     
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="text-muted">Basic Ad</span>
-                        <span class="fw-bold">AED 0.00</span>
-                    </div>
-                    
+
                     <div id="order-items">
                         <!-- Dynamic items will appear here -->
                     </div>
@@ -330,6 +314,21 @@
             elSubtotal.textContent = `AED ${subtotal.toFixed(2)}`;
             elVat.textContent = `AED ${vat.toFixed(2)}`;
             elTotal.textContent = `AED ${total.toFixed(2)}`;
+
+            const submitBtn = document.querySelector('button[type="submit"]');
+            if (total === 0) {
+                submitBtn.textContent = 'PLEASE SELECT A PACKAGE';
+                submitBtn.style.backgroundColor = '#6c757d'; // Gray
+                submitBtn.style.borderColor = '#6c757d';
+                submitBtn.style.color = '#fff';
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.textContent = `PAY AED ${total.toFixed(2)}`;
+                submitBtn.style.backgroundColor = '#ffc107'; // Yellow for pay
+                submitBtn.style.borderColor = '#ffc107';
+                submitBtn.style.color = '#000';
+                submitBtn.disabled = false;
+            }
         }
         
         // Listen to changes
