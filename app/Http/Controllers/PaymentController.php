@@ -139,7 +139,8 @@ class PaymentController extends Controller
         $sessionResult = $this->geideaService->createSession($total, $currency, $merchantReferenceId, $callbackUrl);
 
         if (!$sessionResult['success']) {
-            return back()->with('error', 'Failed to initialize payment gateway. Please try again later.');
+            return redirect()->route('package.selection', ['PR_Id' => $request->PR_Id])
+                             ->with('error', 'Failed to initialize payment gateway. Please check your API keys and try again.');
         }
 
         $payment->update([

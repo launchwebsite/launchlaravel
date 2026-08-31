@@ -139,7 +139,7 @@
                 <div class="bg-white p-4 rounded shadow-sm border sticky-top" style="top: 100px;">
                     <h4 class="mb-4 text-center fw-bold">Order Summary</h4>
                     
-                    <div class="d-flex justify-content-between mb-3 border-bottom pb-3">
+                    <div class="d-flex justify-content-between mb-3">
                         <span class="text-muted">Basic Ad</span>
                         <span class="fw-bold">AED 0.00</span>
                     </div>
@@ -148,10 +148,6 @@
                         <!-- Dynamic items will appear here -->
                     </div>
                     
-                    <div class="discount-box mb-4 mt-3 shadow-sm">
-                        <input type="text" class="form-control" placeholder="Enter discount code">
-                        <button class="btn fw-bold" id="apply-btn" type="button">APPLY</button>
-                    </div>
                     
                     <div class="border-top pt-3">
                         <div class="d-flex justify-content-between mb-2">
@@ -265,44 +261,18 @@
     }
     
     /* Pay & Understand Button Custom Styling */
-    #pay-button, #understand-btn, #apply-btn {
+    #pay-button, #understand-btn {
         background-color: #ffc107 !important;
         border-color: #ffc107 !important;
         color: #000000 !important;
         transition: all 0.3s ease;
     }
-    #pay-button:hover, #understand-btn:hover, #apply-btn:hover {
+    #pay-button:hover, #understand-btn:hover {
         background-color: #e0a800 !important;
         border-color: #e0a800 !important;
         color: #000000 !important;
     }
-    /* Discount Box Custom Styling */
-    .discount-box {
-        display: flex;
-        background: #000;
-        border: 2px solid #333333;
-        border-radius: 8px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    .discount-box:focus-within {
-        border-color: #000;
-        box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
-    }
-    .discount-box input {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        color: #000 !important;
-        padding: 12px 16px;
-        border-radius: 0 !important;
-    }
-    .discount-box button {
-        border-radius: 0 !important;
-        padding: 12px 24px;
-        margin: 0;
-        border: none;
-    }
+
 </style>
 
 <script>

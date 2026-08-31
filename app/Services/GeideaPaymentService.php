@@ -25,11 +25,9 @@ class GeideaPaymentService
      */
     public function createSession($amount, $currency, $merchantReferenceId, $callbackUrl)
     {
-        // Direct API endpoint for creating a session V2
-        // Depending on region, it could be /payment-intent/api/v2/direct/session or /api/v2/direct/session
-        // Geidea typically uses /api/v2/direct/session or /api/v1/direct/session 
+        // Direct API endpoint for creating a session V1
         // We will construct the endpoint. The merchant provides the base URL.
-        $endpoint = $this->baseUrl . '/payment-intent/api/v2/direct/session';
+        $endpoint = $this->baseUrl . '/payment-intent/api/v1/direct/session';
 
         // Check if credentials are set
         if (!$this->publicKey || !$this->apiPassword) {
@@ -50,6 +48,7 @@ class GeideaPaymentService
 
         try {
             $response = Http::withBasicAuth($this->publicKey, $this->apiPassword)
+                ->withoutVerifying()
                 ->post($endpoint, [
                     'amount' => $amount,
                     'currency' => $currency,

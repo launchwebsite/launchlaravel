@@ -13,6 +13,8 @@
 /.zed
 /auth.json
 /vendor
+.env
+.env.example
 
 _ide_helper.php
 Homestead.json
