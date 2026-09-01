@@ -211,7 +211,12 @@ class PaymentController extends Controller
                 'detailedResponseMessage' => $detailedResponseMessage
             ]);
 
-            $isSuccess = ($responseCode === '000' || strtolower($status) === 'success');
+            $isSuccess = false;
+            if ($responseCode !== null) {
+                $isSuccess = ($responseCode === '000');
+            } else {
+                $isSuccess = (strtolower($status) === 'success');
+            }
 
             if ($isSuccess) {
                 $payment->update([
@@ -227,30 +232,49 @@ class PaymentController extends Controller
                     $product->update(['status' => 'active']);
                 }
 
+                DB::commit();
+
                 // Break out of the iframe and show success
                 session()->flash('success', 'Payment successful. Product is now active.');
                 return view('vendor.payment.callback_handler', [
                     'redirectUrl' => route('vendor.postlist')
                 ]);
             } else {
+                $isPending = (strtolower($status) === 'pending');
+                $dbStatus = $isPending ? 'pending' : 'failed';
+
                 $payment->update([
-                    'status' => 'failed',
+                    'status' => $dbStatus,
                     'raw_response' => $request->all(),
                 ]);
 
                 DB::commit();
                 
-                $errorMessage = 'Payment failed or was cancelled. Please try again.';
-                if (!empty($detailedResponseMessage) && $detailedResponseMessage !== 'The operation was successful') {
-                    $errorMessage = $detailedResponseMessage;
-                } elseif (!empty($responseMessage) && $responseMessage !== 'Success') {
-                    $errorMessage = $responseMessage;
+                if ($isPending) {
+                    $message = 'Your payment is pending or in progress. We will notify you once it completes.';
+                    if (!empty($detailedResponseMessage) && $detailedResponseMessage !== 'The operation was successful') {
+                        $message = $detailedResponseMessage;
+                    } elseif (!empty($responseMessage) && $responseMessage !== 'Success') {
+                        $message = $responseMessage;
+                    }
+                    
+                    session()->flash('success', $message); // use success flash for non-error
+                    return view('vendor.payment.callback_handler', [
+                        'redirectUrl' => route('vendor.dashboard')
+                    ]);
+                } else {
+                    $errorMessage = 'Payment failed or was cancelled. Please try again.';
+                    if (!empty($detailedResponseMessage) && $detailedResponseMessage !== 'The operation was successful') {
+                        $errorMessage = $detailedResponseMessage;
+                    } elseif (!empty($responseMessage) && $responseMessage !== 'Success') {
+                        $errorMessage = $responseMessage;
+                    }
+                    
+                    session()->flash('error', $errorMessage);
+                    return view('vendor.payment.callback_handler', [
+                        'redirectUrl' => route('package.selection', ['PR_Id' => $payment->PR_Id])
+                    ]);
                 }
-                
-                session()->flash('error', $errorMessage);
-                return view('vendor.payment.callback_handler', [
-                    'redirectUrl' => route('package.selection', ['PR_Id' => $payment->PR_Id])
-                ]);
             }
 
         } catch (\Exception $e) {

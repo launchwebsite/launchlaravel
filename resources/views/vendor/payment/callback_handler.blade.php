@@ -1,3 +1,4 @@
+<?php session()->reflash(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -16,14 +16,34 @@
         }
 
         // Initialize Geidea Checkout
+        const submitPaymentResponse = function(response, fallbackStatus) {
+            try {
+                let params = new URLSearchParams();
+                params.append('status', fallbackStatus);
+                params.append('merchantReferenceId', "{{ $merchantReferenceId }}");
+                
+                if (response && typeof response === 'object') {
+                    if (response.status) params.set('status', response.status);
+                    if (response.responseCode) params.append('responseCode', response.responseCode);
+                    if (response.responseMessage) params.append('responseMessage', response.responseMessage);
+                    if (response.detailedResponseMessage) params.append('detailedResponseMessage', response.detailedResponseMessage);
+                    if (response.orderId) params.append('orderId', response.orderId);
+                }
+                
+                window.location.href = "{{ $callbackUrl }}?" + params.toString();
+            } catch (err) {
+                console.error("Error formatting response", err);
+                window.location.href = "{{ $callbackUrl }}?status=" + fallbackStatus + "&merchantReferenceId={{ $merchantReferenceId }}";
+            }
+        };
+
         const onSuccess = function(response) {
-            // Geidea will naturally redirect to the returnUrl, but we can also handle it here
             console.log('Payment success', response);
-            window.location.href = "{{ $callbackUrl }}?status=success&merchantReferenceId={{ $merchantReferenceId }}";
+            submitPaymentResponse(response, 'success');
         };
         const onError = function(response) {
             console.error('Payment error', response);
-            window.location.href = "{{ $callbackUrl }}?status=error&merchantReferenceId={{ $merchantReferenceId }}";
+            submitPaymentResponse(response, 'error');
         };
         const onCancel = function() {
             console.log('Payment cancelled');

@@ -245,6 +245,12 @@
                 targetArea = area.replace('All ', '').trim();
             }
 
+            // Extract the city/area name before the comma for better matching
+            // e.g., "Dubai, United Arab Emirates" -> "Dubai"
+            if (targetArea.includes(',')) {
+                targetArea = targetArea.split(',')[0].trim();
+            }
+
             const metaSpans = card.querySelectorAll('.product-meta span');
             let cardLocation = '';
             metaSpans.forEach(function(sp) {

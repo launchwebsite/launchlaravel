@@ -247,7 +247,10 @@
                                 <div class="section seller-info mt-5 mb-5">
                                     <h4>Seller Information</h4>
                                     <hr>
- <input type="hidden" name="VR_Id" id="VR_Id">
+                                    @php
+                                        $currentVendor = auth()->guard('vendor')->user();
+                                    @endphp
+                                    <input type="hidden" name="VR_Id" id="VR_Id" value="{{ optional($currentVendor)->VR_Id }}">
                                     <div class="row form-group">
                                         <label class="col-sm-3 label-title">
                                             Your Name<span class="required">*</span>
@@ -255,7 +258,7 @@
 
                                         <div class="col-sm-9">
                                             <input type="text" name="VR_Name" id="VR_Name" class="form-control"
-                                                placeholder="ex, Jhon Doe" autocomplete="off">
+                                                placeholder="ex, Jhon Doe" autocomplete="off" value="{{ old('VR_Name', optional($currentVendor)->VR_Name) }}">
 
                                             <span id="vendor-loading" class="text-muted" style="display:none;">
                                                 Checking vendor...
@@ -274,9 +277,9 @@
                                         <div class="col-sm-9 checkblack">
                                             <select name="VR_Type" class="form-control">
 
-                                                <option value="private-company">Private Company
+                                                <option value="private-company" {{ (old('VR_Type', optional($currentVendor)->VR_Type) == 'private-company') ? 'selected' : '' }}>Private Company
                                                 </option>
-                                                <option value="self-employed">Self-Employed</option>
+                                                <option value="self-employed" {{ (old('VR_Type', optional($currentVendor)->VR_Type) == 'self-employed') ? 'selected' : '' }}>Self-Employed</option>
                                             </select>
                                             @error('VR_Type')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -291,7 +294,7 @@
 
                                         <div class="col-sm-9">
                                             <input type="email" name="VR_Email_1" id="VR_Email_1" class="form-control"
-                                                placeholder="ex, jhondoe@mail.com">
+                                                placeholder="ex, jhondoe@mail.com" value="{{ old('VR_Email_1', optional($currentVendor)->VR_Email_1) }}">
 
                                             @error('VR_Email_1')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -307,6 +310,7 @@
                                         <div class="col-sm-9">
                                             <input type="password" name="VR_Password" class="form-control"
                                                 id="VR_Password" placeholder="ex, 1234!@#" />
+                                            <small class="text-muted">Leave blank if you are an existing vendor and don't want to change it.</small>
                                             @error('VR_Password')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -317,7 +321,7 @@
                                         <label class="col-sm-3 label-title">Email 2<span class="required">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="email" id="VR_Email_2" name="VR_Email_2" class="form-control"
-                                                placeholder="ex, jhondoe@mail.com" />
+                                                placeholder="ex, jhondoe@mail.com" value="{{ old('VR_Email_2', optional($currentVendor)->VR_Email_2) }}" />
                                             @error('VR_Email_2')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -328,7 +332,7 @@
                                                 class="required">*</span></label>
                                         <div class="col-sm-9">
                                             <input type="number" name="VR_Phone" id="VR_Phone" class="form-control"
-                                                placeholder="ex, +912457895" />
+                                                placeholder="ex, +912457895" value="{{ old('VR_Phone', optional($currentVendor)->VR_Phone) }}" />
                                             @error('VR_Phone')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
