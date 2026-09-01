@@ -19,11 +19,11 @@
         const onSuccess = function(response) {
             // Geidea will naturally redirect to the returnUrl, but we can also handle it here
             console.log('Payment success', response);
-            window.location.href = "{{ $callbackUrl }}?status=success";
+            window.location.href = "{{ $callbackUrl }}?status=success&merchantReferenceId={{ $merchantReferenceId }}";
         };
         const onError = function(response) {
             console.error('Payment error', response);
-            window.location.href = "{{ $callbackUrl }}?status=error";
+            window.location.href = "{{ $callbackUrl }}?status=error&merchantReferenceId={{ $merchantReferenceId }}";
         };
         const onCancel = function() {
             console.log('Payment cancelled');

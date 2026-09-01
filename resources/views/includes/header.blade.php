@@ -166,8 +166,16 @@
     function updateDropdownLabels(cityName) {
         const label = document.querySelector('.location-label');
         const header = document.querySelector('.location-dropdown-header h6');
-        if (label) label.textContent = 'Areas near ' + cityName;
-        if (header) header.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + cityName + ' Areas';
+        const searchInput = document.getElementById('locationSearchInput');
+        if (cityName === 'Dubai') {
+            if (label) label.textContent = 'Dubai Areas';
+            if (header) header.innerHTML = '<i class="fas fa-map-marker-alt"></i> Dubai Areas';
+            if (searchInput) searchInput.placeholder = 'Search area in Dubai...';
+        } else {
+            if (label) label.textContent = 'Areas near ' + cityName;
+            if (header) header.innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + cityName + ' Areas';
+            if (searchInput) searchInput.placeholder = 'Search area in ' + cityName + '...';
+        }
     }
 
     try {
@@ -183,6 +191,8 @@
         const savedCity = localStorage.getItem('detectedCityName');
         if (savedCity) {
             updateDropdownLabels(savedCity);
+        } else {
+            updateDropdownLabels('Dubai');
         }
     } catch(e) {}
 
@@ -258,9 +268,77 @@
     /* ─────────────────────────────────────────────
        SELECT AREA — updates button + filters page
     ───────────────────────────────────────────── */
-    function selectArea(area) {
+    function fetchNeighborhoods(lat, lon, locationName, onComplete) {
+        const query = '[out:json];node(around:25000,' + lat + ',' + lon + ')["place"~"suburb|town"];out 15;';
+        const controller = new AbortController();
+        const timeoutId = setTimeout(function() { controller.abort(); }, 3500);
+
+        function finalizeAreas(opData) {
+            let newAreas = [{ name: 'All ' + locationName }];
+            if (opData && opData.elements) {
+                opData.elements.forEach(function(el) {
+                    if (el.tags && el.tags.name) {
+                        if (!newAreas.find(function(a) { return a.name === el.tags.name; })) {
+                            newAreas.push({ name: el.tags.name });
+                        }
+                    }
+                });
+            }
+            allAreas = newAreas;
+            try {
+                localStorage.setItem('dynamicAreas', JSON.stringify(allAreas));
+                localStorage.setItem('detectedCityName', locationName);
+            } catch(e) {}
+            updateDropdownLabels(locationName);
+            if (onComplete) onComplete();
+        }
+
+        fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query), { signal: controller.signal })
+            .then(function(res) { return res.json(); })
+            .then(function(opData) {
+                clearTimeout(timeoutId);
+                finalizeAreas(opData);
+            })
+            .catch(function() {
+                finalizeAreas(null);
+            });
+    }
+
+    function selectArea(area, lat, lon) {
         locationText.textContent = area;
         localStorage.setItem('selectedDubaiArea', area);
+        
+        const isDefault = defaultAreas.find(function(da) { return da.name === area; });
+        if (isDefault) {
+            localStorage.removeItem('dynamicAreas');
+            localStorage.removeItem('detectedCityName');
+            allAreas = [...defaultAreas];
+            updateDropdownLabels('Dubai');
+            finishSelectArea(area);
+        } else if (lat && lon) {
+            const cityName = area.split(',')[0].trim();
+            if (locationDetecting) {
+                locationDetecting.style.display = 'flex';
+                const span = locationDetecting.querySelector('span');
+                if(span) span.textContent = 'Fetching nearby areas...';
+            }
+            if (locationResults) locationResults.style.display = 'none';
+
+            fetchNeighborhoods(lat, lon, cityName, function() {
+                if (locationDetecting) {
+                    locationDetecting.style.display = 'none';
+                    const span = locationDetecting.querySelector('span');
+                    if(span) span.textContent = 'Detecting your location...';
+                }
+                if (locationResults) locationResults.style.display = 'block';
+                finishSelectArea(area);
+            });
+        } else {
+            finishSelectArea(area);
+        }
+    }
+
+    function finishSelectArea(area) {
         locationDropdown.classList.remove('open');
         locationArrow.classList.remove('rotated');
         if (locationSearchInput) { locationSearchInput.value = ''; }
@@ -304,45 +382,10 @@
                             return;
                         }
 
-                        // Try to find nearby famous areas for dynamic population
-                        const query = '[out:json];node(around:25000,' + position.coords.latitude + ',' + position.coords.longitude + ')["place"~"suburb|town"];out 15;';
-                        const controller = new AbortController();
-                        const timeoutId = setTimeout(function() { controller.abort(); }, 3500);
-
-                        fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query), { signal: controller.signal })
-                            .then(function(res) { return res.json(); })
-                            .then(function(opData) {
-                                clearTimeout(timeoutId);
-                                let newAreas = [{ name: 'All ' + locationName }];
-                                if (opData && opData.elements) {
-                                    opData.elements.forEach(function(el) {
-                                        if (el.tags && el.tags.name) {
-                                            if (!newAreas.find(function(a) { return a.name === el.tags.name; })) {
-                                                newAreas.push({ name: el.tags.name });
-                                            }
-                                        }
-                                    });
-                                }
-                                if (newAreas.length > 1) {
-                                    defaultAreas.forEach(function(da) {
-                                        if (!newAreas.find(function(a) { return a.name === da.name; })) {
-                                            newAreas.push(da);
-                                        }
-                                    });
-                                    allAreas = newAreas;
-                                    try {
-                                        localStorage.setItem('dynamicAreas', JSON.stringify(allAreas));
-                                        localStorage.setItem('detectedCityName', locationName);
-                                    } catch(e) {}
-                                    updateDropdownLabels(locationName);
-                                }
-                                if (onEnd) onEnd(detected);
-                                selectArea(detected);
-                            })
-                            .catch(function() {
-                                if (onEnd) onEnd(detected);
-                                selectArea(detected);
-                            });
+                        fetchNeighborhoods(position.coords.latitude, position.coords.longitude, locationName, function() {
+                            if (onEnd) onEnd(detected);
+                            selectArea(detected);
+                        });
                     })
                     .catch(function() {
                         if (onEnd) onEnd(null);
@@ -463,20 +506,76 @@
         locationCityList.addEventListener('click', function(e) {
             const li = e.target.closest('li');
             if (!li || li.classList.contains('no-results')) return;
-            selectArea(li.getAttribute('data-city'));
+            selectArea(li.getAttribute('data-city'), li.getAttribute('data-lat'), li.getAttribute('data-lon'));
         });
     }
 
     /* ─────────────────────────────────────────────
        LIVE SEARCH FILTER
     ───────────────────────────────────────────── */
+    let searchTimeout;
     if (locationSearchInput) {
         locationSearchInput.addEventListener('input', function() {
             const q = this.value.trim().toLowerCase();
             if (clearLocationInput) clearLocationInput.style.display = q.length > 0 ? 'flex' : 'none';
-            renderAreas(q.length === 0 ? allAreas : allAreas.filter(function(a) {
+            
+            clearTimeout(searchTimeout);
+
+            if (q.length === 0) {
+                renderAreas(allAreas);
+                return;
+            }
+
+            // 1. Local filter
+            let localResults = allAreas.filter(function(a) {
                 return a.name.toLowerCase().includes(q);
-            }), q);
+            });
+            renderAreas(localResults, q);
+
+            // 2. API fetch for random locations
+            if (q.length >= 3) {
+                searchTimeout = setTimeout(function() {
+                    // Show loading if local results are empty
+                    if (localResults.length === 0 && locationCityList) {
+                        locationCityList.innerHTML = '<li class="no-results"><i class="fas fa-spinner fa-spin"></i> Searching global locations...</li>';
+                    }
+                    
+                    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(q) + '&limit=8')
+                        .then(function(res) { return res.json(); })
+                        .then(function(data) {
+                            if (!data || data.length === 0) {
+                                if (localResults.length === 0 && locationCityList) {
+                                    locationCityList.innerHTML = '<li class="no-results"><i class="fas fa-search"></i> No locations found</li>';
+                                }
+                                return;
+                            }
+                            
+                            let combinedAreas = [...localResults];
+                            data.forEach(function(item) {
+                                // Format: "City, Country"
+                                let name = item.name || item.display_name.split(',')[0].trim();
+                                if (item.display_name.includes(',')) {
+                                    const parts = item.display_name.split(',');
+                                    const country = parts[parts.length - 1].trim();
+                                    if (!name.includes(country)) {
+                                        name += ', ' + country;
+                                    }
+                                }
+                                
+                                if (!combinedAreas.find(function(a) { return a.name.toLowerCase() === name.toLowerCase(); })) {
+                                    combinedAreas.push({ name: name, lat: item.lat, lon: item.lon });
+                                }
+                            });
+                            
+                            renderAreas(combinedAreas, q);
+                        })
+                        .catch(function() {
+                            if (localResults.length === 0 && locationCityList) {
+                                locationCityList.innerHTML = '<li class="no-results"><i class="fas fa-search"></i> No locations found</li>';
+                            }
+                        });
+                }, 800); // 800ms debounce
+            }
         });
     }
 
@@ -484,6 +583,7 @@
         clearLocationInput.addEventListener('click', function() {
             locationSearchInput.value = '';
             clearLocationInput.style.display = 'none';
+            clearTimeout(searchTimeout);
             renderAreas(allAreas);
             locationSearchInput.focus();
         });
@@ -496,16 +596,33 @@
             locationCityList.innerHTML = '<li class="no-results"><i class="fas fa-search"></i> No areas found</li>';
             return;
         }
+        
+        const selectedArea = localStorage.getItem('selectedDubaiArea');
+        
         areas.forEach(function(a) {
             const li = document.createElement('li');
             li.setAttribute('data-city', a.name);
-            const icon = a.name === 'All Dubai' ? 'fas fa-city' : 'fas fa-map-pin';
+            if (a.lat) li.setAttribute('data-lat', a.lat);
+            if (a.lon) li.setAttribute('data-lon', a.lon);
+            if (a.name === selectedArea) {
+                li.classList.add('active-location'); // Add a class for potential CSS styling
+            }
+            const icon = a.name === 'All Dubai' || a.name.startsWith('All ') ? 'fas fa-city' : 'fas fa-map-pin';
             let displayName = a.name;
             if (query) {
                 const regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
                 displayName = a.name.replace(regex, '<mark>$1</mark>');
             }
-            li.innerHTML = '<i class="' + icon + '"></i> <span>' + displayName + '</span>';
+            
+            let checkIcon = (a.name === selectedArea) ? '<i class="fas fa-check" style="color:var(--primary, #11b76b); margin-left: auto;"></i>' : '';
+            
+            li.innerHTML = '<i class="' + icon + '"></i> <span>' + displayName + '</span>' + checkIcon;
+            
+            // Apply flex to li so check icon aligns right
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.gap = '10px';
+            
             locationCityList.appendChild(li);
         });
     }

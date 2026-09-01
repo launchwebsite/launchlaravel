@@ -23,7 +23,7 @@ class GeideaPaymentService
     /**
      * Create a new Hosted Checkout Session with Geidea
      */
-    public function createSession($amount, $currency, $merchantReferenceId, $callbackUrl)
+    public function createSession($amount, $currency, $merchantReferenceId, $callbackUrl, $returnUrl = null)
     {
         // Direct API endpoint for creating a session V1
         // We will construct the endpoint. The merchant provides the base URL.
@@ -54,6 +54,7 @@ class GeideaPaymentService
                     'currency' => $currency,
                     'merchantReferenceId' => $merchantReferenceId,
                     'callbackUrl' => $callbackUrl,
+                    'returnUrl' => $returnUrl ?: $callbackUrl,
                 ]);
 
             if ($response->successful()) {

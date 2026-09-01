@@ -132,11 +132,11 @@ class PaymentController extends Controller
             'currency' => $currency,
             'status' => 'pending',
         ]);
-
         $callbackUrl = route('payment.callback');
+        $returnUrl = route('payment.callback');
 
         // Call the service to create a session
-        $sessionResult = $this->geideaService->createSession($total, $currency, $merchantReferenceId, $callbackUrl);
+        $sessionResult = $this->geideaService->createSession($total, $currency, $merchantReferenceId, $callbackUrl, $returnUrl);
 
         if (!$sessionResult['success']) {
             return redirect()->route('package.selection', ['PR_Id' => $request->PR_Id])
@@ -152,6 +152,7 @@ class PaymentController extends Controller
             'sessionId' => $sessionResult['session_id'],
             'callbackUrl' => $callbackUrl,
             'prId' => $product->PR_Id,
+            'merchantReferenceId' => $merchantReferenceId,
         ]);
     }
 
@@ -165,7 +166,9 @@ class PaymentController extends Controller
         $merchantReferenceId = $request->input('merchantReferenceId');
         
         if (!$merchantReferenceId) {
-            return redirect()->route('vendor.dashboard')->with('error', 'Invalid payment response.');
+            return view('vendor.payment.callback_handler', [
+                'redirectUrl' => route('vendor.dashboard')
+            ]);
         }
 
         DB::beginTransaction();
@@ -178,13 +181,17 @@ class PaymentController extends Controller
 
             if (!$payment) {
                 DB::rollBack();
-                return redirect()->route('vendor.dashboard')->with('error', 'Payment record not found.');
+                return view('vendor.payment.callback_handler', [
+                    'redirectUrl' => route('vendor.dashboard')
+                ]);
             }
 
-            // If already processed, just redirect to success
             if ($payment->status === 'success') {
                 DB::rollBack();
-                return redirect()->route('vendor.postlist')->with('success', 'Payment successful. Product activated.');
+                session()->flash('success', 'Payment successful. Product activated.');
+                return view('vendor.payment.callback_handler', [
+                    'redirectUrl' => route('vendor.postlist')
+                ]);
             }
 
             // We must verify the status based on Geidea's payload
@@ -192,12 +199,16 @@ class PaymentController extends Controller
             // Let's check typical Geidea callback parameters
             $responseCode = $request->input('responseCode');
             $status = $request->input('status');
+            $responseMessage = $request->input('responseMessage');
+            $detailedResponseMessage = $request->input('detailedResponseMessage');
             
             // To be secure, log the response but do not log sensitive data
             Log::info('Geidea Callback Received', [
                 'merchantReferenceId' => $merchantReferenceId,
                 'responseCode' => $responseCode,
-                'status' => $status
+                'status' => $status,
+                'responseMessage' => $responseMessage,
+                'detailedResponseMessage' => $detailedResponseMessage
             ]);
 
             $isSuccess = ($responseCode === '000' || strtolower($status) === 'success');
@@ -216,8 +227,11 @@ class PaymentController extends Controller
                     $product->update(['status' => 'active']);
                 }
 
-                DB::commit();
-                return redirect()->route('vendor.postlist')->with('success', 'Payment successful. Product is now active.');
+                // Break out of the iframe and show success
+                session()->flash('success', 'Payment successful. Product is now active.');
+                return view('vendor.payment.callback_handler', [
+                    'redirectUrl' => route('vendor.postlist')
+                ]);
             } else {
                 $payment->update([
                     'status' => 'failed',
@@ -225,7 +239,18 @@ class PaymentController extends Controller
                 ]);
 
                 DB::commit();
-                return redirect()->route('package.selection', ['PR_Id' => $payment->PR_Id])->with('error', 'Payment failed or was cancelled. Please try again.');
+                
+                $errorMessage = 'Payment failed or was cancelled. Please try again.';
+                if (!empty($detailedResponseMessage) && $detailedResponseMessage !== 'The operation was successful') {
+                    $errorMessage = $detailedResponseMessage;
+                } elseif (!empty($responseMessage) && $responseMessage !== 'Success') {
+                    $errorMessage = $responseMessage;
+                }
+                
+                session()->flash('error', $errorMessage);
+                return view('vendor.payment.callback_handler', [
+                    'redirectUrl' => route('package.selection', ['PR_Id' => $payment->PR_Id])
+                ]);
             }
 
         } catch (\Exception $e) {
@@ -234,9 +259,15 @@ class PaymentController extends Controller
             // Attempt to redirect to package selection if we have the payment, else dashboard
             $prId = isset($payment) ? $payment->PR_Id : null;
             if ($prId) {
-                return redirect()->route('package.selection', ['PR_Id' => $prId])->with('error', 'An error occurred while processing the payment.');
+                session()->flash('error', 'An error occurred while processing the payment.');
+                return view('vendor.payment.callback_handler', [
+                    'redirectUrl' => route('package.selection', ['PR_Id' => $prId])
+                ]);
             }
-            return redirect()->route('vendor.dashboard')->with('error', 'An error occurred while processing the payment.');
+            session()->flash('error', 'An error occurred while processing the payment.');
+            return view('vendor.payment.callback_handler', [
+                'redirectUrl' => route('vendor.dashboard')
+            ]);
         }
     }
 }
