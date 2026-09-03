@@ -386,16 +386,92 @@ $request->validate(
 
         foreach ($request->AT_Inputs as $attributeId => $value) {
 
-            $attribute = Attributes::find($attributeId);
+            /*
+            |--------------------------------------------------------------------------
+            | Only accept attributes belonging to selected category/subcategory
+            |--------------------------------------------------------------------------
+            */
 
-            if ($attribute) {
+            $attribute = Attributes::where('AT_Id', $attributeId)
+                ->where('CT_Id', $request->CT_Id)
+                ->where('SC_Id', $request->SC_Id)
+                ->first();
 
-                if (is_array($value)) {
-                    $value = implode(',', $value);
+            if (! $attribute) {
+                continue;
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | FILE / IMAGE UPLOAD
+            |--------------------------------------------------------------------------
+            */
+
+            if ($value instanceof \Illuminate\Http\UploadedFile) {
+
+                if ($value->isValid()) {
+
+                    $filename = time()
+                    . '_'
+                    . uniqid()
+                    . '_'
+                    . $value->getClientOriginalName();
+
+                    $value->move(
+                        public_path('storage/uploads/products'),
+                        $filename
+                    );
+
+                    $value = $filename;
+                }
+            }
+
+            /*
+            |--------------------------------------------------------------------------
+            | ARRAY / CHECKBOX VALUES
+            |--------------------------------------------------------------------------
+            */
+
+            elseif (is_array($value)) {
+
+                $arrayValues = [];
+
+                foreach ($value as $item) {
+
+                    if ($item instanceof \Illuminate\Http\UploadedFile) {
+
+                        if ($item->isValid()) {
+
+                            $filename = time()
+                            . '_'
+                            . uniqid()
+                            . '_'
+                            . $item->getClientOriginalName();
+
+                            $item->move(
+                                public_path('storage/uploads/products'),
+                                $filename
+                            );
+
+                            $arrayValues[] = $filename;
+                        }
+
+                    } else {
+
+                        $arrayValues[] = $item;
+                    }
                 }
 
-                $details[$attribute->AT_Inputs] = $value;
+                $value = implode(',', $arrayValues);
             }
+
+            /*
+            |--------------------------------------------------------------------------
+            | STORE ATTRIBUTE VALUE
+            |--------------------------------------------------------------------------
+            */
+
+            $details[$attribute->AT_Inputs] = $value;
         }
     }
 
